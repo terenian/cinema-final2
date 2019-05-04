@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Beans;
+package GeneralWeb;
 
 
 import javax.faces.context.FacesContext;
@@ -29,6 +29,14 @@ public class SessionUtils {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(false);
 		return session.getAttribute("username").toString();
+	}
+        public static String getUserRole() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+                if (session.getAttribute("role") != null)
+                    return session.getAttribute("role").toString();
+                else
+                    return "";
 	}
 
 	public static String getUserId() {

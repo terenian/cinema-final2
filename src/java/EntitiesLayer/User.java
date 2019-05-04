@@ -8,14 +8,17 @@ package EntitiesLayer;
  */
 public class User {
     
-    private Integer userID;
-    private Integer userRoleID;
+    private int userID;
+    private int userRoleID;
     private String password;
     private String userName;
     private String address;
 
     
-    public User(Integer uID, Integer roleID, String name, String pass, String address){
+    public User(){
+        
+    }
+    public User(int uID, int roleID, String name, String pass, String address){
         
         this.userID = uID;
         this.userRoleID = roleID;
@@ -24,19 +27,25 @@ public class User {
         this.address = address;
     }
     
-    public Integer getUserID() {
+    public int getUserID() {
         return userID;
     }
     
-    public Integer getUserRoleID() {
+    public int getUserRoleID() {
         return userRoleID;
     }
     
     public String getUserName() {
         return userName;
     }
+    public void setUserName(String user) {
+        this.userName=user;
+    }
     public String getPassword() {
         return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     public String getAddress() {

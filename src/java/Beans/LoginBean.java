@@ -5,6 +5,8 @@
  */
 package Beans;
 
+import GeneralWeb.SessionUtils;
+import EntitiesLayer.User;
 import java.io.Serializable;
 import java.sql.SQLException;
 import javax.inject.Named;
@@ -23,50 +25,39 @@ public class LoginBean implements Serializable {
 
     	private static final long serialVersionUID = 1094801825228386363L;
 	
-	private String pwd;
-	private String msg;
-	private String user;
+	//private String pwd;
+	private User user;
+        private String msg;
+	//private String user;
 
-	public String getPwd() {
-		return pwd;
+        public LoginBean() {
+            this.user = new User();
+        }
+        public User getUser() {
+		return user;
 	}
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-
 	public String getMsg() {
 		return msg;
 	}
 
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
+	
 
 	//validate login
 	public String validateUsernamePassword() throws SQLException {
-		int checkUser = ServiceInit.UsersService().validateUser(user, pwd);
+		int checkUser = ServiceInit.UsersService().validateUser(user.getUserName(), user.getPassword());
 		if (checkUser > 1) 
                     {
 			HttpSession session = SessionUtils.getSession();
-                        session.setAttribute("username", user);
+                        session.setAttribute("username", user.getUserName());
 			if (checkUser == 3)
                         {
                             session.setAttribute("role", "Admin");
-                            return "admin";
+                            return "Admin";
                         }
                         else
                         {
                             session.setAttribute("role", "User");
-                            return "user";  
+                            return "MyOrders";  
                         }
                     }
                 else 
@@ -76,7 +67,7 @@ public class LoginBean implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
 							"Incorrect Username - test and Passowrd",
 							"Please enter correct username and Password"));
-			return "login";
+			return "Welcome";
                     }
 	}
 

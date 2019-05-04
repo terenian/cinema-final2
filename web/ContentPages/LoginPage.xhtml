@@ -11,12 +11,12 @@
             <h:form>
             <h3>JSF Login Logout</h3>
             <h:outputText value="Username" />
-            <h:inputText id="username" value="#{loginBean.user}"></h:inputText>
+            <h:inputText id="username" value="#{loginBean.user.userName}"></h:inputText>
             <h:message for="username"></h:message>
             <br></br><br></br>
 
             <h:outputText value="Password" />
-            <h:inputSecret id="password" value="#{loginBean.pwd}"></h:inputSecret>
+            <h:inputSecret id="password" value="#{loginBean.user.password}"></h:inputSecret>
             <h:message for="password"></h:message>
             <br></br><br></br>
 
