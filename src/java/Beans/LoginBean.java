@@ -74,7 +74,7 @@ public class LoginBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Incorrect Username-test and Passowrd",
+							"Incorrect Username and Passowrd",
 							"Please enter correct username and Password"));
 			return "login";
                     }
