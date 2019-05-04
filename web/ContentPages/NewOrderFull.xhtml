@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head></h:head>
+    
+    <h:form>
+    <h1>New Order</h1>
+    <h2>Choose Hall: </h2>  
+        <h:selectOneMenu id="ChooseHall" value="#{ScreeningsBean.hallID}"  >
+            <f:selectItem itemValue="chooseHere" itemLabel=" == Choose Here ==" />
+            <c:forEach items="#{HallsBean.hallsList}" var="hall">
+                <f:selectItem itemValue="${hall.hallID}" itemLabel="${hall.hallName}"/>
+            </c:forEach> 
+        </h:selectOneMenu>
+    <br/><br/>
+    <h:commandButton id="submitHall" value="Submit Hall" action="NewOrderChooseHall" />
+    <p id="demo" value=""></p>
+    <p id="demo2" value=""></p>
+      
+    <h2>Choose Movie: </h2>
+    <h:selectOneMenu id="chooseMovie" >
+        <f:selectItem itemValue="chooseHere" itemLabel="== Choose Here =="/> 
+        <c:forEach items="#{ScreeningsBean.moviesList}" var="movie"> 
+            <f:selectItem itemValue="${movie}" itemLabel="${movie.movieName}"/>   
+        </c:forEach>
+    </h:selectOneMenu>
+    
+    <h2>Choose Screening: </h2>
+    <h:selectOneMenu id="chooseScreening" >
+        <f:selectItem itemValue="chooseHere" itemLabel="== Choose Here =="/> 
+        <c:forEach items="#{ScreeningsBean.screeningsListByHallID}" var="screening"> 
+            <f:selectItem itemValue="${screening}" itemLabel="${screening.date} ${screening.time}"/>
+        </c:forEach>
+    </h:selectOneMenu>
+    </h:form>
+    
+    
+    <script>
+        function myFunction() {
+            var e = document.getElementById("ChooseHall");
+            var pick = e.options[e.selectedIndex].value;
+            document.getElementById('demo').innerHTML = pick; 
+            document.getElementById('demo2').innerHTML = "#{ScreeningsBean.screeningsListByHallID}"; 
+            document.getElementById('chooseScreening').value="#{ScreeningsBean.screeningsListByHallID}";
+            //window.alert("message");
+            
+        }
+    </script>
+    
+    
+</html>
