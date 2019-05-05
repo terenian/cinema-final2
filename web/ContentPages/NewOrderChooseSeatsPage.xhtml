@@ -16,11 +16,12 @@
     
     <h2>Choose Seats:</h2>
         
-    <h:body>
+    <h:body onload="myFunction()" id = "bod">
         <h:form id="mainForm">
             <h:inputHidden id="length" value="${ScreeningsBean.hall.hallLength}" />
             <h:inputHidden id="width" value="${ScreeningsBean.hall.hallWidth}" />
-            <div>HELLO WORLD</div>
+            
+            <div id="seats"/>
         </h:form> 
     </h:body>
     <button id="TryIt" value="none" onclick="myFunction()">TryME</button>
@@ -28,14 +29,14 @@
     <script type="text/javascript">
         function myFunction() {
             var i, j, div, cb, frag;
-            
+            var element = document.getElementById("seats");
             frag = document.createDocumentFragment();
             cb = document.createElement( 'input' );
             cb.type = 'checkbox';
            
             var width = document.getElementById("mainForm:length").value;
             var length = document.getElementById("mainForm:width").value;
-            window.alert("width is: " + width + "length is: " + length);
+            //window.alert("width is: " + width + "length is: " + length);
             
             for ( i = 0; i &lt; width  ; i += 1 ) {
                 div = document.createElement( 'div' );
@@ -47,7 +48,8 @@
                 frag.appendChild( div );
             }
             
-            document.body.appendChild( frag );
+            element.appendChild( frag );
+            //document.body.appendChild( frag );
         }
     </script>
 </html>
