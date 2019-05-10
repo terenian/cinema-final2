@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import EntitiesLayer.Order;
+import java.sql.Statement;
 
 
 /**
@@ -41,19 +42,22 @@ public class OrdersService {
         //logger.info("insert Order("+orderID+","+userID+","+price+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement orderInsertSTM = null;
-        orderInsertSTM = c.prepareStatement(ORDER_INSERT);
+        orderInsertSTM = c.prepareStatement(ORDER_INSERT, Statement.RETURN_GENERATED_KEYS);
         
         orderInsertSTM.setInt(1, user);
         orderInsertSTM.setInt(2, price);
-        int result = 0;
-        orderInsertSTM.executeUpdate();
-        if (result >= 0) {
-            System.out.println("SuccessInsert");
+        int result = orderInsertSTM.executeUpdate();
+        if (result == 0) {
+            throw new SQLException("== Creating Order failed, no rows affected.");
         }
-        else{
-            System.out.println("UnSeccessed insert!");
+        try (ResultSet generatedKeys = orderInsertSTM.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                return (generatedKeys.getInt(1));
+            }
+            else {
+                throw new SQLException("==Creating Order failed, no ID obtained.");
+            }
         }
-        return result;
     }
     
     /*

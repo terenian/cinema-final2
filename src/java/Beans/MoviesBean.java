@@ -16,8 +16,8 @@ import java.util.List;
 @SessionScoped
 public class MoviesBean implements Serializable {
     
-    private List<Movie> movieList;
-                
+    private List<Movie> movieList; 
+    private int movieForReview;
     public MoviesBean() {
         
     }
@@ -29,6 +29,12 @@ public class MoviesBean implements Serializable {
         //yTickets = os.searchTickets(null, orderID, null);
         return movieList;
     }
+    
+    public void setMovieForReview (int movie){
+        this.movieForReview = movie;
+    }
+    
+    
 }
 
 

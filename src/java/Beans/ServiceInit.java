@@ -28,7 +28,12 @@ public class ServiceInit {
     public static ScreeningsService ss;
     public static UsersService us;
     public static HallsService hs;
+    public static ReviewsService rs;
     static Logger logger;
+
+    static Object reviewsService() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /*
     service initiation
@@ -112,6 +117,11 @@ public class ServiceInit {
     public static synchronized HallsService hallsService(){
         hs = new HallsService (dbcon);
         return hs;
+    }
+    
+    public static synchronized ReviewsService reviewsServiece(){
+        rs = new ReviewsService (dbcon);
+        return rs;
     }
     
 }

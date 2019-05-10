@@ -38,6 +38,13 @@ public class TicketsBean implements Serializable {
         //yTickets = os.searchTickets(null, orderID, null);
         return myTickets;
     }
+    
+    public List<Ticket> getTicketsByScreening( int screeningID) throws ClassNotFoundException, SQLException, Throwable {
+        myTickets = ServiceInit.ticketsService().searchTicket(null, screeningID, null, null);
+        System.out.println("==Taken Tickets are: " + myTickets);
+        return myTickets;
+    }
+    
 }
 
 

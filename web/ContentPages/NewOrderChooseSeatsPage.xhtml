@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> </h:head>
+    
+    <h1>New Order</h1>   
+    <h3>Chosen Hall is: ${ScreeningsBean.hall.hallName}</h3>    
+    <h3>Chosen Movie is: ${ScreeningsBean.movie.movieName}</h3>    
+    <h3>Chosen Screening is: ${ScreeningsBean.screening.date} at: ${ScreeningsBean.screening.time}</h3> 
+    
+    <h2>Choose Seats:</h2>
+    <h2>======= SCREEN IS HERE =======</h2>
+        
+    <h:body onload="buildSeats()" id = "bod">
+        <h:form id="mainForm" >
+            <h:inputHidden id="length" value="${ScreeningsBean.hall.hallLength}" />
+            <h:inputHidden id="width" value="${ScreeningsBean.hall.hallWidth}" />
+            <h:inputHidden id="ticketsList" value="${TicketsBean.getTicketsByScreening(ScreeningsBean.screeningID)}" />
+            <div id="seats"/>
+        </h:form> 
+        <h:form id="seatsForm">
+            <h:inputHidden id="chosenSeats" value="${ScreeningsBean.chosenSeats}" />
+            <h:commandButton id="saveSeats" value="Save Seats" onclick="collectSeats()" action="NewOrderSummary" > 
+            </h:commandButton>
+        </h:form>
+    </h:body>
+    <!--button id="TryIt" value="none" onclick="myFunction()">TryME</button-->
+    
+    <script type="text/javascript">
+        
+        function buildSeats() {
+            var i, j, div, cb, frag;
+            var element = document.getElementById("seats");
+            var width = document.getElementById("mainForm:length").value;
+            var length = document.getElementById("mainForm:width").value;
+            
+            frag = document.createDocumentFragment();
+            cb = document.createElement( 'input' );
+            cb.type = 'checkbox';
+            //window.alert("width is: " + width + "length is: " + length);
+            var takenSeats = document.getElementById("mainForm:ticketsList").value.toLocaleString();
+            //var array = JSON.parse (takenSeats);
+            var array = eval(takenSeats);
+            console.log ("TAKEN SEATS ARE: " + array );
+            
+            //print column numbers
+            //            div = document.createElement( 'div' );
+            //            for ( k = 0; k &lt; length  ; k += 1 ) {
+            //                if (k == 0) { 
+            //                    var app = "\t";
+            //                    div.appendChild (document.createTextNode(app));
+            //                }
+            //                div.appendChild (document.createTextNode((k+1).toString()));
+            //                div.appendChild (document.createTextNode("&#9;&nbsp;&nbsp;"));
+            //                frag.appendChild( div );
+            //                element.appendChild( frag );
+            //            }
+            for ( i = 0; i &lt; width; i += 1 ) {
+                div = document.createElement( 'div' );
+                //print row numbers
+                div.appendChild (document.createTextNode((i+1).toString()));
+                for ( j = 0; j &lt; length ; j += 1 ) { 
+                    cb.setAttribute("id",i+","+j);
+                    var toAdd = cb.cloneNode(false);
+                    //console.log("i: "+i+" j: "+j + " a[0][2] is: " + (array[0][2]) + " a[0][3] is: " + (array[0][3]));
+                    //chek if the tickets are already marked
+                    if((array.length &gt;= 1) &amp;&amp; (array[0][2] == i) &amp;&amp; (array[0][3] == j)){
+                        toAdd.checked = true;    
+                        toAdd.disabled = true;
+                        console.log("checked!");
+                        array.shift();
+                    }
+                    div.appendChild(toAdd);
+                    div.appendChild (document.createTextNode("\t"));
+                }    
+                frag.appendChild( div );
+            }
+            element.appendChild( frag );
+            //document.body.appendChild( frag );
+        }
+        
+        function collectSeats() {
+            var width1 = document.getElementById("mainForm:length").value;
+            var lengthl = document.getElementById("mainForm:width").value;
+            //window.alert("onSUBMIT lengthl: " + lengthl);
+            var checkedValue = null; 
+            var inputElements = document.getElementsByTagName('input');
+            var arr = [];
+            
+            //window.alert(inputElements);
+            //loop over checkbox items
+            for (let item of inputElements) {
+                //chek if item is checkd and is not disabled - meaning it is current user selection
+                if (item.checked &amp;&amp; !item.disabled){
+                    //window.alert(item.id);
+                    arr.push(item.id.toString());
+                }
+            }
+            //window.alert(arr.length);
+            //window.alert(document.getElementById("seatsForm:chosenSeats").value);
+            if (arr.length>=1){
+                document.getElementById("seatsForm:chosenSeats").value = arr;
+            }
+            else {
+                window.alert("No seats where chosen. \nPlease try again!")     
+            }
+            //window.alert(el.value);
+        }
+    </script>
+</html>

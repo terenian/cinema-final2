@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> </h:head>
+        
+    <h1>New Order</h1>   
+    <br></br>
+    <h1>YOUR ORDER IS SAVED! Order number is: ${ScreeningsBean.newOrderID}</h1>   
+    <h3>Chosen Hall is: ${ScreeningsBean.hall.hallName}</h3>    
+    <h3>Chosen Movie is: ${ScreeningsBean.movie.movieName}</h3>    
+    <h3>Chosen Screening is: ${ScreeningsBean.screening.date} at: ${ScreeningsBean.screening.time}</h3> 
+    <h3>Chosen Seats are:</h3> 
+    <h:form>    
+        <h:dataTable value="#{ScreeningsBean.seatsForOrder}" var="seat" border="1">
+            <h:column>
+                <f:facet name="header">Row</f:facet>
+                    #{seat[0]+1}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Seat Number</f:facet> 
+                    #{seat[1]+1}
+            </h:column>
+        </h:dataTable>
+        <br/>
+        <h3>and total of #{ScreeningsBean.seatsForOrder.size()} tickets.</h3> 
+        <h3>The Price is #{ScreeningsBean.orderPrice}$. Payment will be made at the entrance.</h3> 
+        <br/>
+        
+    </h:form>
+</html>

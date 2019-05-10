@@ -73,6 +73,7 @@ public class MoviesService {
         else{
             movieSearchSTM.setString(1, name);
         }
+        movieSearchSTM.setString(2, "%");
         
         System.out.println("movieSearchSTM IS: " + movieSearchSTM.toString());
         

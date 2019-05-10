@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-  "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       xmlns:f="http://java.sun.com/jsf/core" 
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-<h:head></h:head>
-<h:body>
-	<ui:composition>
-		<h1>Movie List</h1>
-                <h:dataTable value="#{MoviesBean.movieList}" var="movie" border="2">
-                    <h:column>
-                        <f:facet name="header">Movie Name</f:facet>
-                            #{movie.movieName}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Movie Length</f:facet>
-                            #{movie.movieLength}
-                    </h:column>
+    <h:head></h:head>
+    <h:body></h:body>
+        
+    <ui:composition>
+        <h1>Movie List</h1>
+        <h:dataTable value="#{MoviesBean.movieList}" var="movie" border="2">
+            <h:column>
+                <f:facet name="header">Movie Name</f:facet>
+                    #{movie.movieName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Movie Length</f:facet>
+                    #{movie.movieLength} 
+            </h:column>
+            <h:column>
+                <f:facet name="header"></f:facet>
+                <h:form>
+                    <h:commandButton value="write a Review" action="#{ReviewsBean.setMovieForReview(movie.movieId)}"/> 
+                </h:form>
+            </h:column>
+            <h:column>
+                <h:form >
+                    <h:commandButton value="Show Reviews" action="ShowReview.xhtml" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
+    </ui:composition>
 
-                </h:dataTable>
-	</ui:composition>
-</h:body>
 </html>
