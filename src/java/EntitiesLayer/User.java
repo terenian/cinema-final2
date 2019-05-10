@@ -51,15 +51,36 @@ public class User {
     public String getAddress() {
         return address;
     }
-    
+    /**
+     * @param userID the userID to set
+     */
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    /**
+     * @param userRoleID the userRoleID to set
+     */
+    public void setUserRoleID(int userRoleID) {
+        this.userRoleID = userRoleID;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
    
     public String toString(){
-        return  "[" + userID+" , "+
-                 userRoleID + " , "+
-                userName + " , " +
-                password + " , " +
-                address + "]";
+        return  "[" + getUserID()+" , "+
+                 getUserRoleID() + " , "+
+                getUserName() + " , " +
+                getPassword() + " , " +
+                getAddress() + "]";
     }
+
+    
    
     
 }

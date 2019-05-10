@@ -3,12 +3,14 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-             
+
+    
+    <!-- Login Section navigation -->             
     <navigation-rule>
         <from-view-id>/Login.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>Admin</from-outcome>
-            <to-view-id>/Admin.xhtml</to-view-id>
+            <from-outcome>Connected</from-outcome>
+            <to-view-id>/LoggedIn.xhtml</to-view-id>
         </navigation-case>
                 
         <navigation-case>
@@ -16,7 +18,18 @@
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-     
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-action>#{loginBean.logout}</from-action>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/LoggedOut.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <!-- End Of Login Section navigation --> 
+    
+    
     <navigation-rule>
         <from-view-id>/NewOrderChooseMovie.xhtml</from-view-id>
         <navigation-case>
