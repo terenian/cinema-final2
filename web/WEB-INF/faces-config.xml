@@ -16,6 +16,19 @@
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+     
+    <navigation-rule>
+        <from-view-id>/NewOrderChooseMovie.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>chooseSeats</from-outcome>
+            <to-view-id>/NewOrderChooseSeatsPage.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>insertNumberOfTickets</from-outcome>
+            <to-view-id>/NewOrderChooseSeatsPage.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>  
       
     <navigation-rule>
         <from-view-id>/NewOrderChooseSeats.xhtml</from-view-id>
@@ -23,26 +36,26 @@
             <from-outcome>showSeats</from-outcome>
             <to-view-id>/NewOrderChooseSeats.xhtml</to-view-id>
         </navigation-case>
-         <navigation-case>
+        <navigation-case>
             <from-outcome>showSummary</from-outcome>
             <to-view-id>/NewOrderSummary.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
     <navigation-rule>
-    <from-view-id>/NewOrderNavigation.xhtml</from-view-id>
+        <from-view-id>/NewOrderNavigation.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>showSeats</from-outcome>
             <to-view-id>/NewOrderChooseSeats.xhtml</to-view-id>
         </navigation-case>
-         <navigation-case>
+        <navigation-case>
             <from-outcome>showSummary</from-outcome>
             <to-view-id>/NewOrderSummary.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
     <navigation-rule>
-    <from-view-id>/MoviesPage.xhtml</from-view-id>
+        <from-view-id>/MoviesPage.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>writeReview</from-outcome>
             <to-view-id>/WriteReview.xhtml</to-view-id>
@@ -50,7 +63,7 @@
     </navigation-rule>
     
     <navigation-rule>
-    <from-view-id>/MoviesPage.xhtml</from-view-id>
+        <from-view-id>/MoviesPage.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>showReviews</from-outcome>
             <to-view-id>/ShowReviews.xhtml</to-view-id>

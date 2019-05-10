@@ -159,9 +159,7 @@ public class ScreeningsBean implements Serializable {
             for (ArrayList<String> seat : seatsForOrder) {
                 ServiceInit.ticketsService().insertOrder(newOrderID, screeningID, Integer.parseInt(seat.get(0)), Integer.parseInt(seat.get(1)));
             }
-            this.hall = null;
-            this.movie = null;
-            this.screening = null;
+
             this.moviesList = null;
             this.screeningsListByHallID = null;
             this.screeningsListByMovieID = null;
@@ -169,8 +167,7 @@ public class ScreeningsBean implements Serializable {
             this.movieID = 0;
             this.screeningID = 0;
             this.chosenSeats = "";
-            this.seatsForOrder = null;
-            this.orderPrice = 0;
+
         } catch (SQLException ex) {
             //Logger.getLogger(ScreeningsBean.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("ORDER INSERTION PROCCESS FAILED");
