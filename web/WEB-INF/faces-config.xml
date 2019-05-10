@@ -4,25 +4,58 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
              
-        <navigation-rule>
-		<from-view-id>/Login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>Admin</from-outcome>
-			<to-view-id>/Admin.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-        <navigation-rule>
-		<from-view-id>/Login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>Welcome</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-        <navigation-rule>
-		<from-view-id>/Admin.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>Login</from-outcome>
-			<to-view-id>/Login.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>Admin</from-outcome>
+            <to-view-id>/Admin.xhtml</to-view-id>
+        </navigation-case>
+                
+        <navigation-case>
+            <from-outcome>Welcome</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+      
+    <navigation-rule>
+        <from-view-id>/NewOrderChooseSeats.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>showSeats</from-outcome>
+            <to-view-id>/NewOrderChooseSeats.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>showSummary</from-outcome>
+            <to-view-id>/NewOrderSummary.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+    <from-view-id>/NewOrderNavigation.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>showSeats</from-outcome>
+            <to-view-id>/NewOrderChooseSeats.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>showSummary</from-outcome>
+            <to-view-id>/NewOrderSummary.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+    <from-view-id>/MoviesPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>writeReview</from-outcome>
+            <to-view-id>/WriteReview.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+    <from-view-id>/MoviesPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>showReviews</from-outcome>
+            <to-view-id>/ShowReviews.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
 </faces-config>

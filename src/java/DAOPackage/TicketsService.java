@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import EntitiesLayer.Order;
 import EntitiesLayer.Ticket;
+import java.sql.Statement;
 
 /**
  *
@@ -22,8 +23,8 @@ public class TicketsService {
     
     private DBConnector dbConnection;
     
-    private final String TICKET_INSERT = "insert into cinema.tickets (OrderID, ScreeiningID, Row, Column) values (?,?,?,?)";
-    private final String TICKET_SEARCH = "select * from cinema.tickets where OrderID like (?) and ScreeningID like (?) and RowNum like (?) and ColumnNum like (?)";
+    private final String TICKET_INSERT = "insert into cinema.tickets (OrderID, ScreeningID, RowNum, ColumnNum) values (?,?,?,?)";
+    private final String TICKET_SEARCH = "select * from cinema.tickets where OrderID like (?) and ScreeningID like (?) and RowNum like (?) and ColumnNum like (?) ORDER BY RowNum, ColumnNum";
     //===ANY RESON TO UPDATE TICKET?
     //private final String TICKET_UPDATE = "update cinema.tickets set Price=COALESCE((?),price) where OrderID like (?)";
     //private final Logger logger = ServiceManager.getLogger();
@@ -42,21 +43,26 @@ public class TicketsService {
         //logger.info("insert Order("+orderID+","+userID+","+price+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement ticketInsertSTM = null;
-        ticketInsertSTM = c.prepareStatement(TICKET_INSERT);
+        ticketInsertSTM = c.prepareStatement(TICKET_INSERT,
+                                      Statement.RETURN_GENERATED_KEYS);
         
         ticketInsertSTM.setInt(1, order);
         ticketInsertSTM.setInt(2, screening);
         ticketInsertSTM.setInt(3, row);
-        ticketInsertSTM.setInt(2, column);
-        int result = 0;
-        ticketInsertSTM.executeUpdate();
-        if (result >= 0) {
-            System.out.println("SuccessInsert");
+        ticketInsertSTM.setInt(4, column);
+        int result = ticketInsertSTM.executeUpdate();
+        if (result == 0) {
+            throw new SQLException("== Creating ticket failed, no rows affected.");
         }
-        else{
-            System.out.println("UnSeccessed insert!");
+        try (ResultSet generatedKeys = ticketInsertSTM.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                return (generatedKeys.getInt(1));
+            }
+            else {
+                throw new SQLException("==Creating ticket failed, no ID obtained.");
+            }
         }
-        return result;
+
     }
     
     /*
