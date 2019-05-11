@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author eran.z
  */
-@WebFilter(filterName = "AuthFilter", urlPatterns = {"/*"})
+@WebFilter(filterName = "AuthFilter")
 public class AuthFilter implements Filter {
     
     private static final boolean debug = true;
@@ -117,18 +117,14 @@ public class AuthFilter implements Filter {
                 HttpSession ses = reqt.getSession(false);
 
                 String reqURI = reqt.getRequestURI();
-                if (reqURI.equals("/Cinema/") ||
-                    reqURI.indexOf("/Login.xhtml") >= 0 ||
-                    reqURI.indexOf("/index.xhtml") >= 0 ||
-                    (ses != null && ses.getAttribute("role") != null) ||
+                if ((ses != null && ses.getAttribute("role") != null) ||
                     reqURI.contains("javax.faces.resource"))
+                {
                     
-                //                || (ses != null && ses.getAttribute("username") != null)
-                //                || reqURI.indexOf("/public/") >= 0
-                 //               || reqURI.contains("javax.faces.resource"))
-                        chain.doFilter(request, response);
+                    chain.doFilter(request, response);
+                }
                 else
-                        resp.sendRedirect(reqt.getContextPath() + "/faces/Login.xhtml");
+                    resp.sendRedirect(reqt.getContextPath() + "/faces/NotConnected.xhtml");
         } 
         catch (Exception e) {
                 System.out.println(e.getMessage());

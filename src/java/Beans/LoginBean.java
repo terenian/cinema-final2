@@ -5,6 +5,7 @@
  */
 package Beans;
 
+import EntitiesLayer.Role;
 import GeneralWeb.SessionUtils;
 import EntitiesLayer.User;
 import java.io.Serializable;
@@ -30,7 +31,6 @@ public class LoginBean implements Serializable {
 
         public LoginBean() {
             this.user = new User();
-            this.user.setUserRoleID(1);
         }
         public User getUser() {
 		return user;
@@ -52,11 +52,13 @@ public class LoginBean implements Serializable {
         
 	//validate login
 	public String validateUsernamePassword() throws SQLException {
-		int checkUser = ServiceInit.UsersService().validateUser(user.getUserName(), user.getPassword());
-                if(checkUser > 1)
+		String checkUser = ServiceInit.UsersService().validateUser(user.getUserName(), user.getPassword());
+                if(checkUser.equals(Role.ROLE_ADMIN) || checkUser.equals(Role.ROLE_USER))
                 {
                     HttpSession session = SessionUtils.getSession();
-                    this.user.setUserRoleID(checkUser);
+                    
+                    //this.user.setUserRoleID(checkUser);
+                    session.setAttribute("username",this.user.getUserName() );
                     session.setAttribute("role",checkUser);
                     return "Connected";
                 }

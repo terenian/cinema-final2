@@ -11,25 +11,25 @@
 	<ui:composition>
 		<p>MainMenu</p>
                 <h:form>
-                    <h:commandLink id="index" action="index">  
+                    <h:commandLink id="index" action="/index">  
                     <h:outputText value="Welcome Page"></h:outputText>  
                     </h:commandLink>  
                     <br></br>
-                    <h:commandLink id="movies" action="Movies.xhtml" rendered="#{loginBean.userConnected}">  
+                    <h:commandLink id="movies" action="/User/Movies.xhtml" rendered="#{not empty role}">  
                     <h:outputText value="Movies Page"></h:outputText>  
                     </h:commandLink>
                     <br></br>
-                    <h:commandLink id="neworder" action="NewOrder.xhtml" rendered="#{loginBean.userConnected}">  
+                    <h:commandLink id="neworder" action="/User/NewOrder.xhtml" rendered="#{not empty role}">  
                     <h:outputText value="New Order"></h:outputText>  
                     </h:commandLink>
                     <br></br>
-                    <h:commandLink id="admin" action="Admin" rendered="#{loginBean.adminConnected}">  
+                    <h:commandLink id="admin" action="/Admin/Admin" rendered="#{(not empty role) and (role eq 'Admin')}">  
                     <h:outputText value="Admin Page"></h:outputText>  
                     </h:commandLink>
                     <br></br>
-                    <h:commandButton id="login" value="Login" action="Login" rendered="#{!loginBean.userConnected}"></h:commandButton>
+                    <h:commandButton id="login" value="Login" action="/Login" rendered="#{empty role}"></h:commandButton>
                     <br></br>
-                    <h:commandButton id="logout" value="Logout" action="#{loginBean.logout}" rendered="#{loginBean.userConnected}"></h:commandButton>
+                    <h:commandButton id="logout" value="Logout" action="#{loginBean.logout}" rendered="#{not empty role}"></h:commandButton>
                 </h:form>
 	</ui:composition>
 </h:body>

@@ -10,6 +10,8 @@ package EntitiesLayer;
 public class Role {
     
     
+    public static final String ROLE_ADMIN="Admin";
+    public static final String ROLE_USER="User";
     private Integer roleID;
     private String roleName;
 
