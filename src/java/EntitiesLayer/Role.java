@@ -12,17 +12,11 @@ public class Role {
     
     public static final String ROLE_ADMIN="Admin";
     public static final String ROLE_USER="User";
-    private Integer roleID;
     private String roleName;
 
     
-    public Role(Integer id, String name){
-        this.roleID = id;
+    public Role(String name){
         this.roleName = name;
-    }
-    
-    public Integer getRoleID() {
-        return roleID;
     }
     
     public String getRoleName() {
@@ -30,8 +24,7 @@ public class Role {
     }
   
     public String toString(){
-        return  "[" + roleID+" , "+
-                roleName + "]";
+        return roleName ;
     }
    
     

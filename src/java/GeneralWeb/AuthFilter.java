@@ -5,6 +5,7 @@
  */
 package GeneralWeb;
 
+import EntitiesLayer.Role;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -120,8 +121,14 @@ public class AuthFilter implements Filter {
                 if ((ses != null && ses.getAttribute("role") != null) ||
                     reqURI.contains("javax.faces.resource"))
                 {
-                    
-                    chain.doFilter(request, response);
+                    if( reqURI.contains("/Admin/")  && !((String)ses.getAttribute("role")).equals(Role.ROLE_ADMIN))
+                    {
+                        resp.sendRedirect(reqt.getContextPath() + "/faces/User/UnAuthorized.xhtml");
+                    }
+                    else
+                    {
+                        chain.doFilter(request, response);
+                    }
                 }
                 else
                     resp.sendRedirect(reqt.getContextPath() + "/faces/NotConnected.xhtml");

@@ -39,17 +39,6 @@ public class LoginBean implements Serializable {
 		return msg;
 	}
 
-	
-        public boolean isUserConnected()
-        {
-            return (this.user.getUserRoleID() > 1);
-        }
-        public boolean isAdminConnected()
-        {
-            return (this.user.getUserRoleID() == 3);
-        }
-        
-        
 	//validate login
 	public String validateUsernamePassword() throws SQLException {
 		String checkUser = ServiceInit.UsersService().validateUser(user.getUserName(), user.getPassword());

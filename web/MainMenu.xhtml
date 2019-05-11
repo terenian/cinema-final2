@@ -27,6 +27,11 @@
                     <h:outputText value="Admin Page"></h:outputText>  
                     </h:commandLink>
                     <br></br>
+                    <h:commandLink id="registration" action="/Registration" rendered="#{empty role}">  
+                    <h:outputText value="Register"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <br></br>
                     <h:commandButton id="login" value="Login" action="/Login" rendered="#{empty role}"></h:commandButton>
                     <br></br>
                     <h:commandButton id="logout" value="Logout" action="#{loginBean.logout}" rendered="#{not empty role}"></h:commandButton>
