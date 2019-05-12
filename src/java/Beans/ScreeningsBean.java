@@ -72,7 +72,7 @@ public class ScreeningsBean implements Serializable {
     
     public void validateFreeTickets (FacesContext context, UIComponent comp,Object value) {
         int numberOfDesiredTicketsString = (Integer) value;
-        if (numberOfDesiredTicketsString > numberOfFreeTickets) {
+        if (numberOfDesiredTicketsString > numberOfFreeTickets || numberOfDesiredTicketsString < 1) {
             ((UIInput) comp).setValid(false);
             FacesMessage message = new FacesMessage("Maximum Free Tickets is: " + numberOfFreeTickets);
             context.addMessage(comp.getClientId(context), message);
