@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head> </h:head>
         
-    <h1>New Order</h1>   
+    <h1>New Order - Summary</h1>   
     <h3>Chosen Hall is: ${ScreeningsBean.hall.hallName}</h3>    
     <h3>Chosen Movie is: ${ScreeningsBean.movie.movieName}</h3>    
     <h3>Chosen Screening is: ${ScreeningsBean.screening.date} at: ${ScreeningsBean.screening.time}</h3> 
@@ -23,14 +23,14 @@
             </h:column>
         </h:dataTable>
         <br/>
-        <h3>and total of #{ScreeningsBean.seatsForOrder.size()} tickets.</h3> 
+        <h3>and total of #{ScreeningsBean.numberOfDesiredTickets} tickets.</h3> 
         <h3>The Price is #{ScreeningsBean.orderPrice}$. Payment will be made at the entrance</h3> 
         <h3>Click below to finish your order. You will be redirected to the Welcome page.</h3> 
         <br/>
-        
+            
         <!--h:commandButton id="finishOrder" value="Finish Order" action="NewOrderSummary"/-->
         <h:commandButton id="finishOrder" value="Finish Order" action="NewOrderFinish">
             <f:actionListener binding="#{ScreeningsBean.saveOrder()}" />
-         </h:commandButton>
+        </h:commandButton>
     </h:form>
 </html>

@@ -18,6 +18,12 @@
             30
         </session-timeout>
     </session-config>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/faces/ContentPages/*</url-pattern>
+        <url-pattern>/faces/Admin/*</url-pattern>
+        <url-pattern>/faces/User/*</url-pattern>
+    </filter-mapping>
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>

@@ -5,6 +5,7 @@
  */
 package Beans;
 
+import EntitiesLayer.Role;
 import GeneralWeb.SessionUtils;
 import EntitiesLayer.User;
 import java.io.Serializable;
@@ -25,10 +26,8 @@ public class LoginBean implements Serializable {
 
     	private static final long serialVersionUID = 1094801825228386363L;
 	
-	//private String pwd;
-	private User user;
+	private User user;  
         private String msg;
-	//private String user;
 
         public LoginBean() {
             this.user = new User();
@@ -40,42 +39,34 @@ public class LoginBean implements Serializable {
 		return msg;
 	}
 
-	
-
 	//validate login
 	public String validateUsernamePassword() throws SQLException {
-		int checkUser = ServiceInit.UsersService().validateUser(user.getUserName(), user.getPassword());
-		if (checkUser > 1) 
-                    {
-			HttpSession session = SessionUtils.getSession();
-                        session.setAttribute("username", user.getUserName());
-			if (checkUser == 3)
-                        {
-                            session.setAttribute("role", "Admin");
-                            return "Admin";
-                        }
-                        else
-                        {
-                            session.setAttribute("role", "User");
-                            return "MyOrders";  
-                        }
-                    }
-                else 
-                    {
-			FacesContext.getCurrentInstance().addMessage(
+		String checkUser = ServiceInit.UsersService().validateUser(user.getUserName(), user.getPassword());
+                if(checkUser.equals(Role.ROLE_ADMIN) || checkUser.equals(Role.ROLE_USER))
+                {
+                    HttpSession session = SessionUtils.getSession();
+                    
+                    //this.user.setUserRoleID(checkUser);
+                    session.setAttribute("username",this.user.getUserName() );
+                    session.setAttribute("role",checkUser);
+                    return "Connected";
+                }
+                else
+                {
+                    FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Incorrect Username - test and Passowrd",
+							"Incorrect Username and Passowrd",
 							"Please enter correct username and Password"));
-			return "Welcome";
-                    }
-	}
+                    return "Login";
+                }
+        }
 
 	//logout event, invalidate session
 	public String logout() {
 		HttpSession session = SessionUtils.getSession();
 		session.invalidate();
-		return "login";
+		return "logout";
 	}
 
     

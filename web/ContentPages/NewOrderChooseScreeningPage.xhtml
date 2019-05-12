@@ -14,31 +14,17 @@
         <h3>Chosen Hall is: ${ScreeningsBean.hall.hallName}</h3>    
         <h3>Chosen Movie is: ${ScreeningsBean.movie.movieName}</h3>    
         <h2>Choose Screening: </h2>
-        <h:selectOneMenu id="chooseScreening" value="#{ScreeningsBean.screeningID}">
+        <h:selectOneMenu id="chooseScreening" value="#{ScreeningsBean.screeningID}" >
             <f:selectItem itemValue="chooseHere" itemLabel="== Choose Here =="/> 
             <c:forEach items="#{ScreeningsBean.screeningsListByMovieID}" var="screening"> 
-                <f:selectItem itemValue="${screening.screeningID}" itemLabel="DATE: ${screening.date}  HOUR: ${screening.time}     PRICE: ${screening.price}"/>
+                <f:selectItem itemValue="${screening.screeningID}" itemLabel="DATE: ${screening.date}  HOUR: ${screening.time}  PRICE: ${screening.price}"/>
             </c:forEach>
         </h:selectOneMenu>
-        
-        <!--h:commandButton id="submitHall" value="Submit Hall" action="NewOrderSeats" /-->
-        <h:commandButton id="submitHall" value="Submit Hall" action="NewOrderChooseSeats" />
-
+            
+        <h:commandButton id="submitHall" value="Submit Hall" action="#{ScreeningsBean.checkMarkedSeats()}" />
+            
             
     </h:form>
-        
-        
-    <script>
-        function myFunction() {
-            var e = document.getElementById("ChooseHall");
-            var pick = e.options[e.selectedIndex].value;
-            document.getElementById('demo').innerHTML = pick; 
-            document.getElementById('demo2').innerHTML = "#{ScreeningsBean.screeningsListByHallID}"; 
-            document.getElementById('chooseScreening').value="#{ScreeningsBean.screeningsListByHallID}";
-            //window.alert("message");
             
-        }
-    </script>
-        
         
 </html>

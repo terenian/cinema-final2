@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import EntitiesLayer.Movie;
+import EntitiesLayer.Role;
+import EntitiesLayer.User;
 
 
 
@@ -31,7 +33,43 @@ public class UsersService {
         this.dbConnection = dbConnection;
     }
     
-    public int validateUser (String username,String password)
+    public boolean userNameExists(String username) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement valUser = null;
+        valUser = c.prepareStatement("select UserName from cinema.users where UserName = (?)");
+        valUser.setString(1, username);
+        
+        ResultSet rs = valUser.executeQuery();
+        if(!rs.first())
+        {
+            return false;
+        }
+        else 
+        {
+            return true;
+        }
+    }
+    
+    public boolean addNewUser(User newUser) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement valUser = null;
+        valUser = c.prepareStatement("INSERT INTO `cinema`.`users` (`RoleName`, `UserName`, `Password`, `FirstName`, `LastName`, `PhoneNumber`, `Email`)" +
+                                     "VALUES ((?),(?),(?),(?),(?),(?),(?)); = (?)");
+        valUser.setString(1, newUser.getUserRoleName());
+        valUser.setString(2, newUser.getUserName());
+        valUser.setString(3, newUser.getPassword());
+        valUser.setString(4, newUser.getFirstName());
+        valUser.setString(5, newUser.getLastName());
+        valUser.setString(6, newUser.getPhoneNumber());
+        valUser.setString(7, newUser.getEmail());
+        
+        
+        return(valUser.executeUpdate() > 0 );
+ 
+    }
+    public String validateUser (String username,String password)
             throws SQLException{
         
         Connection c = dbConnection.getConnection();
@@ -42,11 +80,11 @@ public class UsersService {
         ResultSet rs = valUser.executeQuery();
         if(!rs.first())
         {
-            return 0;//wrong username
+            return "Wrong User";//wrong username
         }
         else if (!rs.getString(1).equals(password))
         {
-            return 1;//wrong password
+            return "Wrong Password";//wrong password
         }
         else
         {
@@ -56,9 +94,9 @@ public class UsersService {
             rs = valUser.executeQuery();
             rs.next();
             if(rs.getString(1).equals("Admin"))
-                return 3;//admin user
+                return Role.ROLE_ADMIN;//admin user
             else
-                return 2;//normal user
+                return Role.ROLE_USER;//normal user
         }   
     }
     

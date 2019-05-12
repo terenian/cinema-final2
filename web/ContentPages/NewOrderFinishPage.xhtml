@@ -25,9 +25,10 @@
             </h:column>
         </h:dataTable>
         <br/>
-        <h3>and total of #{ScreeningsBean.seatsForOrder.size()} tickets.</h3> 
+        <h3>and total of #{ScreeningsBean.numberOfDesiredTickets} tickets.</h3> 
         <h3>The Price is #{ScreeningsBean.orderPrice}$. Payment will be made at the entrance.</h3> 
         <br/>
+        #{ScreeningsBean.cleanOrder()}
         
     </h:form>
 </html>

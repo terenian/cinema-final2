@@ -38,7 +38,21 @@ public class SessionUtils {
                 else
                     return "";
 	}
-
+        public static boolean isUserConnected()
+        {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+                return(session.getAttribute("role") != null);
+        }
+        public static boolean isAdminConnected()
+        {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+                if (session.getAttribute("role") != null && ((String)session.getAttribute("role")).equals("Admin"))
+                    return true;
+                else
+                    return false;
+        }
 	public static String getUserId() {
 		HttpSession session = getSession();
 		if (session != null)

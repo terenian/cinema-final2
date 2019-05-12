@@ -3,12 +3,14 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-             
+
+    
+    <!-- Login Section navigation -->             
     <navigation-rule>
         <from-view-id>/Login.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>Admin</from-outcome>
-            <to-view-id>/Admin.xhtml</to-view-id>
+            <from-outcome>Connected</from-outcome>
+            <to-view-id>/User/LoggedIn.xhtml</to-view-id>
         </navigation-case>
                 
         <navigation-case>
@@ -16,25 +18,28 @@
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-     
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-action>#{loginBean.logout}</from-action>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/LoggedOut.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <!-- End Of Login Section navigation --> 
+    
+    
     <navigation-rule>
         <from-view-id>/NewOrderChooseScreening.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>chooseSeats</from-outcome>
-            <to-view-id>/NewOrderChooseSeats.xhtml</to-view-id>
+            <to-view-id>/User/NewOrderChooseSeatsPage.xhtml</to-view-id>
         </navigation-case>
         
         <navigation-case>
             <from-outcome>insertNumberOfTickets</from-outcome>
-            <to-view-id>/NewOrderInsertNumberOfTickets.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>  
-    
-    <navigation-rule>
-        <from-view-id>/NewOrderInsertNumberOfTickets.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>NewOrderSummaryPage</from-outcome>
-            <to-view-id>/NewOrderSummaryPage.xhtml</to-view-id>
+            <to-view-id>/User/NewOrderChooseSeatsPage.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>  
       
@@ -42,11 +47,11 @@
         <from-view-id>/NewOrderChooseSeats.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>showSeats</from-outcome>
-            <to-view-id>/NewOrderChooseSeats.xhtml</to-view-id>
+            <to-view-id>/User/NewOrderChooseSeats.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>showSummary</from-outcome>
-            <to-view-id>/NewOrderSummary.xhtml</to-view-id>
+            <to-view-id>/User/NewOrderSummary.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
@@ -54,11 +59,11 @@
         <from-view-id>/NewOrderNavigation.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>showSeats</from-outcome>
-            <to-view-id>/NewOrderChooseSeats.xhtml</to-view-id>
+            <to-view-id>/User/NewOrderChooseSeats.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>showSummary</from-outcome>
-            <to-view-id>/NewOrderSummary.xhtml</to-view-id>
+            <to-view-id>/User/NewOrderSummary.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
@@ -66,7 +71,7 @@
         <from-view-id>/MoviesPage.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>writeReview</from-outcome>
-            <to-view-id>/WriteReview.xhtml</to-view-id>
+            <to-view-id>/User/WriteReview.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
@@ -74,7 +79,7 @@
         <from-view-id>/MoviesPage.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>showReviews</from-outcome>
-            <to-view-id>/ShowReviews.xhtml</to-view-id>
+            <to-view-id>/User/ShowReviews.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
