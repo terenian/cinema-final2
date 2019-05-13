@@ -8,12 +8,11 @@
     <h:head></h:head>
     <h:body>
         <h:form >
-            <h1>Write a Review for #{ReviewsBean.movieForReview}</h1>
+            <h1>Write a Review for #{ReviewsBean.movie.movieName}</h1>
             <br></br>
             <h:inputTextarea rows="5" cols="50" value="#{ReviewsBean.review}"/>
             <br></br>
-            <h:commandButton value="Submit Review" action="#{ReviewsBean.saveReview()}" />
-                
+            <h:commandButton value="Submit Review" action="#{ReviewsBean.saveReview()}" onclick="window.alert('Thanks for your review!')"/>
         </h:form>
     </h:body>
 </html>

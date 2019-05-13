@@ -5,9 +5,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import EntitiesLayer.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.RequestScoped;
 
 
 /**
@@ -20,21 +18,20 @@ public class ReviewsBean implements Serializable {
     
     private List<Review> reviewsList; 
     private int movieForReview;
-    
     private String review;
+    private Movie movie;
+    
     public void setReview(String rev){this.review=rev;}
     public String getReview(){return review;}
     
+    public Movie getMovie(){return this.movie;}
     
     public ReviewsBean() {
         
     }
    
-    public List<Review> getReviewList() throws ClassNotFoundException, SQLException, Throwable {
-        //List<Ticket> myTickets = null;
+    public List<Review> getReviewList() throws SQLException {
         reviewsList = ServiceInit.reviewsServiece().searchReviewsbyMovie(movieForReview);
-        //TicketsService os = new TicketsService (new DBConnector(new Configuration()));
-        //yTickets = os.searchTickets(null, orderID, null);
         return reviewsList;
     }
     
@@ -43,6 +40,7 @@ public class ReviewsBean implements Serializable {
             //TODO: replace 1 with real user ID from Session
             System.out.println(review);
             ServiceInit.reviewsServiece().insertReview(review, movieForReview, 1);
+            this.clean();
             return "ThanksForReview";
         } catch (SQLException ex) {
             //Logger.getLogger(ScreeningsBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,15 +49,30 @@ public class ReviewsBean implements Serializable {
         return "Error";
     }
     
-    public String setMovieForReview (String movie){
+    public String setMovieForReview (String movie) throws SQLException{
         this.movieForReview = Integer.parseInt(movie);
-        return "WriteReview";
+        this.getMovieByID(movieForReview);
+        return "writeReview";
     }
+    
+    public String getMovieByID(int movieID) throws SQLException {
+        movie = ServiceInit.moviesService().searchMoviesbyID(movieID).get(0);
+        movieForReview = movieID;
+        this.getReviewList();
+        return "showReviews";
+    }
+    
     public int getMovieForReview (){
         return movieForReview;
     }
-    
-    
+
+    public void clean() {
+        this.movie=null;
+        this.review="";
+        this.reviewsList=null;
+
+    }
+
 }
 
 

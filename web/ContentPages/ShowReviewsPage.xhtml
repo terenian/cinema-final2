@@ -9,7 +9,7 @@
     <h:body></h:body>
         
     <ui:composition>
-        <h1>Review for Movie ${ReviewsBean.movieForReview}</h1>
+        <h1>Review for Movie ${ReviewsBean.movie.movieName}</h1>
         <h:dataTable value="#{ReviewsBean.reviewList}" var="review" border="2">
             <h:column>
                 <f:facet name="header">Review Date</f:facet>
@@ -26,5 +26,6 @@
             
         </h:dataTable>
     </ui:composition>
+    ${ReviewsBean.clean()}
 
 </html>

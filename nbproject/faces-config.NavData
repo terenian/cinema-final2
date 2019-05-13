@@ -3,24 +3,24 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="ContentPages/NewOrderChooseMoviePage.xhtml" x="150" y="600" zoom="true"/>
-        <Node id="NewOrderNavigation.xhtml" x="650" y="900" zoom="true"/>
-        <Node id="Templates/template.xhtml" x="900" y="750" zoom="true"/>
-        <Node id="ContentPages/NewOrderChooseSeatsPage.xhtml" x="150" y="300" zoom="true"/>
-        <Node id="ContentPages/NewOrderFull.xhtml" x="1400" y="450" zoom="true"/>
-        <Node id="MainMenu.xhtml" x="1150" y="300" zoom="true"/>
-        <Node id="ContentPages/NewOrderChooseScreeningPage.xhtml" x="900" y="600" zoom="true"/>
-        <Node id="ContentPages/NewOrderFinishPage.xhtml" x="900" y="150" zoom="true"/>
         <Node id="index.xhtml" x="1400" y="300" zoom="true"/>
         <Node id="Login.xhtml" x="1150" y="150" zoom="true"/>
         <Node id="ContentPages/MoviesPage.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="NewOrderNavigation.xhtml" x="650" y="900" zoom="true"/>
         <Node id="ContentPages/WriteReviewPage.xhtml" x="400" y="300" zoom="true"/>
         <Node id="ContentPages/NewOrderChooseHallPage.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="Templates/template.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="ContentPages/NewOrderChooseSeatsPage.xhtml" x="150" y="300" zoom="true"/>
         <Node id="ContentPages/MyResult.xhtml" x="650" y="450" zoom="true"/>
         <Node id="Templates/MainTemplate.xhtml" x="400" y="900" zoom="true"/>
         <Node id="ContentPages/ShowReviewPage.xhtml" x="400" y="1050" zoom="true"/>
-        <Node id="Top.xhtml" x="400" y="750" zoom="true"/>
         <Node id="ContentPages/LoginPage.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="Top.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="ContentPages/NewOrderFull.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="MainMenu.xhtml" x="1150" y="300" zoom="true"/>
         <Node id="ContentPages/NewOrderSummaryPage.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="ContentPages/NewOrderChooseScreeningPage.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="ContentPages/NewOrderFinishPage.xhtml" x="900" y="150" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

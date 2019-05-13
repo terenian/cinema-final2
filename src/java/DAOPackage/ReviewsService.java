@@ -27,7 +27,7 @@ public class ReviewsService {
     
     private final String REVIEW_INSERT = "insert into cinema.reviews (MovieID, ReviewDate, Review, UserID) values (?,?,?,?)";
     //Changed by Eran 9.4.19 private final String REVIEW_SEARCH = "select * from cinema.reviews where ReviewID like (?) and ReviewName like (?) and ReviewLength like (?)";
-    private final String REVIEW_SEARCH = "select * from cinema.reviews where MovieID like (?) and UserID like (?)";
+    private final String REVIEW_SEARCH = "select * from cinema.reviews where MovieID like (?) and UserID like (?) ORDER BY ReviewDate DESC, ReviewID DESC";
     
     //private final Logger logger = ServiceManager.getLogger();
     

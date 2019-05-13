@@ -68,15 +68,13 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>/Movies.xhtml</from-view-id>
+        <from-view-id>/User/Movies.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>writeReview</from-outcome>
             <to-view-id>/User/WriteReview.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
-    
-    <navigation-rule>
-        <from-view-id>/Movies.xhtml</from-view-id>
+   
+        <from-view-id>/User/Movies.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>showReviews</from-outcome>
             <to-view-id>/User/ShowReviews.xhtml</to-view-id>
@@ -87,7 +85,7 @@
         <from-view-id>/User/WriteReview.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>ThanksForReview</from-outcome>
-            <to-view-id>/User/ShowReview.xhtml</to-view-id>
+            <to-view-id>/User/ShowReviews.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

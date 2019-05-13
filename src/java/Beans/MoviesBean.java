@@ -16,13 +16,13 @@ import java.util.List;
 @SessionScoped
 public class MoviesBean implements Serializable {
     
-    private List<Movie> movieList; 
-    private int movieForReview;
+    private List<Movie> movieList;
+        
     public MoviesBean() {
         
     }
    
-    public List<Movie> getMovieList() throws ClassNotFoundException, SQLException, Throwable {
+    public List<Movie> getMovieList() throws  SQLException {
         //List<Ticket> myTickets = null;
         movieList = ServiceInit.moviesService().searchMoviesbyName("");
         //TicketsService os = new TicketsService (new DBConnector(new Configuration()));
@@ -30,9 +30,8 @@ public class MoviesBean implements Serializable {
         return movieList;
     }
     
-    public void setMovieForReview (int movie){
-        this.movieForReview = movie;
-    }
+     
+
     
     
 }

@@ -27,7 +27,7 @@
             </h:column>
             <h:column>
                 <h:form >
-                    <h:commandButton value="Show Reviews" action="ShowReview.xhtml" />
+                    <h:commandButton value="Show Reviews" action="#{ReviewsBean.getMovieByID(movie.movieId)}" />
                 </h:form>
             </h:column>
         </h:dataTable>
