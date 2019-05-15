@@ -31,10 +31,6 @@ public class ServiceInit {
     public static ReviewsService rs;
     static Logger logger;
 
-    static Object reviewsService() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     /*
     service initiation
     */
@@ -55,7 +51,7 @@ public class ServiceInit {
             this.status = this.getClass().toString() + ": Initialization failed.";
         }
         System.out.println(status);
-        //startLogger ();
+        startLogger ();
     }
     
     public void startLogger () {
@@ -76,6 +72,13 @@ public class ServiceInit {
                         fhf.close();
                     }));
             
+            /** V2
+                 * Runtime.getRuntime().addShutdownHook(
+                 * new Thread( () -> {
+                 * logger.removeHandler(fhf);
+                 * fhf.close();
+                 * }));
+                 */
             logger.info(status);
             fh.close();
         } catch (Throwable ex) {
@@ -83,7 +86,7 @@ public class ServiceInit {
         }
     }
     
-    public static synchronized Logger getLogger(){
+    public static Logger getLogger(){
         return logger;
     }
     
@@ -124,4 +127,15 @@ public class ServiceInit {
         return rs;
     }
     
+    public static synchronized void close(){
+        try {
+            dbcon.closeConnection();
+        } catch (Exception e) {
+        }
+        try {
+            fh.close();
+        } catch (Exception e) {
+        }
+        
+    }
 }

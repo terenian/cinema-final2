@@ -17,14 +17,22 @@
         <h:selectOneMenu id="chooseScreening" value="#{ScreeningsBean.screeningID}" >
             <f:selectItem itemValue="chooseHere" itemLabel="== Choose Here =="/> 
             <c:forEach items="#{ScreeningsBean.screeningsListByMovieID}" var="screening"> 
-                <f:selectItem itemValue="${screening.screeningID}" itemLabel="DATE: ${screening.date}  HOUR: ${screening.time}  PRICE: ${screening.price}"/>
+                <f:selectItem itemValue="${screening.screeningID}" itemLabel="DATE: ${screening.date}  HOUR: ${screening.time}  PRICE: ${screening.price}" itemDescription="A"/>
             </c:forEach>
-        </h:selectOneMenu>
-            
-        <h:commandButton id="submitHall" value="Submit Hall" action="#{ScreeningsBean.checkMarkedSeats()}" />
-            
-            
+        </h:selectOneMenu>         
+        <h:commandButton id="submitHall" value="Submit Hall" action="#{ScreeningsBean.checkMarkedSeats()}" />          
+        <h:outputLabel id="msg" value="" />
     </h:form>
-            
         
+    <script>
+        /*add this to hselectonmenue: onchange="checkIfMarkedSeats(this)"
+         * to try and notify the user that this is un-marked seats show
+         
+        
+        function checkIfMarkedSeats(selected){
+            var val = selected.value;
+            window.alert("val is: " + val);  
+        }
+        */
+    </script>    
 </html>

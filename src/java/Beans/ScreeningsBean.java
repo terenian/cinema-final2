@@ -3,6 +3,7 @@ package Beans;
 import javax.inject.Named;
 import java.io.Serializable;
 import EntitiesLayer.*;
+import GeneralWeb.SessionUtils;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,11 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
-import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -34,7 +31,6 @@ public class ScreeningsBean implements Serializable {
      */
     
     public ScreeningsBean() {
-        
     }
     
     private Hall hall;
@@ -49,6 +45,7 @@ public class ScreeningsBean implements Serializable {
     private List<Movie> moviesList;
     private ArrayList<ArrayList<String>> seatsForOrder ;
     private String chosenSeats;
+    private Logger logger = ServiceInit.getLogger();
     
     
     public Hall getHall() {return hall;}
@@ -100,6 +97,7 @@ public class ScreeningsBean implements Serializable {
     
     //Control Navigation: check if seats are chosen
     public String checkChosenSeats (){
+        logger.log(Level.INFO, this.getClass() + " chosen seats are: " + seatsForOrder.toString());
         System.out.println(" = = = seatsForOrder are:" + seatsForOrder);
         if (seatsForOrder == null){
             return ("showSeats");
@@ -129,7 +127,8 @@ public class ScreeningsBean implements Serializable {
                 seat = new  ArrayList<String>();
             }
             numberOfDesiredTickets=seatsForOrder.size();
-            System.out.println ("seatsForOrde is: " + seatsForOrder)   ;
+            logger.info(this.getClass() + " seats for order are: " + seatsForOrder);
+            //System.out.println ("seatsForOrde is: " + seatsForOrder)   ;
         }
         else {
             seatsForOrder = null;
@@ -154,10 +153,12 @@ public class ScreeningsBean implements Serializable {
         moviesList = new ArrayList<>();
         for (int i=0; i<screeningsListByHallID.size(); i++){
             movID=screeningsListByHallID.get(i).getMovieID();
-            System.out.println("movID is: ========= :" + movID);
+            //System.out.println(" movID is: ========= :" + movID);
+            logger.info(this.getClass() + "movID is: ========= :" + movID);
             if (moviesList.isEmpty()) {
                 moviesList.add(ServiceInit.moviesService().gethMoviesbyID(movID));
-                System.out.println("==Found Movie Is  ========= :" + moviesList.get(0).toString());
+                logger.info(this.getClass() + " ==Found Movie Is  ========= :" + moviesList.get(0).toString());
+                //System.out.println("==Found Movie Is  ========= :" + moviesList.get(0).toString());
             }
             else{
                 for (int j=0; j<moviesList.size(); j++){
@@ -165,7 +166,8 @@ public class ScreeningsBean implements Serializable {
                         continue;
                     }
                     moviesList.add(ServiceInit.moviesService().gethMoviesbyID(movID));
-                    System.out.println("movie ADDED is: ========= :" + movID);
+                    logger.info(this.getClass() + "movie ADDED is: ========= :" + movID);
+                    //System.out.println("movie ADDED is: ========= :" + movID);
                 }
             }
         }
@@ -173,9 +175,7 @@ public class ScreeningsBean implements Serializable {
     
     public void saveOrder(){
         try {
-            //TODO: replace 1 with real user ID from Session
-            //TODO: HOW TO MAKE IT ALL IN ONE PICE?
-            newOrderID = ServiceInit.orderService().insertOrder(1, orderPrice);
+            newOrderID = ServiceInit.orderService().insertOrder(Integer.parseInt(SessionUtils.getUserId()), orderPrice);
             if(seatsForOrder != null){ //insert MARKED tickets
                 for (ArrayList<String> seat : seatsForOrder) {
                     ServiceInit.ticketsService().insertOrder(newOrderID, screeningID, Integer.parseInt(seat.get(0)), Integer.parseInt(seat.get(1)));
@@ -186,8 +186,8 @@ public class ScreeningsBean implements Serializable {
                 }
             }
         } catch (SQLException ex) {
-            //Logger.getLogger(ScreeningsBean.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("ORDER INSERTION PROCCESS FAILED");
+            logger.severe(this.getClass() + " ORDER INSERTION PROCCESS FAILED" + moviesList.get(0).toString());
+            //System.out.println("ORDER INSERTION PROCCESS FAILED");
         }
     }
     
@@ -210,6 +210,7 @@ public class ScreeningsBean implements Serializable {
     public int getHallID() {return hallID;}
     public void setHallID (int hallToSet) throws SQLException{
         cleanOrder();
+        logger.info(this.getClass() + " hall is: ========= :" + hallToSet);
         System.out.println("hall is: ========= :" + hallToSet);
         this.hallID = hallToSet;
         this.hall= ServiceInit.hallsService().searchHalls(hallID, "").get(0);

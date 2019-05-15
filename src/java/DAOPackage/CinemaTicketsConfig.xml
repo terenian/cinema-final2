@@ -4,5 +4,5 @@
 	<UserName>root</UserName>
 	<Password>12345</Password>
 	<DbName>cinema</DbName>
-	<LogPath>C:/Eran/NetBeans/Cinema/CinemaLogFile.log</LogPath>
+	<LogPath>C:\CinemaLog\CinemaLogFile.log</LogPath>
 </Config>

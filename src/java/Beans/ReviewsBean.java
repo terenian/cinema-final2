@@ -4,6 +4,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import EntitiesLayer.*;
+import GeneralWeb.SessionUtils;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class ReviewsBean implements Serializable {
         try {
             //TODO: replace 1 with real user ID from Session
             System.out.println(review);
-            ServiceInit.reviewsServiece().insertReview(review, movieForReview, 1);
+            ServiceInit.reviewsServiece().insertReview(review, movieForReview, Integer.parseInt(SessionUtils.getUserId()));
             this.clean();
             return "ThanksForReview";
         } catch (SQLException ex) {
