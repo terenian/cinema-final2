@@ -25,8 +25,8 @@ public class TicketsService {
     
     private final String TICKET_INSERT = "insert into cinema.tickets (OrderID, ScreeningID, RowNum, ColumnNum) values (?,?,?,?)";
     private final String TICKET_SEARCH = "select * from cinema.tickets where OrderID like (?) and ScreeningID like (?) and RowNum like (?) and ColumnNum like (?) ORDER BY RowNum, ColumnNum";
-    //===ANY RESON TO UPDATE TICKET?
-    //private final String TICKET_UPDATE = "update cinema.tickets set Price=COALESCE((?),price) where OrderID like (?)";
+    //Update is used only for markin a ticket as Used
+    private final String TICKET_UPDATE = "update cinema.tickets set Used= 1 where OrderID like (?) and RowNum like (?) and ColumnNum like (?)";
     //private final Logger logger = ServiceManager.getLogger();
     
     
@@ -110,35 +110,29 @@ public class TicketsService {
         return list;
     }
     
-    /*
-    public boolean updateTicket(Integer order, Integer screening)
+
+    public boolean updateTicket(Integer order, Integer row, Integer col)
             throws SQLException{
         //logger.info("update Order("+id+","+name+","+description+","+parentId+")");
         if (order == null) {
             return false;
         }
         Connection c = dbConnection.getConnection();
-        PreparedStatement orderUpdateSTM = null;
-        orderUpdateSTM = c.prepareStatement(ORDER_UPDATE);
-                
-        System.out.println("orderUpdateSTM IS: " + orderUpdateSTM.toString());
-        if (screening == null) {
-            orderUpdateSTM.setNull(1, java.sql.Types.INTEGER);
-        }
-        else
-        {
-            orderUpdateSTM.setInt(1,screening);
-        }
-        orderUpdateSTM.setInt(2, order);
+        PreparedStatement ticketUpdateSTM = null;
+        ticketUpdateSTM = c.prepareStatement(TICKET_UPDATE);
         
-        System.out.println("orderUpdateSTM IS: " + orderUpdateSTM.toString());
+        ticketUpdateSTM.setInt(1, order);
+        ticketUpdateSTM.setInt(2, row);
+        ticketUpdateSTM.setInt(3, col);
+                      
+        System.out.println("ticketUpdateSTM IS: " + ticketUpdateSTM.toString());
         
-        Integer i = orderUpdateSTM.executeUpdate();
+        Integer i = ticketUpdateSTM.executeUpdate();
         if (i>0) {
             return true;
         }
         return false;
     }
-    */
+  
     
 }

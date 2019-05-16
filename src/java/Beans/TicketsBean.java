@@ -19,18 +19,18 @@ public class TicketsBean implements Serializable {
     private ServiceInit service;
     private List<Ticket> myTickets;
     
-    private int orderID;        
-    public int getOrderID() {return orderID;}        
+    private int orderID;
+    public int getOrderID() {return orderID;}
     public void setOrderID(int orderID) {this.orderID = orderID;}
-        
+    
     /**
      * Creates a new instance of UserTicketsBean
      */
-       
+    
     public TicketsBean() {
         
     }
-   
+    
     public List<Ticket> getMyTickets() throws ClassNotFoundException, SQLException, Throwable {
         //List<Ticket> myTickets = null;
         myTickets = ServiceInit.ticketsService().searchTicket(orderID, null, null, null);
@@ -43,6 +43,19 @@ public class TicketsBean implements Serializable {
         myTickets = ServiceInit.ticketsService().searchTicket(null, screeningID, null, null);
         System.out.println("==Taken Tickets are: " + myTickets);
         return myTickets;
+    }
+    
+    public boolean markTicketsAsUsed( int order, int[][] tickets)  {
+        boolean marked = false;
+        try {
+            for (int i=0; i< tickets.length; i++){
+                ServiceInit.ticketsService().updateTicket(order, tickets[i][0], tickets[i][1]);
+            }
+            return true;
+        } catch ( SQLException e){
+            //logger.info (e + "marking ticketsFailed)
+            return false;
+        }
     }
     
 }

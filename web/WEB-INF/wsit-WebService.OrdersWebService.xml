@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="OrdersWebService" targetNamespace="http://WebService/" xmlns:tns="http://WebService/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
+ >
+    <message name="validateUser"/>
+    <message name="validateUserResponse"/>
+    <message name="getTickets"/>
+    <message name="getTicketsResponse"/>
+    <message name="useTickets"/>
+    <message name="useTicketsResponse"/>
+    <portType name="OrdersWebService">
+        <operation name="validateUser">
+            <input message="tns:validateUser"/>
+            <output message="tns:validateUserResponse"/>
+        </operation>
+        <operation name="getTickets">
+            <input message="tns:getTickets"/>
+            <output message="tns:getTicketsResponse"/>
+        </operation>
+        <operation name="useTickets">
+            <input message="tns:useTickets"/>
+            <output message="tns:useTicketsResponse"/>
+        </operation>
+    </portType>
+    <binding name="OrdersWebServicePortBinding" type="tns:OrdersWebService">
+        <operation name="validateUser">
+            <input></input>
+            <output></output>
+        </operation>
+        <operation name="getTickets">
+            <input></input>
+            <output></output>
+        </operation>
+        <operation name="useTickets">
+            <input></input>
+            <output></output>
+        </operation>
+    </binding>
+    <service name="OrdersWebService">
+        <port name="OrdersWebServicePort" binding="tns:OrdersWebServicePortBinding"/>
+    </service>
+</definitions>
