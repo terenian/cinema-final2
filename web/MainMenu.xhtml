@@ -15,16 +15,32 @@
                     <h:outputText value="Welcome Page"></h:outputText>  
                     </h:commandLink>  
                     <br></br>
-                    <h:commandLink id="movies" action="/User/Movies.xhtml" rendered="#{not empty role}">  
+                    <h:commandLink id="movies" action="/User/Movies" rendered="#{not empty role}">  
                     <h:outputText value="Movies Page"></h:outputText>  
                     </h:commandLink>
                     <br></br>
-                    <h:commandLink id="neworder" action="/User/NewOrder.xhtml" rendered="#{not empty role}">  
-                    <h:outputText value="New Order"></h:outputText>  
+                    <h:commandLink id="neworder" action="/User/NewOrder" rendered="#{not empty role}">  
+                    <h:outputText value="Order Movie Ticket"></h:outputText>  
                     </h:commandLink>
                     <br></br>
-                    <h:commandLink id="admin" action="/Admin/Admin" rendered="#{(not empty role) and (role eq 'Admin')}">  
-                    <h:outputText value="Admin Page"></h:outputText>  
+                    <h:commandLink id="myorders" action="/User/MyOrders" rendered="#{not empty role}">  
+                    <h:outputText value="My Orders"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="useradmin" action="/Admin/UserAdmin" rendered="#{(not empty role) and (role eq 'Admin')}">  
+                    <h:outputText value="User Admin"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="movieadmin" action="/Admin/MovieAdmin" rendered="#{(not empty role) and (role eq 'Admin')}">  
+                    <h:outputText value="Movie Admin"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="halladmin" action="/Admin/HallAdmin" rendered="#{(not empty role) and (role eq 'Admin')}">  
+                    <h:outputText value="Hall admin"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="screeningadmin" action="/Admin/ScreeningAdmin" rendered="#{(not empty role) and (role eq 'Admin')}">  
+                    <h:outputText value="Screening Admin"></h:outputText>  
                     </h:commandLink>
                     <br></br>
                     <h:commandLink id="registration" action="/Registration" rendered="#{empty role}">  

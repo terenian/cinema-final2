@@ -53,11 +53,18 @@ public class SessionUtils {
                 else
                     return false;
         }
-	public static String getUserId() {
-		HttpSession session = getSession();
+	public static int getUserId() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
 		if (session != null)
-			return (String) session.getAttribute("userid");
+			return ((Integer)session.getAttribute("userid")).intValue();
 		else
-			return null;
+			return 0;
+	}
+        public static void logout() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+		if (session != null)
+                        session.invalidate();
 	}
 }

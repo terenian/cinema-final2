@@ -15,6 +15,9 @@ public class Movie {
     private Integer movieLength;
 
     
+    public Movie(){
+
+    }
     public Movie(Integer id, String name, Integer length){
         this.movieID = id;
         this.movieName = name;
@@ -31,6 +34,14 @@ public class Movie {
     
     public Integer getMovieLength() {
         return movieLength;
+    }
+    
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
+
+    public void setMovieLength(Integer movieLength) {
+        this.movieLength = movieLength;
     }
     
   

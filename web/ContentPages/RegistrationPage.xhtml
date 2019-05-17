@@ -76,7 +76,7 @@
                         <td>
                             <h:inputText  id="email" value="#{registrationBean.user.email}"
                                 required="true" requiredMessage="Please enter your email id" >
-                                <f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+" />
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </h:inputText>
                         </td>
                         <td><h:message for="email" style="color:red" /></td>

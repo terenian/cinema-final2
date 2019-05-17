@@ -36,7 +36,7 @@ public class OrdersService {
     /*
     * Inserts a new order
     */
-    public Integer insertOrder(Integer user, Integer price)
+    public Integer insertOrder(int userID, Integer price)
             throws SQLException{
         
         //logger.info("insert Order("+orderID+","+userID+","+price+")");
@@ -44,7 +44,7 @@ public class OrdersService {
         PreparedStatement orderInsertSTM = null;
         orderInsertSTM = c.prepareStatement(ORDER_INSERT, Statement.RETURN_GENERATED_KEYS);
         
-        orderInsertSTM.setInt(1, user);
+        orderInsertSTM.setInt(1, userID);
         orderInsertSTM.setInt(2, price);
         int result = orderInsertSTM.executeUpdate();
         if (result == 0) {

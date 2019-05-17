@@ -56,7 +56,7 @@ public class UsersService {
         Connection c = dbConnection.getConnection();
         PreparedStatement valUser = null;
         valUser = c.prepareStatement("INSERT INTO `cinema`.`users` (`RoleName`, `UserName`, `Password`, `FirstName`, `LastName`, `PhoneNumber`, `Email`)" +
-                                     "VALUES ((?),(?),(?),(?),(?),(?),(?)); = (?)");
+                                     "VALUES ((?),(?),(?),(?),(?),(?),(?))");
         valUser.setString(1, newUser.getUserRoleName());
         valUser.setString(2, newUser.getUserName());
         valUser.setString(3, newUser.getPassword());
@@ -69,7 +69,7 @@ public class UsersService {
         return(valUser.executeUpdate() > 0 );
  
     }
-    public String validateUser (String username,String password)
+    public User validateUser (String username,String password)
             throws SQLException{
         
         Connection c = dbConnection.getConnection();
@@ -78,25 +78,19 @@ public class UsersService {
         valUser.setString(1, username);
         
         ResultSet rs = valUser.executeQuery();
-        if(!rs.first())
+        if(!rs.first() || !rs.getString(1).equals(password))
         {
-            return "Wrong User";//wrong username
-        }
-        else if (!rs.getString(1).equals(password))
-        {
-            return "Wrong Password";//wrong password
+            return null;
         }
         else
         {
-            valUser = c.prepareStatement("select RoleName from cinema.roles,cinema.users where username = (?) and "
-                    + "cinema.roles.RoleID = cinema.users.RoleID ");
+            valUser = c.prepareStatement("select UserID,UserName,RoleName from cinema.users where username = (?)");
             valUser.setString(1,username);
             rs = valUser.executeQuery();
             rs.next();
-            if(rs.getString(1).equals("Admin"))
-                return Role.ROLE_ADMIN;//admin user
-            else
-                return Role.ROLE_USER;//normal user
+            User validUser =  new User(rs.getInt(1),"","","",rs.getString(2),"","");
+            validUser.setUserRoleName(rs.getString(3));
+            return validUser;
         }   
     }
     

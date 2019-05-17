@@ -40,7 +40,7 @@ public class ReviewsBean implements Serializable {
         try {
             //TODO: replace 1 with real user ID from Session
             System.out.println(review);
-            ServiceInit.reviewsServiece().insertReview(review, movieForReview, Integer.parseInt(SessionUtils.getUserId()));
+            ServiceInit.reviewsServiece().insertReview(review, movieForReview,SessionUtils.getUserId());
             this.clean();
             return "ThanksForReview";
         } catch (SQLException ex) {

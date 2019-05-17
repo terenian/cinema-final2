@@ -172,4 +172,34 @@ public class MoviesService {
         return false;
     }
     
+    public boolean deleteMovie(int movieID) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement movieSearchSTM = null;
+        movieSearchSTM = c.prepareStatement("select cinema.movies.MovieID from cinema.movies,cinema.screenings where cinema.movies.MovieID = (?)"
+                + "and cinema.movies.MovieID = cinema.screenings.MovieID");
+        movieSearchSTM.setInt(1, movieID);
+        
+        ResultSet rs = movieSearchSTM.executeQuery();
+        if(rs.first())
+        {
+            return false;
+        }
+        else
+        {
+            movieSearchSTM = c.prepareStatement("delete from cinema.movies where MovieID = (?)");
+            movieSearchSTM.setInt(1, movieID);
+            return (movieSearchSTM.executeUpdate()> 0);
+        }
+    }
+    public boolean addMovie(String movieName,int movieLength) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement movieSearchSTM = null;
+        movieSearchSTM = c.prepareStatement("INSERT INTO cinema.Movies (MovieName, MovieLength) VALUES ((?),(?))");
+        movieSearchSTM.setString(1, movieName);
+        movieSearchSTM.setInt(2, movieLength);
+
+        return (movieSearchSTM.executeUpdate()> 0);
+    }
 }

@@ -41,14 +41,15 @@ public class LoginBean implements Serializable {
 
 	//validate login
 	public String validateUsernamePassword() throws SQLException {
-		String checkUser = ServiceInit.UsersService().validateUser(user.getUserName(), user.getPassword());
-                if(checkUser.equals(Role.ROLE_ADMIN) || checkUser.equals(Role.ROLE_USER))
+		User checkedUser = ServiceInit.UsersService().validateUser(user.getUserName(), user.getPassword());
+                if(checkedUser != null)
                 {
                     HttpSession session = SessionUtils.getSession();
                     
                     //this.user.setUserRoleID(checkUser);
-                    session.setAttribute("username",this.user.getUserName() );
-                    session.setAttribute("role",checkUser);
+                    session.setAttribute("username",checkedUser.getUserName() );
+                    session.setAttribute("userid",checkedUser.getUserID());
+                    session.setAttribute("role",checkedUser.getUserRoleName());
                     return "Connected";
                 }
                 else
@@ -64,8 +65,7 @@ public class LoginBean implements Serializable {
 
 	//logout event, invalidate session
 	public String logout() {
-		HttpSession session = SessionUtils.getSession();
-		session.invalidate();
+		SessionUtils.logout();
 		return "logout";
 	}
 

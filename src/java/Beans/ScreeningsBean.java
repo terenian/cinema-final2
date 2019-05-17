@@ -3,7 +3,7 @@ package Beans;
 import javax.inject.Named;
 import java.io.Serializable;
 import EntitiesLayer.*;
-import GeneralWeb.SessionUtils;
+import GeneralWeb.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,7 +141,7 @@ public class ScreeningsBean implements Serializable {
         screeningsListByMovieID = ServiceInit.screeningsService().searchScreenings(null,hallID, movieID, null, null,null, null);
         return screeningsListByMovieID;
     }
-    
+
     public List<Screening> getScreeningsListByHallID() throws SQLException {
         screeningsListByHallID = ServiceInit.screeningsService().searchScreenings(null,hallID, null, null, null,null, null);
         this.createMoviesListfromScreeningList();
@@ -175,7 +175,7 @@ public class ScreeningsBean implements Serializable {
     
     public void saveOrder(){
         try {
-            newOrderID = ServiceInit.orderService().insertOrder(Integer.parseInt(SessionUtils.getUserId()), orderPrice);
+            newOrderID = ServiceInit.orderService().insertOrder(SessionUtils.getUserId(), orderPrice);
             if(seatsForOrder != null){ //insert MARKED tickets
                 for (ArrayList<String> seat : seatsForOrder) {
                     ServiceInit.ticketsService().insertOrder(newOrderID, screeningID, Integer.parseInt(seat.get(0)), Integer.parseInt(seat.get(1)));
@@ -218,7 +218,8 @@ public class ScreeningsBean implements Serializable {
         //this.createMoviesListfromScreeningList();
     }
     
-    public void cleanOrder(){
+    public void cleanOrder()
+    {
         this.moviesList = null;
         this.screeningsListByHallID = null;
         this.screeningsListByMovieID = null;
