@@ -32,6 +32,16 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+    public User(int userID,String roleName, String firstName, String lastName, String password, String userName, String email, String phoneNumber) {
+        this.userID = userID;
+        this.userRoleName = roleName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.userName = userName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
     
     
     public int getUserID() {

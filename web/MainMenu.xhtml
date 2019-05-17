@@ -50,7 +50,7 @@
                     <br></br>
                     <h:commandButton id="login" value="Login" action="/Login" rendered="#{empty role}"></h:commandButton>
                     <br></br>
-                    <h:commandButton id="logout" value="Logout" action="#{loginBean.logout}" rendered="#{not empty role}"></h:commandButton>
+                    <h:commandButton id="logout" value="Logout" action="#{userBean.logout}" rendered="#{not empty role}"></h:commandButton>
                 </h:form>
 	</ui:composition>
 </h:body>

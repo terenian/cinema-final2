@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import EntitiesLayer.Movie;
 import EntitiesLayer.Role;
 import EntitiesLayer.User;
+import java.util.List;
 
 
 
@@ -68,6 +69,28 @@ public class UsersService {
         
         return(valUser.executeUpdate() > 0 );
  
+    }
+    public boolean updateRole(int userID,String newRole) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement prepStat = c.prepareStatement("update users set RoleName = (?) where UserID = (?)");
+        prepStat.setString(1, newRole);
+        prepStat.setInt(2, userID);
+        return (prepStat.executeUpdate()>0);
+        
+    }
+    public List<User> getAllUsers() throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement prepStat = c.prepareStatement("select * from users");
+        
+        ResultSet rs = prepStat.executeQuery();
+        List<User> list = new ArrayList<User>();
+        while(rs.next()){
+            User tempUser = new User(rs.getInt(1),rs.getString(2),rs.getString(5),rs.getString(6),"",rs.getString(3),rs.getString(8),rs.getString(7));
+            list.add(tempUser);
+        }
+        return list;
     }
     public User validateUser (String username,String password)
             throws SQLException{

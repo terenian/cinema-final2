@@ -10,6 +10,7 @@ import GeneralWeb.SessionUtils;
 import EntitiesLayer.User;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -20,16 +21,18 @@ import javax.servlet.http.HttpSession;
  *
  * @author eran.z
  */
-@Named(value = "loginBean")
+@Named(value = "userBean")
 @SessionScoped
-public class LoginBean implements Serializable {
+public class UserBean implements Serializable {
 
     	private static final long serialVersionUID = 1094801825228386363L;
 	
+        private List<User> userList;
 	private User user;  
         private String msg;
+        
 
-        public LoginBean() {
+        public UserBean() {
             this.user = new User();
         }
         public User getUser() {
@@ -38,7 +41,20 @@ public class LoginBean implements Serializable {
 	public String getMsg() {
 		return msg;
 	}
-
+        
+        public List<User> getUserList() throws  SQLException 
+        {
+            userList = ServiceInit.UsersService().getAllUsers();
+            return userList;
+        }
+        public String changeRole(int userID,String roleName) throws SQLException
+        {
+            if (roleName.equals(Role.ROLE_USER))
+               ServiceInit.UsersService().updateRole(userID,Role.ROLE_ADMIN);
+            else
+                ServiceInit.UsersService().updateRole(userID,Role.ROLE_USER);
+            return "/Admin/UserAdmin";
+        }
 	//validate login
 	public String validateUsernamePassword() throws SQLException {
 		User checkedUser = ServiceInit.UsersService().validateUser(user.getUserName(), user.getPassword());
