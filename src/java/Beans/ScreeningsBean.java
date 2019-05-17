@@ -182,7 +182,7 @@ public class ScreeningsBean implements Serializable {
                 }
             } else { //insert UNMARKED tickets
                 for (int i=0; i<numberOfDesiredTickets; i++){
-                     ServiceInit.ticketsService().insertOrder(newOrderID, screeningID, 0, 0);
+                     ServiceInit.ticketsService().insertOrder(newOrderID, screeningID, -1, -1);
                 }
             }
         } catch (SQLException ex) {

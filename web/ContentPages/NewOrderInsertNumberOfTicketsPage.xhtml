@@ -15,7 +15,6 @@
         <h:inputText value="#{ScreeningsBean.numberOfDesiredTickets}" size="2" maxlength="3" required="true" requiredMessage="Number of Tickets is mandatory."
                      validator="#{ScreeningsBean.validateFreeTickets}"/>
         <h:commandButton id="saveTickets" value="Save Tickets" action="NewOrderSummary">
-            <f:actionListener binding="#{ScreeningsBean.saveOrder()}" />
         </h:commandButton>
     </h:form>
 </html>

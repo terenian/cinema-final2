@@ -1,9 +1,9 @@
 package WebService;
 
 import Beans.ServiceInit;
-import Beans.TicketsBean;
 import EntitiesLayer.Ticket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +25,8 @@ public class OrdersWebService {
     private int orderID;
     
     /*web service to check if user is valid*/
-    @WebMethod(operationName = "validateUser")
-    public boolean validateUser(@WebParam(name = "username") String user, @WebParam(name = "password") String pass){
+    @WebMethod(operationName = "remoteValidateUser")
+    public boolean remoteValidateUser(@WebParam(name = "username") String user, @WebParam(name = "password") String pass){
         this.username = user;
         this. password = pass;
         this.userLogged = false;
@@ -42,11 +42,13 @@ public class OrdersWebService {
     
     //webService to get the tikets in an order
     @WebMethod(operationName = "getTickets")
-    public List<Ticket> getTickets(@WebParam(name = "order") int order)  {
+    public ArrayList<Ticket> getTickets(@WebParam(name = "order") int order)  {
         if (order > 0 && userLogged){
             this.orderID = order;
             try {
-                return ServiceInit.ticketsService().searchTicket(orderID, null, null, null);
+                ArrayList<Ticket> l = ServiceInit.ticketsService().searchTicket(orderID, null, null, null);
+                System.out.println("server: sent tickets are: " + l.toString());
+                return l;
             } catch (SQLException ex) {
                 Logger.getLogger(OrdersWebService.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -56,9 +58,9 @@ public class OrdersWebService {
     
     //webService to mark tickets as used
     @WebMethod(operationName = "useTickets")
-    public boolean useTickets(@WebParam(name = "tickets") List<Ticket> tickets) {
+    public boolean useTickets(@WebParam(name = "tickets") ArrayList<Ticket> tickets) {
         System.out.println("server: in useTickets");
-        System.out.println("server: List is: " + tickets.toString());
+        System.out.println("server: Recived List is: " + tickets.toString());
         if(this.userLogged){
             for (Ticket t : tickets){
                 try {

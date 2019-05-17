@@ -20,8 +20,7 @@ public class Ticket implements Serializable{
     private Integer used;
 
     
-    public Ticket(){
-    }
+    public Ticket(){}
     /*
     public Ticket( Ticket t){
         this.orderID=t.orderID;

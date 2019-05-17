@@ -5,6 +5,9 @@
  */
 package WebService;
 
+import WebService_client.GetTicketsResponse;
+import WebService_client.OrdersWebService;
+import WebService_client.Ticket;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
@@ -25,7 +28,7 @@ import javax.xml.namespace.QName;
  */
 @Path("orderswebserviceport")
 public class OrdersWebServicePort {
-    private WebService_client.OrdersWebService port;
+    private OrdersWebService port;
 
     @Context
     private UriInfo context;
@@ -46,7 +49,7 @@ public class OrdersWebServicePort {
     @Produces("text/plain")
     @Consumes("application/xml")
     @Path("usetickets/")
-    public String postUseTickets(JAXBElement<List<WebService_client.Ticket>> tickets) {
+    public String postUseTickets(JAXBElement<List<Ticket>> tickets) {
         try {
             // Call Web Service Operation
             if (port != null) {
@@ -68,7 +71,7 @@ public class OrdersWebServicePort {
     @Produces("application/xml")
     @Consumes("text/plain")
     @Path("gettickets/")
-    public JAXBElement<WebService_client.GetTicketsResponse> getTickets(@QueryParam("order")
+    public JAXBElement<GetTicketsResponse> getTickets(@QueryParam("order")
             @DefaultValue("0") int order) {
         try {
             // Call Web Service Operation
@@ -116,7 +119,7 @@ public class OrdersWebServicePort {
     /**
      *
      */
-    private WebService_client.OrdersWebService getPort() {
+    private OrdersWebService getPort() {
         try {
             // Call Web Service Operation
             WebService_client.OrdersWebService_Service service = new WebService_client.OrdersWebService_Service();
