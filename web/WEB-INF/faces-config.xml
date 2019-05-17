@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    
+    <!-- Login Section navigation -->             
+    <navigation-rule>
+        <from-view-id>/Login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>Connected</from-outcome>
+            <to-view-id>/User/LoggedIn.xhtml</to-view-id>
+        </navigation-case>
+                
+        <navigation-case>
+            <from-outcome>Welcome</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-action>#{loginBean.logout}</from-action>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/LoggedOut.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <!-- End Of Login Section navigation --> 
+    
+    
+    <navigation-rule>
+        <from-view-id>/User/NewOrderChooseScreening.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>chooseSeats</from-outcome>
+            <to-view-id>/User/NewOrderChooseSeats.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>insertNumberOfTickets</from-outcome>
+            <to-view-id>/User/NewOrderInsertNumberOfTickets.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>  
+      
+    <navigation-rule>
+        <from-view-id>/User/NewOrderChooseSeats.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>showSeats</from-outcome>
+            <to-view-id>/User/NewOrderChooseSeats.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>showSummary</from-outcome>
+            <to-view-id>/User/NewOrderSummary.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/NewOrderNavigation.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>showSeats</from-outcome>
+            <to-view-id>/User/NewOrderChooseSeats.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>showSummary</from-outcome>
+            <to-view-id>/User/NewOrderSummary.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/User/Movies.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>writeReview</from-outcome>
+            <to-view-id>/User/WriteReview.xhtml</to-view-id>
+        </navigation-case>
+   
+        <from-view-id>/User/Movies.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>showReviews</from-outcome>
+            <to-view-id>/User/ShowReviews.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/User/WriteReview.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ThanksForReview</from-outcome>
+            <to-view-id>/User/ShowReviews.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

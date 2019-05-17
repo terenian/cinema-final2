@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head></h:head>
+<h:body>
+	<ui:composition>
+		<p>MainMenu</p>
+                <h:form>
+                    <h:commandLink id="index" action="/index">  
+                    <h:outputText value="Welcome Page"></h:outputText>  
+                    </h:commandLink>  
+                    <br></br>
+                    <h:commandLink id="movies" action="/User/Movies" rendered="#{not empty role}">  
+                    <h:outputText value="Movies Page"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="neworder" action="/User/NewOrder" rendered="#{not empty role}">  
+                    <h:outputText value="New Order"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="myorders" action="/User/MyOrders" rendered="#{not empty role}">  
+                    <h:outputText value="My Orders"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="useradmin" action="/Admin/UserAdmin" rendered="#{(not empty role) and (role eq 'Admin')}">  
+                    <h:outputText value="User Admin"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="movieadmin" action="/Admin/MovieAdmin" rendered="#{(not empty role) and (role eq 'Admin')}">  
+                    <h:outputText value="Movie Admin"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="halladmin" action="/Admin/HallAdmin" rendered="#{(not empty role) and (role eq 'Admin')}">  
+                    <h:outputText value="Hall admin"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="screeningadmin" action="/Admin/ScreeningAdmin" rendered="#{(not empty role) and (role eq 'Admin')}">  
+                    <h:outputText value="Screening Admin"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <h:commandLink id="registration" action="/Registration" rendered="#{empty role}">  
+                    <h:outputText value="Register"></h:outputText>  
+                    </h:commandLink>
+                    <br></br>
+                    <br></br>
+                    <h:commandButton id="login" value="Login" action="/Login" rendered="#{empty role}"></h:commandButton>
+                    <br></br>
+                    <h:commandButton id="logout" value="Logout" action="#{loginBean.logout}" rendered="#{not empty role}"></h:commandButton>
+                </h:form>
+	</ui:composition>
+</h:body>
+</html>

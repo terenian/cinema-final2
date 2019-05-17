@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head></h:head>
+    <h:body></h:body>
+        
+    <ui:composition>
+        <h1>Review for Movie ${ReviewsBean.movie.movieName}</h1>
+        <h:dataTable value="#{ReviewsBean.reviewList}" var="review" border="2">
+            <h:column>
+                <f:facet name="header">Review Date</f:facet>
+                    #{review.date}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Reviewed By User</f:facet>
+                    #{review.userID}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Review</f:facet>
+                    #{review.review}
+            </h:column>
+            
+        </h:dataTable>
+    </ui:composition>
+    ${ReviewsBean.clean()}
+
+</html>

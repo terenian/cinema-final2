@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+          
+    <h:head>
+    <title>Registration Page</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form id="registerForm">
+                <table>
+                    <tr>
+                        <td><h:outputText value="Enter User Name:" /></td>
+                        <td>
+                            <h:inputText id="uname" value="#{registrationBean.user.userName}"
+                                required="true" requiredMessage="Please enter your first name" >
+                                <f:validateLength minimum = "4" maximum = "12" />
+                            </h:inputText>
+                        </td>
+                        <td><h:message for="uname" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Enter Your First Name:" /></td>
+                        <td>
+                            <h:inputText id="fname" value="#{registrationBean.user.firstName}"
+                                required="true" requiredMessage="Please enter your first name" >
+                                <f:validateLength minimum = "2" maximum = "16" />
+                            </h:inputText>
+                        </td>
+                        <td><h:message for="fname" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Enter Your Last Name:" /></td>
+                        <td>
+                            <h:inputText id="lname" value="#{registrationBean.user.lastName}"
+                                required="true" requiredMessage="Please enter your last name" >
+                                <f:validateLength minimum = "2" maximum = "16" />
+                            </h:inputText>
+                        </td>
+                        <td><h:message for="lname" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Enter Phone number : (format is 05X-XXXXXXX)" /></td>
+                        <td>
+                            <h:inputText id="phone" value="#{registrationBean.user.phoneNumber}">
+                                <f:validateRegex pattern="(?:\d{3}-){1}\d{7}" />    (?:\d{3}-){2}\d{4}
+                            </h:inputText>
+                        </td>
+                        <td><h:message for="phone" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Enter Password :" /></td>
+                        <td>
+                            <h:inputSecret id="psw" value="#{registrationBean.user.password}"
+                                required="true" requiredMessage="Please enter your password" >
+                                <f:validateLength minimum = "8" maximum = "16" />
+                                <f:validator validatorId="passwordValidator" />
+                                <f:attribute name="pswconfirmation" value="#{confirmPassword}" />
+                            </h:inputSecret>
+                        </td>
+                        <td><h:message for="psw" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Verify Password :" /></td>
+                        <td>
+                            <h:inputSecret id="pswconfirmation" binding="#{confirmPassword}" required="true" requiredMessage="Please enter your password again for verification" >
+                            </h:inputSecret>
+                        </td>
+                        <td><h:message for="pswv" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Enter Your Email Address:" /></td>
+                        <td>
+                            <h:inputText  id="email" value="#{registrationBean.user.email}"
+                                required="true" requiredMessage="Please enter your email id" >
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
+                        </td>
+                        <td><h:message for="email" style="color:red" /></td>
+                    </tr>
+                    
+                    <tr>
+                        <td />
+                        <td><h:commandButton value="Register" action="#{registrationBean.addUser}" /></td>
+                    </tr>
+                </table>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>

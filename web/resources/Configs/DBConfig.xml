@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+	<DBServer>localhost:3306</DBServer>
+	<UserName>webadmin</UserName>
+	<Password>Aa123456</Password>
+	<DbName>cinema</DbName>
+	<LogPath>C:/Eran/NetBeans/Cinema/CinemaLogFile.log</LogPath>
+</Config>

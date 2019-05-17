@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+          
+    <h:body>
+        
+        <ui:composition>
+            <h:form>
+            <h2>User Login</h2>
+            <h:outputText value="Username" />
+            <h:inputText id="username" value="#{loginBean.user.userName}"></h:inputText>
+            <h:message for="username"></h:message>
+            <br></br><br></br>
+
+            <h:outputText value="Password" />
+            <h:inputSecret id="password" value="#{loginBean.user.password}"></h:inputSecret>
+            <h:message for="password"></h:message>
+            <br></br><br></br>
+
+            <h:commandButton id="loginsfdds" action="#{loginBean.validateUsernamePassword}"
+                    value="Login"></h:commandButton>
+            <br></br>
+            <h:message for="loginsfdds"></h:message>
+            </h:form>        
+        </ui:composition>
+            
+    </h:body>
+</html>

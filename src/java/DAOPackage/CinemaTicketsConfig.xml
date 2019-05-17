@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+	<DBServer>localhost:3306</DBServer>
+	<UserName>root</UserName>
+	<Password>12345</Password>
+	<DbName>cinema</DbName>
+	<LogPath>C:\CinemaLog\CinemaLogFile.log</LogPath>
+</Config>
