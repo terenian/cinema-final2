@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <h:head>    
+    </h:head>
+<h:body>
+	<ui:composition>
+        <h1>Screening List</h1>
+        <h:dataTable value="#{AdminScreeningsBean.screeningsList}" var="screening" border="2">
+            <h:column>
+                <f:facet name="header">Movie ID</f:facet>
+                    #{screening.movieID}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Hall ID</f:facet>
+                    #{screening.hallID} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">Price</f:facet>
+                    #{screening.price} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">Marked Tickets</f:facet>
+                    #{screening.markedTicket} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">Screening Date</f:facet>
+                    #{screening.date} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">Screening Time</f:facet>
+                    #{screening.time} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">Delete Screening</f:facet>
+                <h:form>
+                    <h:commandButton value="X" action="#{AdminScreeningsBean.deleteScreening(screening.screeningID)}"/> 
+                </h:form>
+            </h:column>
+        </h:dataTable>
+        <h:form id="newscreening">
+            <table>
+            <tr>
+                <td><h:outputText value="Choose Hall" /></td>
+                <td>
+                    <h:selectOneMenu id="choosehall" value="#{AdminScreeningsBean.newScreening.hallID}">
+   			<f:selectItems value="#{AdminScreeningsBean.hallsList}" var="hall"
+                                       itemLabel="#{hall.hallName}" itemValue="#{hall.hallID}" />
+                    </h:selectOneMenu>
+                </td>
+            </tr>
+            <tr>
+                <td><h:outputText value="Choose Movie" /></td>
+                <td>
+                    <h:selectOneMenu id="choosemovie" value="#{AdminScreeningsBean.newScreening.movieID}">
+                        <f:selectItem itemValue="1" itemLabel="Marked" />
+   			<f:selectItem itemValue="0" itemLabel="Not Marked" />
+                    </h:selectOneMenu>
+                </td>
+            </tr>
+            <tr>
+                <td><h:outputText value="Choose Marked or non-marked screening" /></td>
+                <td>
+                    <h:selectOneMenu id="choosemarked" value="#{AdminScreeningsBean.newScreening.markedTicket}">
+                        <f:selectItems value="#{AdminScreeningsBean.moviesList}" var="movie"
+                                       itemLabel="#{movie.movieName}" itemValue="#{movie.movieId}" />
+                    </h:selectOneMenu>
+                </td>
+            </tr>
+            <tr>
+                <td><h:outputText value="Enter Price" /></td>
+                <td>
+                    <h:inputText id="price" value="#{AdminScreeningsBean.newScreening.price}"
+                        required="true" requiredMessage="Please enter Price" >
+                        <f:validateLength minimum = "1" maximum = "2" />
+                    </h:inputText>
+                </td>
+                <td><h:message for="price" style="color:red" /></td>
+            </tr>
+            <tr>
+                <td />
+                <td><h:commandButton value="Add Screening" action="#{AdminScreeningsBean.addScreening()}"/></td>
+            </tr>
+            </table>
+        </h:form>
+        
+    </ui:composition>
+</h:body>
+</html>

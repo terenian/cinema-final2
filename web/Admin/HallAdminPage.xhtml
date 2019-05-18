@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <h:head>    
+    </h:head>
+<h:body>
+	<ui:composition>
+        <h1>Hall List</h1>
+        <h:dataTable value="#{HallsBean.hallsList}" var="hall" border="2">
+            <h:column>
+                <f:facet name="header">Hall Name</f:facet>
+                    #{hall.hallName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Hall Length</f:facet>
+                    #{hall.hallLength} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">Hall Width</f:facet>
+                    #{hall.hallWidth} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">Delete Hall</f:facet>
+                <h:form>
+                    <h:commandButton value="X" action="#{HallsBean.deleteHall(hall.hallID)}"/> 
+                </h:form>
+            </h:column>
+        </h:dataTable>
+        <h:form id="newhall">
+            <table>
+            <tr>
+                <td><h:outputText value="Enter New Hall Name:" /></td>
+                <td>
+                    <h:inputText id="hname" value="#{HallsBean.newHall.hallName}"
+                        required="true" requiredMessage="Please enter Hall name" >
+                        <f:validateLength minimum = "2" maximum = "16" />
+                    </h:inputText>
+                </td>
+                <td><h:message for="hname" style="color:red" /></td>
+            </tr>
+            <tr>
+                <td><h:outputText value="Enter New Hall Length" /></td>
+                <td>
+                    <h:inputText id="hlength" value="#{HallsBean.newHall.hallLength}"
+                        required="true" requiredMessage="Please enter hall length" >
+                        <f:validateLength minimum = "1" maximum = "2" />
+                    </h:inputText>
+                </td>
+                <td><h:message for="hlength" style="color:red" /></td>
+            </tr>
+                <tr>
+                <td><h:outputText value="Enter New Hall Length" /></td>
+                <td>
+                    <h:inputText id="hwidth" value="#{HallsBean.newHall.hallWidth}"
+                        required="true" requiredMessage="Please enter hall width" >
+                        <f:validateLength minimum = "1" maximum = "2" />
+                    </h:inputText>
+                </td>
+                <td><h:message for="hwidth" style="color:red" /></td>
+            </tr>
+            <tr>
+                <td />
+                <td><h:commandButton value="Add Hall" action="#{HallsBean.addHall}"/></td>
+            </tr>
+            </table>
+        </h:form>
+        
+    </ui:composition>
+</h:body>
+</html>

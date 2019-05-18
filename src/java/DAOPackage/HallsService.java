@@ -28,45 +28,52 @@ public class HallsService {
     //private final Logger logger = ServiceManager.getLogger();
     
     
-    public HallsService(DBConnector dbConnection){
+    public HallsService(DBConnector dbConnection)
+    {
         this.dbConnection = dbConnection;
     }
     
-    /*
-    * Inserts a new hall
-    */
-    public Integer insertHall(String name, Integer width,  Integer length)
-            throws SQLException{
-        
-        //logger.info("insert Hall("+hallID+","+userID+","+price+")");
+    
+    public boolean deleteHall(int hallID) throws SQLException
+    {
         Connection c = dbConnection.getConnection();
-        PreparedStatement hallInsertSTM = null;
-        hallInsertSTM = c.prepareStatement(HALL_INSERT);
+        PreparedStatement prepStat = c.prepareStatement("select HallID from screenings where HallID = (?)");
+        prepStat.setInt(1, hallID);
         
-        hallInsertSTM.setString(1, name);
-        hallInsertSTM.setInt(2, width);
-        hallInsertSTM.setInt(3, length);
-        int result = 0;
-        hallInsertSTM.executeUpdate();
-        if (result >= 0) {
-            System.out.println("SuccessInsert");
+        ResultSet rs = prepStat.executeQuery();
+        if(rs.first())
+        {
+            return false;
         }
-        else{
-            System.out.println("UnSeccessed insert!");
+        else
+        {
+            prepStat = c.prepareStatement("delete from halls where HallID = (?)");
+            prepStat.setInt(1, hallID);
+            return (prepStat.executeUpdate()> 0);
         }
-        return result;
+    }
+    public boolean addHall(String hallName, int hallWidth,  int hallLength) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement prepStat = null;
+        prepStat = c.prepareStatement("INSERT INTO halls (HallName, HallWidth, HallLength) VALUES ((?),(?),(?))");
+        prepStat.setString(1, hallName);
+        prepStat.setInt(2, hallWidth);
+        prepStat.setInt(3, hallLength);
+
+        return (prepStat.executeUpdate()> 0);
     }
     
     /*
     * Search for hall
     */
-    public ArrayList<Hall> searchHalls(Integer id, String name)
+    public ArrayList<Hall> searchHalls(int id, String name)
             throws SQLException{
         //logger.info("search Hall("+id+","+name+","+description+","+parentId+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement hallSearchSTM = null;
         hallSearchSTM = c.prepareStatement(HALL_SEARCH);
-        if (id==null) {
+        if (id==0) {
             hallSearchSTM.setString(1, "%");
         }
         else{

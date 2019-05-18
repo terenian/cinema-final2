@@ -17,6 +17,9 @@ public class Hall implements Serializable{
     private String hallName;
 
     
+    public Hall () {
+
+    }
     public Hall (Integer hID, String name, Integer hWidth, Integer hLength) {
         
         this.hallID = hID;
@@ -24,6 +27,18 @@ public class Hall implements Serializable{
         this.hallLength = hLength;
         this.hallName = name;
 
+    }
+
+    public void setHallWidth(Integer hallWidth) {
+        this.hallWidth = hallWidth;
+    }
+
+    public void setHallLength(Integer hallLength) {
+        this.hallLength = hallLength;
+    }
+
+    public void setHallName(String hallName) {
+        this.hallName = hallName;
     }
     
     public Integer getHallID() {

@@ -154,6 +154,35 @@ public class ScreeningsService {
         }
         return false;
     }
+    public boolean deleteScreening(int screeningID) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement prepStat = c.prepareStatement("select ScreeningID from tickets where screeningID = (?)");
+        prepStat.setInt(1, screeningID);
+        
+        ResultSet rs = prepStat.executeQuery();
+        if(rs.first())
+        {
+            return false;
+        }
+        else
+        {
+            prepStat = c.prepareStatement("delete from screenings where ScreeningID = (?)");
+            prepStat.setInt(1, screeningID);
+            return (prepStat.executeUpdate()> 0);
+        }
+    }
+    public boolean addScreening(String hallName, int hallWidth,  int hallLength) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement prepStat = null;
+        prepStat = c.prepareStatement("INSERT INTO screenings (HallName, HallWidth, HallLength) VALUES ((?),(?),(?))");
+        prepStat.setString(1, hallName);
+        prepStat.setInt(2, hallWidth);
+        prepStat.setInt(3, hallLength);
+
+        return (prepStat.executeUpdate()> 0);
+    }
        
 }
 
