@@ -2,6 +2,10 @@
 * This class represents a Screening item in the Screening Table.
 */
 package EntitiesLayer;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Eran Z. & Itzik W.
@@ -14,11 +18,44 @@ public class Screening {
     private Integer movieID;
     private Integer price;
     private Integer markedTicket;
-    private String date;
-    private String time;
+    private Date date;
+    private Date time;
+
+    public void setScreeningID(Integer screeningID) {
+        this.screeningID = screeningID;
+    }
+
+    public void setHallID(Integer hallID) {
+        this.hallID = hallID;
+    }
+
+    public void setMovieID(Integer movieID) {
+        this.movieID = movieID;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public void setMarkedTicket(Integer markedTicket) {
+        this.markedTicket = markedTicket;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
 
     
-    public Screening(Integer sID, Integer hID, Integer mID, Integer price, Integer mt, String date, String time){
+    public Screening()
+    {
+        
+    }
+    public Screening(Integer sID, Integer hID, Integer mID, Integer price, Integer mt, Date date, Date time){
         
         this.screeningID = sID;
         this.hallID = hID;
@@ -47,10 +84,10 @@ public class Screening {
     public Integer getMarkedTicket() {
         return markedTicket;
     }
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
     
@@ -63,6 +100,13 @@ public class Screening {
                  markedTicket + " , "+
                  date + " , "+
                 time + "]";
+    }
+    public String getScreeningTime()
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String screeningTime = sdf.format(date);
+        sdf.applyPattern("HH:mm:ss");
+        return screeningTime +" " + sdf.format(time);
     }
    
     

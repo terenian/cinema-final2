@@ -195,11 +195,23 @@ public class MoviesService {
     public boolean addMovie(String movieName,int movieLength) throws SQLException
     {
         Connection c = dbConnection.getConnection();
-        PreparedStatement movieSearchSTM = null;
-        movieSearchSTM = c.prepareStatement("INSERT INTO cinema.Movies (MovieName, MovieLength) VALUES ((?),(?))");
-        movieSearchSTM.setString(1, movieName);
-        movieSearchSTM.setInt(2, movieLength);
+        PreparedStatement prepStat = c.prepareStatement("INSERT INTO cinema.Movies (MovieName, MovieLength) VALUES ((?),(?))");
+        prepStat.setString(1, movieName);
+        prepStat.setInt(2, movieLength);
 
-        return (movieSearchSTM.executeUpdate()> 0);
+        return (prepStat.executeUpdate()> 0);
+    }
+    public String getMovieNameByScreeningID(int screeningID) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement prepStat = c.prepareStatement("select movies.MovieName from movies, screenings where movies.MovieID = screenings.MovieID "
+                + "and screenings.ScreeningID = (?)");
+        prepStat.setInt(1, screeningID);
+        
+        ResultSet rs = prepStat.executeQuery();
+        if(rs.first())
+            return rs.getString(1);
+        else
+            return "";
     }
 }

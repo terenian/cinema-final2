@@ -67,6 +67,13 @@ public class Ticket implements Serializable{
                 columnNum + " , "+
                 used + "]";
     }
+    public String ticketLocation()
+    {
+        if (this.rowNum == -1 && this.columnNum == -1)
+            return "X";
+        else
+            return "Row:" + this.rowNum + " Col:" + this.columnNum;
+    }
    
     
 }

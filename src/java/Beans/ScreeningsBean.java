@@ -141,6 +141,9 @@ public class ScreeningsBean implements Serializable {
         screeningsListByMovieID = ServiceInit.screeningsService().searchScreenings(null,hallID, movieID, null, null,null, null);
         return screeningsListByMovieID;
     }
+    public Screening getScreeningByOrderID(int orderID) throws SQLException {
+        return (ServiceInit.screeningsService().searchScreeningByID(orderID));
+    }
 
     public List<Screening> getScreeningsListByHallID() throws SQLException {
         screeningsListByHallID = ServiceInit.screeningsService().searchScreenings(null,hallID, null, null, null,null, null);

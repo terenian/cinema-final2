@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import EntitiesLayer.Screening;
+import java.util.Date;
 
 
 /**
@@ -117,7 +118,7 @@ public class ScreeningsService {
         ResultSet rs = screeningSearchSTM.executeQuery();
         ArrayList<Screening> list = new ArrayList<Screening> ();
         while(rs.next()){
-            Screening screen = new Screening (rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7));
+            Screening screen = new Screening (rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getDate(6),rs.getDate(7));
             list.add(screen);
         }
         return list;
@@ -172,17 +173,34 @@ public class ScreeningsService {
             return (prepStat.executeUpdate()> 0);
         }
     }
-    public boolean addScreening(String hallName, int hallWidth,  int hallLength) throws SQLException
+    public boolean addScreening(int movieID, int hallID, int price, int marked,Date date,Date time) throws SQLException
     {
         Connection c = dbConnection.getConnection();
         PreparedStatement prepStat = null;
-        prepStat = c.prepareStatement("INSERT INTO screenings (HallName, HallWidth, HallLength) VALUES ((?),(?),(?))");
-        prepStat.setString(1, hallName);
-        prepStat.setInt(2, hallWidth);
-        prepStat.setInt(3, hallLength);
-
+        prepStat = c.prepareStatement("INSERT INTO screenings (MovieID,HallID,Price,MarkedTicket,Date,Time) VALUES ((?),(?),(?),(?),(?),(?))");
+        prepStat.setInt(1, movieID);
+        prepStat.setInt(2, hallID);
+        prepStat.setInt(3, price);
+        prepStat.setInt(4, marked);
+        prepStat.setDate(5, new java.sql.Date(date.getTime()));
+        prepStat.setTime(6, new java.sql.Time(time.getTime()));
+        
         return (prepStat.executeUpdate()> 0);
     }
+    public Screening searchScreeningByID(int screeningID) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement prepStat = c.prepareStatement("select * from screenings where ScreeningID = (?)");
+        prepStat.setInt(1, screeningID);
+        Screening screening = null;      
+        ResultSet rs = prepStat.executeQuery();
+        if(rs.first())
+        {
+            screening = new Screening (rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getDate(6),rs.getDate(7));
+        }
+        return screening;
+    }
+    
        
 }
 

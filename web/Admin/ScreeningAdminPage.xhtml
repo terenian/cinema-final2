@@ -34,7 +34,9 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Screening Time</f:facet>
-                    #{screening.time} 
+                    <h:outputText value="#{screening.time}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText> 
             </h:column>
             <h:column>
                 <f:facet name="header">Delete Screening</f:facet>
@@ -58,18 +60,18 @@
                 <td><h:outputText value="Choose Movie" /></td>
                 <td>
                     <h:selectOneMenu id="choosemovie" value="#{AdminScreeningsBean.newScreening.movieID}">
-                        <f:selectItem itemValue="1" itemLabel="Marked" />
-   			<f:selectItem itemValue="0" itemLabel="Not Marked" />
-                    </h:selectOneMenu>
+                        <f:selectItems value="#{AdminScreeningsBean.moviesList}" var="movie"
+                                       itemLabel="#{movie.movieName}" itemValue="#{movie.movieId}" />
+                    </h:selectOneMenu>  
                 </td>
             </tr>
             <tr>
                 <td><h:outputText value="Choose Marked or non-marked screening" /></td>
                 <td>
-                    <h:selectOneMenu id="choosemarked" value="#{AdminScreeningsBean.newScreening.markedTicket}">
-                        <f:selectItems value="#{AdminScreeningsBean.moviesList}" var="movie"
-                                       itemLabel="#{movie.movieName}" itemValue="#{movie.movieId}" />
-                    </h:selectOneMenu>
+                    <h:selectOneMenu id="choosemarkede" value="#{AdminScreeningsBean.newScreening.markedTicket}">
+                        <f:selectItem itemValue="1" itemLabel="Marked" />
+   			<f:selectItem itemValue="0" itemLabel="Not Marked" />
+                    </h:selectOneMenu> 
                 </td>
             </tr>
             <tr>
@@ -81,6 +83,28 @@
                     </h:inputText>
                 </td>
                 <td><h:message for="price" style="color:red" /></td>
+            </tr>
+            <tr>
+                <td><h:outputText value="Enter Screening Date(yyyy-mm-dd)" /></td>
+                <td>
+                    <h:inputText id="date" value="#{AdminScreeningsBean.newScreening.date}" 
+                        size="20" required="true"
+                        label="Screening Date" >
+                        <f:convertDateTime pattern="yyyy-MM-dd" />
+                    </h:inputText>
+                </td>
+                <td><h:message for="date" style="color:red" /></td>
+            </tr>
+            <tr>
+                <td><h:outputText value="Enter Screening Time(HH:mm:ss)" /></td>
+                <td>
+                    <h:inputText id="time" value="#{AdminScreeningsBean.newScreening.time}" 
+                        size="20" required="true"
+                        label="Screening Time" >
+                        <f:convertDateTime pattern="HH:mm:ss" timeZone="Israel" />
+                    </h:inputText>
+                </td>
+                <td><h:message for="time" style="color:red" /></td>
             </tr>
             <tr>
                 <td />

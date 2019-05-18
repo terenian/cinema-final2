@@ -109,7 +109,18 @@ public class TicketsService {
         }
         return list;
     }
-    
+    public int getScreeningIDByOrderID(int orderID)throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement prepStat = c.prepareStatement("select ScreeningID from tickets where OrderID = (?) group by ScreeningID");
+        prepStat.setInt(1, orderID);
+        
+        ResultSet rs = prepStat.executeQuery();
+        if (rs.first())
+            return rs.getInt(1);
+        else
+            return 0;
+    }
 
     public boolean updateTicket(Integer order, Integer row, Integer col)
             throws SQLException{

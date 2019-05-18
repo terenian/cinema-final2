@@ -5,9 +5,12 @@ import java.io.Serializable;
 import EntitiesLayer.*;
 import GeneralWeb.*;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
@@ -31,6 +34,7 @@ public class AdminScreeningsBean implements Serializable {
      */
     
     public AdminScreeningsBean() {
+        this.newScreening = new Screening();
     }
     
     private Screening newScreening; 
@@ -39,7 +43,7 @@ public class AdminScreeningsBean implements Serializable {
     private List<Movie> movieList;
    
     public Screening getNewScreening() {return newScreening;}
-    public List<Screening> getscreeningsList() {return screeningsList;}
+   
     
     
     public List<Screening> getScreeningsList() throws SQLException {
@@ -58,8 +62,9 @@ public class AdminScreeningsBean implements Serializable {
     {
         try
         {
-            System.out.println("Beans.AdminScreeningsBean.addScreening()");
-            int bla =5 ; 
+           
+            ServiceInit.screeningsService().addScreening(newScreening.getMovieID(), newScreening.getHallID(), newScreening.getPrice(), newScreening.getMarkedTicket()
+                    , newScreening.getDate(),newScreening.getTime());
         }
         catch(Exception e)
         {
@@ -88,21 +93,7 @@ public class AdminScreeningsBean implements Serializable {
         }
     }
 
-    public int getSelectedHallID() {
-        return selectedHallID;
-    }
 
-    public void setSelectedHallID(int selectedHallID) {
-        this.selectedHallID = selectedHallID;
-    }
-
-    public int getSelectedMovieID() {
-        return selectedMovieID;
-    }
-
-    public void setSelectedMovieID(int selectedMovieID) {
-        this.selectedMovieID = selectedMovieID;
-    }
 }
 
 

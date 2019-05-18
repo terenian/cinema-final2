@@ -7,94 +7,32 @@
           
     <body>
         
-        <ui:composition template="./template.xhtml">
-            
-            <ui:define name="title">
-                Response
-            </ui:define>
-                
-            <ui:define name="box">
-                <h2>Order Details</h2>
-                <h:dataTable value="#{UserOrdersBean.myOrders}" var="ord" border="2">
-                    <h:column>
-                        <f:facet name="header">Order ID</f:facet>
-                            #{ord.orderID}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">User ID</f:facet>
-                            #{ord.userID}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Price</f:facet>
-                            #{ord.price}
-                    </h:column>
-                </h:dataTable>
-                    
-                <h:form prependId="false">   
-                    <h:commandButton id="backButton" value="Back" action="index" />
-                </h:form>
-                    
-                    
-                    
-                <h2>Tickets Details</h2>
-                <h:dataTable value="#{TicketsBean.myTickets}" var="tkt" border="2">
-                    <h:column>
-                        <f:facet name="header">Order ID</f:facet>
-                            #{tkt.orderID}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Screening ID</f:facet>
-                            #{tkt.screeningID}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">RowNum</f:facet>
-                            #{tkt.rowNum}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">ColumnNum</f:facet>
-                            #{tkt.columnNum}
-                    </h:column>
-                </h:dataTable>
-                    
-                <h:form prependId="false">   
-                    <h:commandButton id="backButton2" value="Back" action="index" />
-                </h:form>
-                    
-                    
-                <h2>Screenings Details</h2>
-                <h:dataTable value="#{ScreeningsBean.screeningsByMovieID}" var="scr" border="2">
-                    <h:column>
-                        <f:facet name="header">Screening ID</f:facet>
-                            #{scr.screeningID}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Hall ID</f:facet>
-                            #{scr.hallID}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Price</f:facet>
-                            #{scr.price}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Marked Ticket</f:facet>
-                            #{scr.markedTicket}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Date</f:facet>
-                            #{scr.date}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Time</f:facet>
-                            #{scr.time}
-                    </h:column>
-                </h:dataTable>
-                    
-                <h:form prependId="false">
-                    <h:commandButton id="backButton3" value="Back" action="index" />
-                </h:form>
-                    
-            </ui:define>
-                
+        <ui:composition>             
+            <h2>Existing Orders:</h2>
+            <h:dataTable value="#{UserOrdersBean.myOrders}" var="ord" border="2">
+                <h:column>
+                    <f:facet name="header">Order Number</f:facet>
+                        #{ord.orderID}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Total Price</f:facet>
+                        #{ord.price}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Screening Date:</f:facet>
+                     #{UserOrdersBean.getOrderScreening(ord.orderID).screeningTime}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Movie Name:</f:facet>
+                     #{UserOrdersBean.getOrderMovie(ord.orderID)}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Tickets:</f:facet>
+                    <ui:repeat value="#{UserOrdersBean.getOrderTickets(ord.orderID)}" var="ticket">
+                        <h:outputText value="#{ticket.ticketLocation()}||" />
+                    </ui:repeat>
+                </h:column>
+            </h:dataTable>              
         </ui:composition>
             
     </body>
