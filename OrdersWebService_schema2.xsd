@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://WebService/" xmlns:tns="http://WebService/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://jaxb.dev.java.net/array">
+
+  <xs:import namespace="http://jaxb.dev.java.net/array" schemaLocation="OrdersWebService_schema1.xsd"/>
+
+  <xs:element name="getTickets" nillable="true" type="tns:getTickets"/>
+
+  <xs:element name="getTicketsResponse" nillable="true" type="tns:getTicketsResponse"/>
+
+  <xs:element name="remoteValidateUser" nillable="true" type="tns:remoteValidateUser"/>
+
+  <xs:element name="remoteValidateUserResponse" nillable="true" type="tns:remoteValidateUserResponse"/>
+
+  <xs:element name="test" nillable="true" type="tns:test"/>
+
+  <xs:element name="testResponse" nillable="true" type="tns:testResponse"/>
+
+  <xs:element name="useTickets" nillable="true" type="tns:useTickets"/>
+
+  <xs:element name="useTicketsResponse" nillable="true" type="tns:useTicketsResponse"/>
+
+  <xs:complexType name="remoteValidateUser">
+    <xs:sequence>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="remoteValidateUserResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="useTickets">
+    <xs:sequence>
+      <xs:element name="tickets" type="tns:ticket" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ticket">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="useTicketsResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getTickets">
+    <xs:sequence>
+      <xs:element name="order" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getTicketsResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="test">
+    <xs:sequence>
+      <xs:element name="testParam" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="testResponse">
+    <xs:sequence>
+      <xs:element name="return" type="ns1:intArray" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

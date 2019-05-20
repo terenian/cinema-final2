@@ -4,13 +4,30 @@
 
 <xs:element name="getTicketsResponse" type="tns:getTicketsResponse"/>
 
+<xs:element name="remoteValidateUser" type="tns:remoteValidateUser"/>
+
+<xs:element name="remoteValidateUserResponse" type="tns:remoteValidateUserResponse"/>
+
+<xs:element name="test" type="tns:test"/>
+
+<xs:element name="testResponse" type="tns:testResponse"/>
+
 <xs:element name="useTickets" type="tns:useTickets"/>
 
 <xs:element name="useTicketsResponse" type="tns:useTicketsResponse"/>
 
-<xs:element name="validateUser" type="tns:validateUser"/>
+<xs:complexType name="remoteValidateUser">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-<xs:element name="validateUserResponse" type="tns:validateUserResponse"/>
+<xs:complexType name="remoteValidateUserResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="useTickets">
 <xs:sequence>
@@ -36,20 +53,19 @@
 
 <xs:complexType name="getTicketsResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:ticket" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="return" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="validateUser">
+<xs:complexType name="test">
 <xs:sequence>
-<xs:element name="username" type="xs:string" minOccurs="0"/>
-<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="testParam" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="validateUserResponse">
+<xs:complexType name="testResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
+<xs:element name="return" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

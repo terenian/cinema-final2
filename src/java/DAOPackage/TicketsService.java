@@ -26,7 +26,7 @@ public class TicketsService {
     private final String TICKET_INSERT = "insert into cinema.tickets (OrderID, ScreeningID, RowNum, ColumnNum) values (?,?,?,?)";
     private final String TICKET_SEARCH = "select * from cinema.tickets where OrderID like (?) and ScreeningID like (?) and RowNum like (?) and ColumnNum like (?) ORDER BY RowNum, ColumnNum";
     //Update is used only for markin a ticket as Used
-    private final String TICKET_UPDATE = "update cinema.tickets set Used= 1 where OrderID like (?) and RowNum like (?) and ColumnNum like (?)";
+    private final String TICKET_UPDATE = "update cinema.tickets set Used=1 where OrderID like (?) and RowNum like (?) and ColumnNum like (?)";
     //private final Logger logger = ServiceManager.getLogger();
     
     
@@ -104,7 +104,7 @@ public class TicketsService {
         ResultSet rs = ticketSearchSTM.executeQuery();
         ArrayList<Ticket> list = new ArrayList<Ticket> ();
         while(rs.next()){
-            Ticket tkt = new Ticket(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4));
+            Ticket tkt = new Ticket(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5));
             list.add(tkt);
         }
         return list;

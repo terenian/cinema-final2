@@ -21,21 +21,13 @@ public class Ticket implements Serializable{
 
     
     public Ticket(){}
-    /*
-    public Ticket( Ticket t){
-        this.orderID=t.orderID;
-        this.screeningID=t.screeningID;
-        this.rowNum=t.rowNum;
-        this.columnNum=t.columnNum;
-        this.used=t.used;
-    }*/
     
-    public Ticket(Integer id, Integer sID, Integer row, Integer column){
+    public Ticket(Integer id, Integer sID, Integer row, Integer column, Integer used){
         this.orderID = id;
         this.screeningID = sID;
         this.rowNum = row;
         this.columnNum = column;
-        this.used=0;
+        this.used=used;
     }
     
     //=============WHAT IS THE ID? UNMARK TICKES DOES NEED A UNIQUE ID!
@@ -74,6 +66,16 @@ public class Ticket implements Serializable{
         else
             return "Row:" + this.rowNum + " Col:" + this.columnNum;
     }
+    
+     public int[] asIntArr(){
+         int[] intArr = new int[5];
+         intArr[0]=orderID;
+         intArr[1]=screeningID;
+         intArr[2]=rowNum;
+         intArr[3]=columnNum;
+         intArr[4]=used;
+         return intArr;
+     }
    
     
 }

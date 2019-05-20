@@ -4,11 +4,11 @@
 <xsd:import namespace="http://WebService/" schemaLocation="http://localhost:8080/cinema-final/OrdersWebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="useTickets">
-<part name="parameters" element="tns:useTickets"/>
+<message name="test">
+<part name="parameters" element="tns:test"/>
 </message>
-<message name="useTicketsResponse">
-<part name="parameters" element="tns:useTicketsResponse"/>
+<message name="testResponse">
+<part name="parameters" element="tns:testResponse"/>
 </message>
 <message name="getTickets">
 <part name="parameters" element="tns:getTickets"/>
@@ -16,29 +16,39 @@
 <message name="getTicketsResponse">
 <part name="parameters" element="tns:getTicketsResponse"/>
 </message>
-<message name="validateUser">
-<part name="parameters" element="tns:validateUser"/>
+<message name="useTickets">
+<part name="parameters" element="tns:useTickets"/>
 </message>
-<message name="validateUserResponse">
-<part name="parameters" element="tns:validateUserResponse"/>
+<message name="useTicketsResponse">
+<part name="parameters" element="tns:useTicketsResponse"/>
+</message>
+<message name="remoteValidateUser">
+<part name="parameters" element="tns:remoteValidateUser"/>
+</message>
+<message name="remoteValidateUserResponse">
+<part name="parameters" element="tns:remoteValidateUserResponse"/>
 </message>
 <portType name="OrdersWebService">
-<operation name="useTickets">
-<input wsam:Action="http://WebService/OrdersWebService/useTicketsRequest" message="tns:useTickets"/>
-<output wsam:Action="http://WebService/OrdersWebService/useTicketsResponse" message="tns:useTicketsResponse"/>
+<operation name="test">
+<input wsam:Action="http://WebService/OrdersWebService/testRequest" message="tns:test"/>
+<output wsam:Action="http://WebService/OrdersWebService/testResponse" message="tns:testResponse"/>
 </operation>
 <operation name="getTickets">
 <input wsam:Action="http://WebService/OrdersWebService/getTicketsRequest" message="tns:getTickets"/>
 <output wsam:Action="http://WebService/OrdersWebService/getTicketsResponse" message="tns:getTicketsResponse"/>
 </operation>
-<operation name="validateUser">
-<input wsam:Action="http://WebService/OrdersWebService/validateUserRequest" message="tns:validateUser"/>
-<output wsam:Action="http://WebService/OrdersWebService/validateUserResponse" message="tns:validateUserResponse"/>
+<operation name="useTickets">
+<input wsam:Action="http://WebService/OrdersWebService/useTicketsRequest" message="tns:useTickets"/>
+<output wsam:Action="http://WebService/OrdersWebService/useTicketsResponse" message="tns:useTicketsResponse"/>
+</operation>
+<operation name="remoteValidateUser">
+<input wsam:Action="http://WebService/OrdersWebService/remoteValidateUserRequest" message="tns:remoteValidateUser"/>
+<output wsam:Action="http://WebService/OrdersWebService/remoteValidateUserResponse" message="tns:remoteValidateUserResponse"/>
 </operation>
 </portType>
 <binding name="OrdersWebServicePortBinding" type="tns:OrdersWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="useTickets">
+<operation name="test">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -56,7 +66,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="validateUser">
+<operation name="useTickets">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="remoteValidateUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
