@@ -1,5 +1,6 @@
 package Beans;
 
+import DAOPackage.CinemaLogger;
 import javax.inject.Named;
 import java.io.Serializable;
 import EntitiesLayer.*;
@@ -9,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -45,8 +45,6 @@ public class ScreeningsBean implements Serializable {
     private List<Movie> moviesList;
     private ArrayList<ArrayList<String>> seatsForOrder ;
     private String chosenSeats;
-    private Logger logger = ServiceInit.getLogger();
-    
     
     public Hall getHall() {return hall;}
     public Movie getMovie() {return movie;}
@@ -97,7 +95,7 @@ public class ScreeningsBean implements Serializable {
     
     //Control Navigation: check if seats are chosen
     public String checkChosenSeats (){
-        logger.log(Level.INFO, this.getClass() + " chosen seats are: " + seatsForOrder.toString());
+        CinemaLogger.log(Level.INFO, this.getClass() + " chosen seats are: " + seatsForOrder.toString());
         System.out.println(" = = = seatsForOrder are:" + seatsForOrder);
         if (seatsForOrder == null){
             return ("showSeats");
@@ -127,7 +125,7 @@ public class ScreeningsBean implements Serializable {
                 seat = new  ArrayList<String>();
             }
             numberOfDesiredTickets=seatsForOrder.size();
-            logger.info(this.getClass() + " seats for order are: " + seatsForOrder);
+            CinemaLogger.log(Level.INFO, this.getClass() + " seats for order are: " + seatsForOrder);
             //System.out.println ("seatsForOrde is: " + seatsForOrder)   ;
         }
         else {
@@ -157,10 +155,10 @@ public class ScreeningsBean implements Serializable {
         for (int i=0; i<screeningsListByHallID.size(); i++){
             movID=screeningsListByHallID.get(i).getMovieID();
             //System.out.println(" movID is: ========= :" + movID);
-            logger.info(this.getClass() + "movID is: ========= :" + movID);
+           CinemaLogger.log(Level.INFO,this.getClass() + "movID is: ========= :" + movID);
             if (moviesList.isEmpty()) {
                 moviesList.add(ServiceInit.moviesService().gethMoviesbyID(movID));
-                logger.info(this.getClass() + " ==Found Movie Is  ========= :" + moviesList.get(0).toString());
+                CinemaLogger.log(Level.INFO, this.getClass() + " ==Found Movie Is  ========= :" + moviesList.get(0).toString());
                 //System.out.println("==Found Movie Is  ========= :" + moviesList.get(0).toString());
             }
             else{
@@ -169,7 +167,7 @@ public class ScreeningsBean implements Serializable {
                         continue;
                     }
                     moviesList.add(ServiceInit.moviesService().gethMoviesbyID(movID));
-                    logger.info(this.getClass() + "movie ADDED is: ========= :" + movID);
+                      CinemaLogger.log(Level.INFO,this.getClass() + "movie ADDED is: ========= :" + movID);
                     //System.out.println("movie ADDED is: ========= :" + movID);
                 }
             }
@@ -189,7 +187,7 @@ public class ScreeningsBean implements Serializable {
                 }
             }
         } catch (SQLException ex) {
-            logger.severe(this.getClass() + " ORDER INSERTION PROCCESS FAILED" + moviesList.get(0).toString());
+             CinemaLogger.log(Level.INFO,this.getClass() + " ORDER INSERTION PROCCESS FAILED" + moviesList.get(0).toString());
             //System.out.println("ORDER INSERTION PROCCESS FAILED");
         }
     }
@@ -213,7 +211,7 @@ public class ScreeningsBean implements Serializable {
     public int getHallID() {return hallID;}
     public void setHallID (int hallToSet) throws SQLException{
         cleanOrder();
-        logger.info(this.getClass() + " hall is: ========= :" + hallToSet);
+         CinemaLogger.log(Level.INFO,this.getClass() + " hall is: ========= :" + hallToSet);
         System.out.println("hall is: ========= :" + hallToSet);
         this.hallID = hallToSet;
         this.hall= ServiceInit.hallsService().searchHalls(hallID, "").get(0);

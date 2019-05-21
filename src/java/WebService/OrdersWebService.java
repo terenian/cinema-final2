@@ -76,11 +76,11 @@ public class OrdersWebService {
             for (int i=0; i<tickets.size(); i+=5){
                 try {
                     ServiceInit.ticketsService().updateTicket(tickets.get(i), tickets.get(i+2), tickets.get(i+3));
+                    
                 } catch (SQLException ex) {
                     System.out.println("server: exeption Cougth " + ex);
                     //Logger.getLogger(OrdersWebService.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
             }
             return true;
         }
@@ -97,6 +97,7 @@ public class OrdersWebService {
         return this.getTickets(Integer.parseInt(testParam));
     }
     
+    /*gets an array list of tickets and returns int array of sequential tickets*/
     private int[] arrayListToListInteger(ArrayList<Ticket> l) {
         int[] intArr = new int[l.size()*5];
         int j=0;

@@ -33,7 +33,7 @@ public class DBConnector {
         pass = c.getPassword();
         host = c.getDbServer();
         dbName = c.getDbName();
-        logger = ServiceInit.getLogger();
+        //logger = ServiceInit.getLogger();
         
         
         connectionString = "jdbc:mysql://"+ 
