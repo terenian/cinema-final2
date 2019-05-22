@@ -122,11 +122,12 @@ public class TicketsService {
         prepStat.setInt(1, orderID);
         
         ResultSet rs = prepStat.executeQuery();
-        System.out.println("IN TICKETS SERVICE: Select result is: "+ rs.getInt(1));
-        if (rs.first())
+        if (rs.next()) {
             return rs.getInt(1);
-        else
+        } else {
             return 0;
+        }
+        
     }
     
     
