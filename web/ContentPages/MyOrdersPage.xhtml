@@ -32,6 +32,13 @@
                         <h:outputText value="#{ticket.ticketLocation()}||" />
                     </ui:repeat>
                 </h:column>
+                <h:column>
+                <f:facet name="header">Delete Order</f:facet>
+                <h:form>
+                    <h:commandButton value="X" rendered="#{not (UserOrdersBean.getOrderScreening(ord.orderID).isPast())}" action="#{HallsBean.deleteHall(hall.hallID)}"/>
+                    <h:outputText value="Order Already Passed" rendered="#{UserOrdersBean.getOrderScreening(ord.orderID).isPast()}" />
+                </h:form>
+                </h:column>
             </h:dataTable>              
         </ui:composition>
             

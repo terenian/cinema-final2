@@ -128,5 +128,19 @@ public class OrdersService {
         }
         return false;
     }
+    public boolean deleteOrder(int orderID) throws SQLException
+    {
+        Connection c = dbConnection.getConnection();
+        PreparedStatement prepStat = c.prepareStatement("delete from tickets where OrderID = (?)");
+        prepStat.setInt(1, orderID);
+        if (prepStat.executeUpdate() == 0)
+        {
+            return false;
+        }
+        prepStat = c.prepareStatement("delete from orders where OrderID = (?)");
+        prepStat.setInt(1, orderID);
+        return (prepStat.executeUpdate()> 0);
+        
+    }
     
 }

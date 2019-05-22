@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author eran.z
+ * @author Eran.z & Itzik W.
  */
 @Named(value = "adminBean")
 @SessionScoped
@@ -25,6 +25,11 @@ public class AdminBean implements Serializable {
 
     	private static final long serialVersionUID = 1094801825228386363L;	
 	//validate login
+
+    /**
+     *
+     * @return
+     */
 	public String isLoggedIn(){
             if (!SessionUtils.getUserRole().equals("admin"))
                 return "Login";

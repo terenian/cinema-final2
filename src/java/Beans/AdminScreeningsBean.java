@@ -48,15 +48,33 @@ public class AdminScreeningsBean implements Serializable {
     
     public List<Screening> getScreeningsList() throws SQLException {
         screeningsList = ServiceInit.screeningsService().searchScreenings(null,null, null, null, null,null, null);
+        movieList = ServiceInit.moviesService().searchMoviesbyName("");
+        hallList = ServiceInit.hallsService().searchHalls(0, "");
         return screeningsList;
     }
     public List<Movie> getMoviesList() throws SQLException {
-        movieList = ServiceInit.moviesService().searchMoviesbyName("");
         return movieList;
     }
     public List<Hall> getHallsList() throws SQLException {
-        hallList = ServiceInit.hallsService().searchHalls(0, "");
         return hallList;
+    }
+    public Movie getMovieByMovieID(int movieID)
+    {
+        for (int i = 0; i < this.movieList.size(); i++) 
+        {
+            if(this.movieList.get(i).getMovieId() == movieID)
+                return this.movieList.get(i);
+        }
+        return new Movie();
+    }
+    public Hall getHallByHallID(int hallID)
+    {
+        for (int i = 0; i < this.hallList.size(); i++) 
+        {
+            if(this.hallList.get(i).getHallID()== hallID)
+                return this.hallList.get(i);
+        }
+        return new Hall();
     }
     public void addScreening()
     {

@@ -35,7 +35,7 @@
     <h:selectOneMenu id="chooseScreening" >
         <f:selectItem itemValue="chooseHere" itemLabel="== Choose Here =="/> 
         <c:forEach items="#{ScreeningsBean.screeningsListByHallID}" var="screening"> 
-            <f:selectItem itemValue="${screening}" itemLabel="${screening.date} ${screening.time}"/>
+            <f:selectItem itemValue="${screening}" itemLabel="${screening.screeningTime}"/>
         </c:forEach>
     </h:selectOneMenu>
     </h:form>

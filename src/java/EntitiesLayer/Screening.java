@@ -4,6 +4,7 @@
 package EntitiesLayer;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -107,6 +108,11 @@ public class Screening {
         String screeningTime = sdf.format(date);
         sdf.applyPattern("HH:mm:ss");
         return screeningTime +" " + sdf.format(time);
+    }
+    public boolean isPast()
+    {
+        Date today = new Date();
+        return (this.date.before(today));
     }
    
     

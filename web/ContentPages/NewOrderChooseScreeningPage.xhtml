@@ -17,7 +17,7 @@
         <h:selectOneMenu id="chooseScreening" value="#{ScreeningsBean.screeningID}" >
             <f:selectItem itemValue="chooseHere" itemLabel="== Choose Here =="/> 
             <c:forEach items="#{ScreeningsBean.screeningsListByMovieID}" var="screening"> 
-                <f:selectItem itemValue="${screening.screeningID}" itemLabel="DATE: ${screening.date}  HOUR: ${screening.time}  PRICE: ${screening.price}" itemDescription="A"/>
+                <f:selectItem itemValue="${screening.screeningID}" itemLabel="${screening.screeningTime}" itemDescription="A"/>
             </c:forEach>
         </h:selectOneMenu>         
         <h:commandButton id="submitHall" value="Submit Hall" action="#{ScreeningsBean.checkMarkedSeats()}" />          

@@ -1,5 +1,6 @@
 package Beans;
 
+import DAOPackage.CinemaLogger;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -7,6 +8,9 @@ import EntitiesLayer.*;
 import GeneralWeb.SessionUtils;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 
 
@@ -51,6 +55,20 @@ public class UserOrdersBean implements Serializable {
        int screeningID = ServiceInit.ticketsService().getScreeningIDByOrderID(orderID); 
        return ServiceInit.moviesService().getMovieNameByScreeningID(screeningID); 
        
+    }
+    public void deleteOrder(int orderID)
+    {
+        try{
+            if(!ServiceInit.orderService().deleteOrder(orderID))
+                      {
+                        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("there has been issue")); 
+                      }
+        }
+        catch(Exception e)
+        {
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(e.getMessage()));
+            CinemaLogger.log(Level.SEVERE, this.getClass()+e.getMessage());
+        }
     }
 }
 

@@ -8,7 +8,7 @@
     <h1>New Order</h1>   
     <h3>Chosen Hall is: ${ScreeningsBean.hall.hallName}</h3>    
     <h3>Chosen Movie is: ${ScreeningsBean.movie.movieName}</h3>    
-    <h3>Chosen Screening is: ${ScreeningsBean.screening.date} at: ${ScreeningsBean.screening.time}</h3> 
+    <h3>Chosen Screening is at: ${ScreeningsBean.screening.screeningTime}</h3> 
         
     <h2>Choose Seats:</h2>
     <h2>======= SCREEN IS HERE =======</h2>
@@ -27,8 +27,7 @@
             </h:commandButton>
         </h:form>
     </h:body>
-    <!--button id="TryIt" value="none" onclick="myFunction()">TryME</button-->
-        
+         
     <script type="text/javascript">
         
         function buildSeats() {

@@ -13,12 +13,12 @@
         <h1>Screening List</h1>
         <h:dataTable value="#{AdminScreeningsBean.screeningsList}" var="screening" border="2">
             <h:column>
-                <f:facet name="header">Movie ID</f:facet>
-                    #{screening.movieID}
+                <f:facet name="header">Movie Name</f:facet>
+                    #{AdminScreeningsBean.getMovieByMovieID(screening.movieID).movieName}
             </h:column>
             <h:column>
-                <f:facet name="header">Hall ID</f:facet>
-                    #{screening.hallID} 
+                <f:facet name="header">Hall Name</f:facet>
+                    #{AdminScreeningsBean.getHallByHallID(screening.hallID).hallName}
             </h:column>
             <h:column>
                 <f:facet name="header">Price</f:facet>
@@ -35,7 +35,7 @@
             <h:column>
                 <f:facet name="header">Screening Time</f:facet>
                     <h:outputText value="#{screening.time}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
+                        <f:convertDateTime pattern="HH:mm:ss" timeZone="Israel" />
                     </h:outputText> 
             </h:column>
             <h:column>
