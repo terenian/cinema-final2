@@ -1,21 +1,17 @@
 package WebService;
 
 import Beans.ServiceInit;
-import DAOPackage.UsersService;
 import EntitiesLayer.Ticket;
 import EntitiesLayer.User;
-import com.mysql.cj.x.protobuf.MysqlxExpr;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import javax.jws.WebResult;
 
 /**
  *
@@ -55,7 +51,7 @@ public class OrdersWebService {
         if (order > 0 && userLogged){
             this.orderID = order;
             try {
-                ArrayList<Ticket> l = ServiceInit.ticketsService().searchTicket(orderID, null, null, null);
+                ArrayList<Ticket> l = ServiceInit.ticketsService().searchTicket(null,orderID, null, null, null);
                 System.out.println("server: sent tickets are: " + l.toString());
                 int[] res = this.arrayListToListInteger(l);
                 return res;

@@ -88,7 +88,7 @@ public class OrdersService {
             orderSearchSTM.setInt(3, price);
         }
         
-        System.out.println("orderSearchSTM IS: " + orderSearchSTM.toString());
+        //System.out.println("orderSearchSTM IS: " + orderSearchSTM.toString());
         
         ResultSet rs = orderSearchSTM.executeQuery();
         ArrayList<Order> list = new ArrayList<Order> ();

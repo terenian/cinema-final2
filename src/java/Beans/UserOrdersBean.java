@@ -37,20 +37,20 @@ public class UserOrdersBean implements Serializable {
         this.userID = SessionUtils.getUserId();
     }
    
-    public List<Order> getMyOrders() throws ClassNotFoundException, SQLException, Throwable {
+    public List<Order> getMyOrders() throws  SQLException {
         myOrders = ServiceInit.orderService().searchOrders(null, userID, null);
         return myOrders;
     }
-    public Screening getOrderScreening(int orderID)throws ClassNotFoundException, SQLException, Throwable
+    public Screening getOrderScreening(int orderID)throws  SQLException
     {
        int screeningID = ServiceInit.ticketsService().getScreeningIDByOrderID(orderID); 
        return (ServiceInit.screeningsService().searchScreenings(screeningID, null, null, null, null, null, null).get(0));
     }
-    public List<Ticket> getOrderTickets(int orderID)throws ClassNotFoundException, SQLException, Throwable
+    public List<Ticket> getOrderTickets(int orderID)throws  SQLException
     { 
-       return (ServiceInit.ticketsService().searchTicket(orderID, null, null, null));
+       return (ServiceInit.ticketsService().searchTicket(null,orderID, null, null, null));
     }
-    public String getOrderMovie(int orderID)throws ClassNotFoundException, SQLException, Throwable
+    public String getOrderMovie(int orderID)throws  SQLException
     {
        int screeningID = ServiceInit.ticketsService().getScreeningIDByOrderID(orderID); 
        return ServiceInit.moviesService().getMovieNameByScreeningID(screeningID); 

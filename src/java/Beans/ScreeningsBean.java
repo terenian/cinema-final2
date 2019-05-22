@@ -55,7 +55,7 @@ public class ScreeningsBean implements Serializable {
     
     
     public int getNumberOfFreeTickets() throws SQLException {
-        int numberOfTakenSeats = ServiceInit.ticketsService().searchTicket(null, screeningID, null, null).size();
+        int numberOfTakenSeats = ServiceInit.ticketsService().searchTicket(null, null, screeningID, null, null).size();
         numberOfFreeTickets = (hall.getHallLength()*hall.getHallWidth())- numberOfTakenSeats;
         return numberOfFreeTickets;
     }

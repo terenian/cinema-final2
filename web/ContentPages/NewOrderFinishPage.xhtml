@@ -11,7 +11,7 @@
     <h1>YOUR ORDER IS SAVED! Order number is: ${ScreeningsBean.newOrderID}</h1>   
     <h3>Chosen Hall is: ${ScreeningsBean.hall.hallName}</h3>    
     <h3>Chosen Movie is: ${ScreeningsBean.movie.movieName}</h3>    
-    <h3>Chosen Screening is: ${ScreeningsBean.screening.date} is at: ${ScreeningsBean.screening.screeningTime}</h3> 
+    <h3>Chosen Screening is at:  ${ScreeningsBean.screening.screeningTime}</h3> 
     <h3>Chosen Seats are:</h3> 
     <h:form>    
         <h:dataTable value="#{ScreeningsBean.seatsForOrder}" var="seat" border="1">

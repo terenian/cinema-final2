@@ -24,7 +24,7 @@ public class TicketsService {
     private DBConnector dbConnection;
     
     private final String TICKET_INSERT = "insert into cinema.tickets (OrderID, ScreeningID, RowNum, ColumnNum) values (?,?,?,?)";
-    private final String TICKET_SEARCH = "select * from cinema.tickets where OrderID like (?) and ScreeningID like (?) and RowNum like (?) and ColumnNum like (?) ORDER BY RowNum, ColumnNum";
+    private final String TICKET_SEARCH = "select * from cinema.tickets where TicketID like (?) and OrderID like (?) and ScreeningID like (?) and RowNum like (?) and ColumnNum like (?) ORDER BY RowNum, ColumnNum";
     //Update is used only for markin a ticket as Used
     private final String TICKET_UPDATE = "update cinema.tickets set Used=1 where OrderID like (?) and RowNum like (?) and ColumnNum like (?)";
     //private final Logger logger = ServiceManager.getLogger();
@@ -68,35 +68,41 @@ public class TicketsService {
     /*
     * Search for rows
     */
-    public ArrayList<Ticket> searchTicket(Integer order, Integer screening, Integer row, Integer column)
+    public ArrayList<Ticket> searchTicket(Integer tid, Integer order, Integer screening, Integer row, Integer column)
             throws SQLException{
         //logger.info("search Order("+id+","+name+","+description+","+parentId+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement ticketSearchSTM = null;
         ticketSearchSTM = c.prepareStatement(TICKET_SEARCH);
-        if (order == null) {
+        if (tid == null) {
             ticketSearchSTM.setString(1, "%");
-        }
+        } 
         else{
-            ticketSearchSTM.setInt(1, order);
+            ticketSearchSTM.setInt(1, tid);
         }
-        if (screening == null) {
+        if (order == null) {
             ticketSearchSTM.setString(2, "%");
         }
         else{
-            ticketSearchSTM.setInt(2, screening);
+            ticketSearchSTM.setInt(2, order);
         }
-        if (row == null) {
-            ticketSearchSTM.setString(3,  "%");
+        if (screening == null) {
+            ticketSearchSTM.setString(3, "%");
         }
         else{
-            ticketSearchSTM.setInt(3, row);
+            ticketSearchSTM.setInt(3, screening);
         }
-        if (column == null) {
+        if (row == null) {
             ticketSearchSTM.setString(4,  "%");
         }
         else{
-            ticketSearchSTM.setInt(4, column);
+            ticketSearchSTM.setInt(4, row);
+        }
+        if (column == null) {
+            ticketSearchSTM.setString(5,  "%");
+        }
+        else{
+            ticketSearchSTM.setInt(5, column);
         }
         
         System.out.println("ticketSearchSTM IS: " + ticketSearchSTM.toString());
@@ -104,7 +110,7 @@ public class TicketsService {
         ResultSet rs = ticketSearchSTM.executeQuery();
         ArrayList<Ticket> list = new ArrayList<Ticket> ();
         while(rs.next()){
-            Ticket tkt = new Ticket(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5));
+            Ticket tkt = new Ticket(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
             list.add(tkt);
         }
         return list;
@@ -116,15 +122,16 @@ public class TicketsService {
         prepStat.setInt(1, orderID);
         
         ResultSet rs = prepStat.executeQuery();
+        System.out.println("IN TICKETS SERVICE: Select result is: "+ rs.getInt(1));
         if (rs.first())
             return rs.getInt(1);
         else
             return 0;
     }
-
+    
+    
     public boolean updateTicket(Integer order, Integer row, Integer col)
             throws SQLException{
-        //logger.info("update Order("+id+","+name+","+description+","+parentId+")");
         if (order == null) {
             return false;
         }
