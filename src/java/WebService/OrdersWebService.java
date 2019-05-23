@@ -85,7 +85,7 @@ public class OrdersWebService {
     
     @WebMethod(operationName = "useTicketsByTID")
     public boolean useTicketsByTID(@WebParam(name = "tickets") List<Integer> tickets) {
-        System.out.println("server: Recived tickets to mark: " + tickets.toString());
+        System.out.println("server: Recived ticketsID to mark: " + tickets.toString());
         if(this.userLogged){
             for (int i=0; i<tickets.size(); i++){
                 try {
