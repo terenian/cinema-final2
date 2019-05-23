@@ -118,7 +118,7 @@ public class ScreeningsService {
         ResultSet rs = screeningSearchSTM.executeQuery();
         ArrayList<Screening> list = new ArrayList<Screening> ();
         while(rs.next()){
-            Screening screen = new Screening (rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getDate(6),rs.getDate(7));
+            Screening screen = new Screening(rs.getInt(1), rs.getInt(3), rs.getInt(2),rs.getInt(4), rs.getInt(5), rs.getDate(6),rs.getDate(7));
             list.add(screen);
         }
         return list;
