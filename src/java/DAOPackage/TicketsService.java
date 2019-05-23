@@ -27,6 +27,7 @@ public class TicketsService {
     private final String TICKET_SEARCH = "select * from cinema.tickets where TicketID like (?) and OrderID like (?) and ScreeningID like (?) and RowNum like (?) and ColumnNum like (?) ORDER BY RowNum, ColumnNum";
     //Update is used only for markin a ticket as Used
     private final String TICKET_UPDATE = "update cinema.tickets set Used=1 where OrderID like (?) and RowNum like (?) and ColumnNum like (?)";
+    private final String TICKET_UPDATE_BY_TICKETID = "update cinema.tickets set Used=1 where TicketID like (?)";
     //private final Logger logger = ServiceManager.getLogger();
     
     
@@ -152,6 +153,25 @@ public class TicketsService {
         }
         return false;
     }
-  
+    
+    
+     public boolean updateTicketByID(Integer ticketID)throws SQLException{
+        if (ticketID == null) {
+            return false;
+        }
+        Connection c = dbConnection.getConnection();
+        PreparedStatement ticketUpdateSTM = null;
+        ticketUpdateSTM = c.prepareStatement(TICKET_UPDATE_BY_TICKETID);
+        
+        ticketUpdateSTM.setInt(1, ticketID);
+                      
+        System.out.println("ticketUpdateSTM IS: " + ticketUpdateSTM.toString());
+        
+        Integer i = ticketUpdateSTM.executeUpdate();
+        if (i>0) {
+            return true;
+        }
+        return false;
+    }
     
 }

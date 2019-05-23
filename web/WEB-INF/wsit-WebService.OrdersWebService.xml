@@ -13,6 +13,8 @@
     <message name="useTicketsResponse"/>
     <message name="test"/>
     <message name="testResponse"/>
+    <message name="useTicketsByTID"/>
+    <message name="useTicketsByTIDResponse"/>
     <portType name="OrdersWebService">
         <operation name="remoteValidateUser">
             <input message="tns:remoteValidateUser"/>
@@ -30,6 +32,10 @@
             <input message="tns:test"/>
             <output message="tns:testResponse"/>
         </operation>
+        <operation name="useTicketsByTID">
+            <input message="tns:useTicketsByTID"/>
+            <output message="tns:useTicketsByTIDResponse"/>
+        </operation>
     </portType>
     <binding name="OrdersWebServicePortBinding" type="tns:OrdersWebService">
         <operation name="remoteValidateUser">
@@ -45,6 +51,10 @@
             <output></output>
         </operation>
         <operation name="test">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="useTicketsByTID">
             <input/>
             <output/>
         </operation>

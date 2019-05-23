@@ -83,6 +83,23 @@ public class OrdersWebService {
         return false;
     }
     
+    @WebMethod(operationName = "useTicketsByTID")
+    public boolean useTicketsByTID(@WebParam(name = "tickets") List<Integer> tickets) {
+        System.out.println("server: Recived tickets to mark: " + tickets.toString());
+        if(this.userLogged){
+            for (int i=0; i<tickets.size(); i++){
+                try {
+                    ServiceInit.ticketsService().updateTicketByID(tickets.get(i));
+                } catch (SQLException ex) {
+                    System.out.println("server: exeption Cougth " + ex);
+                    //Logger.getLogger(OrdersWebService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    
     
     @WebMethod(operationName = "test")
     public int[] test(@WebParam(name = "testParam") String testParam){
@@ -95,15 +112,15 @@ public class OrdersWebService {
     
     /*gets an array list of tickets and returns int array of sequential tickets*/
     private int[] arrayListToListInteger(ArrayList<Ticket> l) {
-        int[] intArr = new int[l.size()*5];
+        int[] intArr = new int[l.size()*6];
         int j=0;
         for (Ticket t: l){
             int[] tempArr = t.asIntArr();
-            for (int i=0; i<5; i++){
+            for (int i=0; i<6; i++){
                 intArr[i+j] = tempArr[i];
                 //System.out.print (intArr[i+j] + ", ");
             }
-            j=j+5;
+            j=j+6;
         }
         return intArr;
     }

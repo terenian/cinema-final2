@@ -18,17 +18,23 @@
   <message name="remoteValidateUserResponse">
     <part name="parameters" element="tns:remoteValidateUserResponse"/>
   </message>
-  <message name="getTickets">
-    <part name="parameters" element="tns:getTickets"/>
+  <message name="useTicketsByTID">
+    <part name="parameters" element="tns:useTicketsByTID"/>
   </message>
-  <message name="getTicketsResponse">
-    <part name="parameters" element="tns:getTicketsResponse"/>
+  <message name="useTicketsByTIDResponse">
+    <part name="parameters" element="tns:useTicketsByTIDResponse"/>
   </message>
   <message name="useTickets">
     <part name="parameters" element="tns:useTickets"/>
   </message>
   <message name="useTicketsResponse">
     <part name="parameters" element="tns:useTicketsResponse"/>
+  </message>
+  <message name="getTickets">
+    <part name="parameters" element="tns:getTickets"/>
+  </message>
+  <message name="getTicketsResponse">
+    <part name="parameters" element="tns:getTicketsResponse"/>
   </message>
   <portType name="OrdersWebService">
     <operation name="test">
@@ -39,13 +45,17 @@
       <input wsam:Action="http://WebService/OrdersWebService/remoteValidateUserRequest" message="tns:remoteValidateUser"/>
       <output wsam:Action="http://WebService/OrdersWebService/remoteValidateUserResponse" message="tns:remoteValidateUserResponse"/>
     </operation>
-    <operation name="getTickets">
-      <input wsam:Action="http://WebService/OrdersWebService/getTicketsRequest" message="tns:getTickets"/>
-      <output wsam:Action="http://WebService/OrdersWebService/getTicketsResponse" message="tns:getTicketsResponse"/>
+    <operation name="useTicketsByTID">
+      <input wsam:Action="http://WebService/OrdersWebService/useTicketsByTIDRequest" message="tns:useTicketsByTID"/>
+      <output wsam:Action="http://WebService/OrdersWebService/useTicketsByTIDResponse" message="tns:useTicketsByTIDResponse"/>
     </operation>
     <operation name="useTickets">
       <input wsam:Action="http://WebService/OrdersWebService/useTicketsRequest" message="tns:useTickets"/>
       <output wsam:Action="http://WebService/OrdersWebService/useTicketsResponse" message="tns:useTicketsResponse"/>
+    </operation>
+    <operation name="getTickets">
+      <input wsam:Action="http://WebService/OrdersWebService/getTicketsRequest" message="tns:getTickets"/>
+      <output wsam:Action="http://WebService/OrdersWebService/getTicketsResponse" message="tns:getTicketsResponse"/>
     </operation>
   </portType>
   <binding name="OrdersWebServicePortBinding" type="tns:OrdersWebService">
@@ -68,7 +78,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="getTickets">
+    <operation name="useTicketsByTID">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -78,6 +88,15 @@
       </output>
     </operation>
     <operation name="useTickets">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="getTickets">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>

@@ -14,7 +14,23 @@
 
 <xs:element name="useTickets" type="tns:useTickets"/>
 
+<xs:element name="useTicketsByTID" type="tns:useTicketsByTID"/>
+
+<xs:element name="useTicketsByTIDResponse" type="tns:useTicketsByTIDResponse"/>
+
 <xs:element name="useTicketsResponse" type="tns:useTicketsResponse"/>
+
+<xs:complexType name="useTicketsByTID">
+<xs:sequence>
+<xs:element name="tickets" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="useTicketsByTIDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="remoteValidateUser">
 <xs:sequence>
@@ -31,12 +47,8 @@
 
 <xs:complexType name="useTickets">
 <xs:sequence>
-<xs:element name="tickets" type="tns:ticket" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="tickets" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="ticket">
-<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="useTicketsResponse">
