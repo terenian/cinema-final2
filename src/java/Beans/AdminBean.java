@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Beans;
+package Beans; 
 
+import DAOPackage.CinemaLogger;
 import GeneralWeb.SessionUtils;
-import EntitiesLayer.User;
 import java.io.Serializable;
-import java.sql.SQLException;
+import java.util.logging.Level;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -24,17 +17,18 @@ import javax.servlet.http.HttpSession;
 public class AdminBean implements Serializable {
 
     	private static final long serialVersionUID = 1094801825228386363L;	
-	//validate login
 
     /**
-     *
-     * @return
+     * validate login
+     * @return Login Navigation page if success, null if false
      */
 	public String isLoggedIn(){
             if (!SessionUtils.getUserRole().equals("admin"))
                 return "Login";
-            else
+            else{
+                CinemaLogger.log(Level.INFO, this.getClass() + " ");
                 return null;
+            }
 	}
 
 

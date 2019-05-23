@@ -38,9 +38,7 @@ public class RegistrationBean implements Serializable {
         public String addUser() throws SQLException {
 		if(ServiceInit.UsersService().userNameExists(user.getUserName()))
                 {
-                  FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
+                  FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,
 							"username already exists",
 							"Please choose another"));
                     return "Registration";  
