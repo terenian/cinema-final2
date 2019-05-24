@@ -9,7 +9,7 @@ import java.util.List;
 
 
 /**
- *
+ *Provides Bean services to Ticket-related actions
  * @author Eran.z & Itzik W.
  */
 @Named(value = "TicketsBean")
@@ -22,13 +22,12 @@ public class TicketsBean implements Serializable {
     private int orderID;
 
     /**
-     *
-     * @return
+     * @return orderID
      */
     public int getOrderID() {return orderID;}
 
     /**
-     *
+     *Setter for an ordrID
      * @param orderID
      */
     public void setOrderID(int orderID) {this.orderID = orderID;}
@@ -42,8 +41,8 @@ public class TicketsBean implements Serializable {
     }
     
     /**
-     *
-     * @return
+     * 
+     * @return currentUser tickets
      * @throws ClassNotFoundException
      * @throws SQLException
      * @throws Throwable
@@ -54,9 +53,9 @@ public class TicketsBean implements Serializable {
     }
     
     /**
-     *
+     * gets all tickets in a specific screening so we know what seats are taken / how many tickets left
      * @param screeningID
-     * @return
+     * @return list of taken tickets
      * @throws ClassNotFoundException
      * @throws SQLException
      * @throws Throwable
@@ -68,11 +67,12 @@ public class TicketsBean implements Serializable {
     }
     
     /**
-     *
+     * marks a ticket as used
      * @param order
      * @param tickets
      * @return
      */
+    /*
     public boolean markTicketsAsUsed( int order, int[][] tickets)  {
         boolean marked = false;
         try {
@@ -85,7 +85,7 @@ public class TicketsBean implements Serializable {
             return false;
         }
     }
-    
+    */
 }
 
 

@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- *
+ * Provides Logging for this class
  * @author Eran Z. & Itzik W.
  */
 
@@ -20,7 +20,7 @@ public class CinemaLogger {
     Formatter plainText;
     
     private CinemaLogger() throws IOException{
-        //instance the logger
+        //instancitate the logger
         logger = Logger.getLogger(CinemaLogger.class.getName());
         //instance the filehandler
         fileHandler = new FileHandler(conf.getLogPath(),true);

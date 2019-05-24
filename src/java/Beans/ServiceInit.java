@@ -8,8 +8,10 @@ import javax.ejb.Startup;
 
 
 /**
- *
- * @author eran.z & Itzik W.
+ *Initiating Services on startup.
+ * Initiate DB Access and reading configuration file
+ * Creates an instance of all static Services that provides DB access.
+ * @author Eran.z & Itzik W.
  */
 @Startup
 @Singleton
@@ -45,44 +47,9 @@ public class ServiceInit {
             this.status =  this.getClass().toString() + ": Initialization Failed.";
         }
         System.out.println(status);
-        //startLogger ();
     }
-    
-//    public void startLogger () {
-//        try {
-//            logger = Logger.getLogger("CinemaLog");
-//            //FileHandler fh;
-//            fh = new FileHandler(conf.getLogPath(), true);
-//            
-//            logger.addHandler(fh);
-//            SimpleFormatter formatter = new SimpleFormatter();
-//            fh.setFormatter(formatter);
-//            
-            //Hook to close all fileHandler on close
-//            final FileHandler fhf = fh;
-//            Runtime.getRuntime().addShutdownHook(
-//                    new Thread( () -> {
-//                        logger.removeHandler(fhf);
-//                        fhf.close();
-//                    }));
-            
-            
-//                Runtime.getRuntime().addShutdownHook(
-//                new Thread( () -> {
-//                logger.removeHandler(fhf);
-//                fhf.close();
-//                }));
-//
-//            logger.info(status);
-//            fh.close();
-//        } catch (Throwable ex) {
-//            Logger.getLogger(ServiceInit.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-        
-        
-        
-        //generate services
+ 
+        //generate services that allow DB access for each table in the DB
         
         public static synchronized OrdersService orderService(){
             os = new OrdersService (dbcon);
@@ -118,13 +85,5 @@ public class ServiceInit {
             rs = new ReviewsService (dbcon);
             return rs;
         }
-        
-        public static synchronized void close(){
-            try {
-                dbcon.closeConnection();
-            } catch (Exception e) {
-                
-            }
-            
-        }
+
 }
