@@ -46,25 +46,42 @@ public class ScreeningsBean implements Serializable {
     private ArrayList<ArrayList<String>> seatsForOrder ;
     private String chosenSeats;
     
+ 
     public Hall getHall() {return hall;}
+
     public Movie getMovie() {return movie;}
+
     public Screening getScreening() {return screening;}
+
     public int getNewOrderID (){
         return newOrderID;
     }
     
-    
+    /**
+     * gets the number of ordered tickets
+     * @return the number of free tickets in a screening
+     * @throws SQLException
+     */
     public int getNumberOfFreeTickets() throws SQLException {
         int numberOfTakenSeats = ServiceInit.ticketsService().searchTicket(null, null, screeningID, null, null).size();
         numberOfFreeTickets = (hall.getHallLength()*hall.getHallWidth())- numberOfTakenSeats;
         return numberOfFreeTickets;
     }
     
+ 
     public int getNumberOfDesiredTickets() {return numberOfDesiredTickets;}
+
+
     public void setNumberOfDesiredTickets(int num) {
         numberOfDesiredTickets = num;
     }
     
+    /**
+     * Validator to check if number of desired tickets (in un-marked screening) is valid
+     * @param context
+     * @param comp
+     * @param value
+     */
     public void validateFreeTickets (FacesContext context, UIComponent comp,Object value) {
         int numberOfDesiredTicketsString = (Integer) value;
         if (numberOfDesiredTicketsString > numberOfFreeTickets || numberOfDesiredTicketsString < 1) {
@@ -74,6 +91,10 @@ public class ScreeningsBean implements Serializable {
         }
     }
     
+    /**
+     * return an order total price.
+     * @return int with order total price
+     */
     public int getOrderPrice() {
         if(seatsForOrder!=null){ //it is a MARKED seats tickets
             orderPrice = seatsForOrder.size()*screening.getPrice();
@@ -84,8 +105,12 @@ public class ScreeningsBean implements Serializable {
         }
     }
     
-    //contrlo Navigation: check if the screening is reserved-seats or not
-    public String checkMarkedSeats (){
+
+    /**
+     * controls Navigation: check if the screening is reserved-seats or not
+     * @return Page Navigation redirect
+     */
+        public String checkMarkedSeats (){
         if (screening.getMarkedTicket() == 1){
             return ("chooseSeats");
         }
@@ -93,8 +118,13 @@ public class ScreeningsBean implements Serializable {
         
     }
     
-    //Control Navigation: check if seats are chosen
-    public String checkChosenSeats (){
+ 
+
+    /**
+     *Control Navigation: check if seats are chosen
+     * @return redirects to the same page if not seats were chosen. summary page if there are chosen seats.
+     */
+        public String checkChosenSeats (){
         CinemaLogger.log(Level.INFO, this.getClass() + " chosen seats are: " + seatsForOrder.toString());
         System.out.println(" = = = seatsForOrder are:" + seatsForOrder);
         if (seatsForOrder == null){
@@ -104,17 +134,33 @@ public class ScreeningsBean implements Serializable {
         
     }
     
+    /**
+     * list of available movies 
+     * @return list of available movies
+     */
     public List<Movie> getMoviesList() { return moviesList;}
     
+    /**
+     * seatsForOrder is 2 dimension array, each ArrayList is an ArrayList of row&column
+     * @return  ArrayList<ArrayList<String>> with seats
+     */
     public ArrayList<ArrayList<String>> getSeatsForOrder (){return seatsForOrder;}
     
-    //public String[] getChosenSeats (){return chosenSeats;}
+    /**
+     * ChosenSeats as string 
+     * @returns chosen seats in a String
+     */
     public String getChosenSeats (){return chosenSeats;}
+    
+    /**
+    * generates a List of couples with seats coordinates - row and column.
+    * This is used to insert them in the DB and calculating price: price is number of coupls*lists size
+     * @param stringOfSeats
+    */
     public void setChosenSeats (String stringOfSeats){
         chosenSeats = stringOfSeats;
         if (stringOfSeats.length()>0){
             List<String> seatsList = Arrays.asList(stringOfSeats.split(","));
-            //System.out.println("== seatList is: "+ seatsList +"and its length is: " + seatsList.size());
             ArrayList<String> seat = new  ArrayList<String>();
             seatsForOrder = new ArrayList<ArrayList<String>>();
             for (int i=0; i<seatsList.size(); i+=2){
@@ -126,29 +172,48 @@ public class ScreeningsBean implements Serializable {
             }
             numberOfDesiredTickets=seatsForOrder.size();
             CinemaLogger.log(Level.INFO, this.getClass() + " seats for order are: " + seatsForOrder);
-            //System.out.println ("seatsForOrde is: " + seatsForOrder)   ;
         }
         else {
+            CinemaLogger.log(Level.INFO, this.getClass() + " no seats where selected!");
             seatsForOrder = null;
             chosenSeats = "0";
         }
     }
     
-    
+    /**
+     * gets a screening list of the selectedMovies
+     * @return
+     * @throws SQLException
+     */
     public List<Screening> getScreeningsListByMovieID() throws SQLException {
         screeningsListByMovieID = ServiceInit.screeningsService().searchScreenings(null,hallID, movieID, null, null,null, null);
         return screeningsListByMovieID;
     }
+    /**
+     * returns a screening based on the order it's in
+     * @param orderID
+     * @return Screening
+     * @throws java.sql.SQLException
+     */
     public Screening getScreeningByOrderID(int orderID) throws SQLException {
         return (ServiceInit.screeningsService().searchScreeningByID(orderID));
     }
-
+    
+    /**
+     * returns all available screenings by a given HallID
+     * @return List of screenings
+     * @throws java.sql.SQLException
+     */
     public List<Screening> getScreeningsListByHallID() throws SQLException {
         screeningsListByHallID = ServiceInit.screeningsService().searchScreenings(null,hallID, null, null, null,null, null);
         this.createMoviesListfromScreeningList();
         return screeningsListByHallID;
     }
     
+    /**
+     * Creates a movies list from
+     * @throws SQLException
+     */
     public void createMoviesListfromScreeningList () throws SQLException {
         int movID;
         moviesList = new ArrayList<>();
@@ -174,6 +239,9 @@ public class ScreeningsBean implements Serializable {
         }
     }
     
+    /**
+     *Saves an order to the DB. first Generates the order and then the tickets.
+     */
     public void saveOrder(){
         try {
             newOrderID = ServiceInit.orderService().insertOrder(SessionUtils.getUserId(), orderPrice);
@@ -194,31 +262,68 @@ public class ScreeningsBean implements Serializable {
     
     
     private int movieID;
+
+    /**
+     * selected Movie's ID
+     * @return
+     */
     public int getMovieID() {return movieID;}
+
+    /**
+     * sets a movieID and all movie details from the DB
+     * @param movie
+     * @throws SQLException
+     */
     public void setMovieID(int movie) throws SQLException {
         this.movieID = movie;
         this.movie= ServiceInit.moviesService().searchMoviesbyID(movieID).get(0);
+        CinemaLogger.log(Level.INFO, this.getClass() + " selected Movie is: " + this.movie.toString() );
     }
     
     private int screeningID;
+
+    /**
+     *
+     * @return selected ScreeningID
+     */
     public int getScreeningID() {return screeningID;}
+
+    /**
+     * sets a selected Screening
+     * @param scr
+     * @throws SQLException
+     */
     public void setScreeningID(int scr) throws SQLException {
         this.screeningID = scr;
         this.screening = ServiceInit.screeningsService().searchScreenings(screeningID, null, null, null, null, null, null).get(0);
+        CinemaLogger.log(Level.INFO,this.getClass() + " selected Screen is: " + screening.toString());
     }
     
     private int hallID;
+
+    /**
+     *
+     * @return selected hall ID
+     */
     public int getHallID() {return hallID;}
+
+    /**
+     *
+     * @param hallToSet
+     * @throws SQLException
+     */
     public void setHallID (int hallToSet) throws SQLException{
         cleanOrder();
-         CinemaLogger.log(Level.INFO,this.getClass() + " hall is: ========= :" + hallToSet);
-        System.out.println("hall is: ========= :" + hallToSet);
+        CinemaLogger.log(Level.INFO,this.getClass() + " selected hall is: " + hallToSet);
+        //System.out.println("hall is: ========= :" + hallToSet);
         this.hallID = hallToSet;
         this.hall= ServiceInit.hallsService().searchHalls(hallID, "").get(0);
         this.getScreeningsListByHallID();
-        //this.createMoviesListfromScreeningList();
     }
     
+    /**
+     * Cleans local bean parameters
+     */
     public void cleanOrder()
     {
         this.moviesList = null;
