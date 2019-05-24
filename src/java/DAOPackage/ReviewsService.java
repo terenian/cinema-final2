@@ -1,23 +1,22 @@
-/*
-* This class gives a service of CRUD actions on Reviews Table.
-*/
 package DAOPackage;
 
+import Beans.ServiceInit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import EntitiesLayer.Review;
+import GeneralWeb.SessionUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 
 
 
 /**
- *
+ * This class gives a service of CRUD actions on Reviews Table.
  * @author Eran Z. & Itzik W
  */
 public class ReviewsService {
@@ -26,19 +25,27 @@ public class ReviewsService {
     private DBConnector dbConnection;
     
     private final String REVIEW_INSERT = "insert into cinema.reviews (MovieID, ReviewDate, Review, UserID) values (?,?,?,?)";
-    //Changed by Eran 9.4.19 private final String REVIEW_SEARCH = "select * from cinema.reviews where ReviewID like (?) and ReviewName like (?) and ReviewLength like (?)";
     private final String REVIEW_SEARCH = "select * from cinema.reviews where MovieID like (?) and UserID like (?) ORDER BY ReviewDate DESC, ReviewID DESC";
     
-    //private final Logger logger = ServiceManager.getLogger();
     
-    
+    /**
+     * Default constructor
+     * @param dbConnection
+     */
     public ReviewsService(DBConnector dbConnection){
         this.dbConnection = dbConnection;
     }
+
+
+    /**
+     *nserts a new review
+     * @param review
+     * @param movieID
+     * @param userID
+     * @return int of inserted review
+     * @throws SQLException
+     */
     
-    /*
-    * Inserts a new review
-    */
     public Integer insertReview(String review, Integer movieID, Integer userID)
             throws SQLException{
         
@@ -57,10 +64,10 @@ public class ReviewsService {
                
         int result =  reviewInsertSTM.executeUpdate();
         if (result >= 0) {
-            System.out.println("SuccessInsert");
+            CinemaLogger.log(Level.INFO, this.getClass() + "Succeess insert");
         }
         else{
-            System.out.println("UnSeccessed insert!");
+            CinemaLogger.log(Level.SEVERE, this.getClass() + "Faild to insert");
         }
         return result;
     }
@@ -68,9 +75,15 @@ public class ReviewsService {
     /*
     * Search for review
     */
+
+    /**
+     * @param movie
+     * @return list of reviews by movieID
+     * @throws SQLException
+     */
+    
     public ArrayList<Review> searchReviewsbyMovie(Integer movie)
             throws SQLException{
-        //logger.info("search Review("+id+","+name+","+description+","+parentId+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement reviewSearchSTM = null;
         reviewSearchSTM = c.prepareStatement(REVIEW_SEARCH);
@@ -80,11 +93,9 @@ public class ReviewsService {
         else{
             reviewSearchSTM.setInt(1, movie);
         }
-        //TODO: change "1" to CurrentUSERID
-        reviewSearchSTM.setInt(2, 1);
+        reviewSearchSTM.setInt(2, SessionUtils.getUserId());
         
-        
-        System.out.println("reviewSearchSTM IS: " + reviewSearchSTM.toString());
+        CinemaLogger.log(Level.INFO, this.getClass() + "reviewSearchSTM is" + reviewSearchSTM.toString());
         
         ResultSet rs = reviewSearchSTM.executeQuery();
         ArrayList<Review> list = new ArrayList<Review> ();

@@ -1,6 +1,4 @@
-/*
-*
-*/
+
 package DAOPackage;
 import java.io.File;
 import java.io.*;
@@ -9,7 +7,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-//import PathToXml.PathToXML;
+/**
+ * Reads the configuration XML
+ * @author Eran Z. & Itzik W.
+ */
 
 public class Configuration {
     
@@ -19,23 +20,17 @@ public class Configuration {
     private String password;
     private String logPath;
     private String dbName;
-    //public final static String PATH_TO_XML = "C:\\NetBeansProjects\\Cinema\\web\\CinemaTicketsConfig.xml";
+    
+    /**
+     * Initiate the Configuration Reading the XML and sets local holders for all db log-in and Logging
+     * @throws Throwable
+     */
     public Configuration() throws Throwable{
         
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
-        
-        
-        //System.out.println ("========TEST========== " +  getClass().getResourceAsStream("/DAOPackage/CinemaTicketsConfig.xml"));
         InputStream is = getClass().getResourceAsStream("/DAOPackage/CinemaTicketsConfig.xml");
-        
-        //File f = new File(PATH_TO_XML);
-        //File f = new File(getClass().getClassLoader().getResource("CinemaTicketsConfig.xml").getPath());
-        
-        //Document doc = db.parse(f);
         Document doc = db.parse(is);
-        
-        //NodeList l = doc.getElementsByTagName("Config");
         Element config = doc.getDocumentElement();
         this.dbServer = config.getElementsByTagName("DBServer").item(0).getTextContent();
         this.userName = config.getElementsByTagName("UserName").item(0).getTextContent();
@@ -44,22 +39,37 @@ public class Configuration {
         this.dbName = config.getElementsByTagName("DbName").item(0).getTextContent();
     }
     
+    /**
+     * @return String of the db server location
+     */
     public String getDbServer() {
         return dbServer;
     }
     
+    /**
+     * @return userName for db access
+     */
     public String getUserName() {
         return userName;
     }
     
+    /**
+     * @return password for db access
+     */
     public String getPassword() {
         return password;
     }
     
+    /**
+     * @return log file path on machine
+     */
     public String getLogPath() {
         return logPath;
     }
     
+    /**
+     * @return String of the db server name
+     */
     public String getDbName() {
         return dbName;
     }

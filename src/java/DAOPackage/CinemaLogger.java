@@ -19,6 +19,7 @@ public class CinemaLogger {
     static Handler fileHandler;
     Formatter plainText;
     
+    //Constructor
     private CinemaLogger() throws IOException{
         //instancitate the logger
         logger = Logger.getLogger(CinemaLogger.class.getName());
@@ -41,11 +42,19 @@ public class CinemaLogger {
         return logger;
     }
     
+    /**
+     *Logs an event
+     * @param level
+     * @param msg
+     */
     public static void log(Level level, String msg){
         getLogger().log(level, msg);
         System.out.println(msg);
     }
     
+    /**
+     * Closes the file Handler
+     */
     public static synchronized void close(){
         try{
             fileHandler.close();

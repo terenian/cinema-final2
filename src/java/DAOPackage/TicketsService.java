@@ -1,6 +1,3 @@
-/*
-* This class gives a service of CRUD actions on Tickets Table.
-*/
 package DAOPackage;
 
 import java.sql.Connection;
@@ -13,9 +10,10 @@ import java.util.logging.Logger;
 import EntitiesLayer.Order;
 import EntitiesLayer.Ticket;
 import java.sql.Statement;
+import java.util.logging.Level;
 
 /**
- *
+ * This class gives a service of CRUD actions on Tickets Table.
  * @author Eran Z. & Itzik W
  */
 public class TicketsService {
@@ -30,22 +28,29 @@ public class TicketsService {
     private final String TICKET_UPDATE_BY_TICKETID = "update cinema.tickets set Used=1 where TicketID like (?)";
     //private final Logger logger = ServiceManager.getLogger();
     
-    
+    /**
+     *
+     * @param dbConnection
+     */
     public TicketsService(DBConnector dbConnection){
         this.dbConnection = dbConnection;
     }
     
-    /*
-    * Inserts a new ticket
-    */
-    public Integer insertOrder(Integer order, Integer screening, Integer row, Integer column)
-            throws SQLException{
+    /**
+     * Inserts a new ticket
+     * @param order
+     * @param screening
+     * @param row
+     * @param column
+     * @return inserted TicketID
+     * @throws SQLException
+     */
+    
+    public Integer insertOrder(Integer order, Integer screening, Integer row, Integer column)throws SQLException{
         
-        //logger.info("insert Order("+orderID+","+userID+","+price+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement ticketInsertSTM = null;
-        ticketInsertSTM = c.prepareStatement(TICKET_INSERT,
-                                      Statement.RETURN_GENERATED_KEYS);
+        ticketInsertSTM = c.prepareStatement(TICKET_INSERT,Statement.RETURN_GENERATED_KEYS);
         
         ticketInsertSTM.setInt(1, order);
         ticketInsertSTM.setInt(2, screening);
@@ -53,6 +58,7 @@ public class TicketsService {
         ticketInsertSTM.setInt(4, column);
         int result = ticketInsertSTM.executeUpdate();
         if (result == 0) {
+            CinemaLogger.log(Level.SEVERE, this.getClass() + "== Creating ticket failed, no rows affected.");
             throw new SQLException("== Creating ticket failed, no rows affected.");
         }
         try (ResultSet generatedKeys = ticketInsertSTM.getGeneratedKeys()) {
@@ -60,18 +66,26 @@ public class TicketsService {
                 return (generatedKeys.getInt(1));
             }
             else {
+                CinemaLogger.log(Level.SEVERE, this.getClass() + "===Creating ticket failed, no ID obtained");
                 throw new SQLException("==Creating ticket failed, no ID obtained.");
             }
         }
 
     }
     
-    /*
-    * Search for rows
-    */
+    /**
+     * List of Tickets
+     * @param tid
+     * @param order
+     * @param screening
+     * @param row
+     * @param column
+     * @return
+     * @throws SQLException
+     */
+    
     public ArrayList<Ticket> searchTicket(Integer tid, Integer order, Integer screening, Integer row, Integer column)
             throws SQLException{
-        //logger.info("search Order("+id+","+name+","+description+","+parentId+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement ticketSearchSTM = null;
         ticketSearchSTM = c.prepareStatement(TICKET_SEARCH);
@@ -106,7 +120,7 @@ public class TicketsService {
             ticketSearchSTM.setInt(5, column);
         }
         
-        System.out.println("ticketSearchSTM IS: " + ticketSearchSTM.toString());
+        CinemaLogger.log(Level.INFO, this.getClass() + "ticketSearchSTM is" + ticketSearchSTM.toString());
         
         ResultSet rs = ticketSearchSTM.executeQuery();
         ArrayList<Ticket> list = new ArrayList<Ticket> ();
@@ -116,6 +130,13 @@ public class TicketsService {
         }
         return list;
     }
+
+    /**
+     *
+     * @param orderID
+     * @return int with screening id by Order ID, 0 if none found
+     * @throws SQLException
+     */
     public int getScreeningIDByOrderID(int orderID)throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -131,7 +152,14 @@ public class TicketsService {
         
     }
     
-    
+    /**
+     * 
+     * @param order
+     * @param row
+     * @param col
+     * @return true if update succeed
+     * @throws SQLException
+     */
     public boolean updateTicket(Integer order, Integer row, Integer col)
             throws SQLException{
         if (order == null) {
@@ -145,7 +173,7 @@ public class TicketsService {
         ticketUpdateSTM.setInt(2, row);
         ticketUpdateSTM.setInt(3, col);
                       
-        System.out.println("ticketUpdateSTM IS: " + ticketUpdateSTM.toString());
+        CinemaLogger.log(Level.INFO, this.getClass() + "ticketUpdateSTM is" + ticketUpdateSTM.toString());
         
         Integer i = ticketUpdateSTM.executeUpdate();
         if (i>0) {
@@ -154,8 +182,13 @@ public class TicketsService {
         return false;
     }
     
-    
-     public boolean updateTicketByID(Integer ticketID)throws SQLException{
+    /**
+     *
+     * @param ticketID
+     * @return true if update succeed
+     * @throws SQLException
+     */
+    public boolean updateTicketByID(Integer ticketID)throws SQLException{
         if (ticketID == null) {
             return false;
         }
@@ -164,8 +197,8 @@ public class TicketsService {
         ticketUpdateSTM = c.prepareStatement(TICKET_UPDATE_BY_TICKETID);
         
         ticketUpdateSTM.setInt(1, ticketID);
-                      
-        System.out.println("ticketUpdateSTM IS: " + ticketUpdateSTM.toString());
+         
+        CinemaLogger.log(Level.INFO, this.getClass() + "ticketUpdateSTM is" + ticketUpdateSTM.toString());
         
         Integer i = ticketUpdateSTM.executeUpdate();
         if (i>0) {

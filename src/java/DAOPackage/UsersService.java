@@ -1,6 +1,3 @@
-/*
-* This class gives a service of CRUD actions on Users Table.
-*/
 package DAOPackage;
 
 import java.sql.Connection;
@@ -18,7 +15,7 @@ import java.util.List;
 
 
 /**
- *
+ *This class gives a service of CRUD actions on Users Table.
  * @author Eran Z. & Itzik W
  */
 public class UsersService {
@@ -27,13 +24,21 @@ public class UsersService {
     private DBConnector dbConnection;
     
     private final String MOVIE_INSERT = "insert into cinema.movies (MovieName, MovieLength) values (?,?)";
-    //Changed by Eran 9.4.19 private final String MOVIE_SEARCH = "select * from cinema.movies where MovieID like (?) and MovieName like (?) and MovieLength like (?)";
     
-    
+    /**
+     *
+     * @param dbConnection
+     */
     public UsersService(DBConnector dbConnection){
         this.dbConnection = dbConnection;
     }
     
+    /**
+     *
+     * @param username
+     * @return
+     * @throws SQLException
+     */
     public boolean userNameExists(String username) throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -52,6 +57,12 @@ public class UsersService {
         }
     }
     
+    /**
+     *
+     * @param newUser
+     * @return
+     * @throws SQLException
+     */
     public boolean addNewUser(User newUser) throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -70,6 +81,14 @@ public class UsersService {
         return(valUser.executeUpdate() > 0 );
  
     }
+
+    /**
+     *
+     * @param userID
+     * @param newRole
+     * @return
+     * @throws SQLException
+     */
     public boolean updateRole(int userID,String newRole) throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -79,6 +98,12 @@ public class UsersService {
         return (prepStat.executeUpdate()>0);
         
     }
+
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     public List<User> getAllUsers() throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -92,6 +117,14 @@ public class UsersService {
         }
         return list;
     }
+
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     * @throws SQLException
+     */
     public User validateUser (String username,String password)
             throws SQLException{
         

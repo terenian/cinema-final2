@@ -1,14 +1,8 @@
-/*
-* This class establishe a connection with the DB using MySQL Connector.
-*/
 package DAOPackage;
-import Beans.ServiceInit;
-import DAOPackage.Configuration;
 import java.sql.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
- *
+ * This class establishes a connection with the DB using MySQL Connector.
  * @author Eran Z. & Itzik W
  */
 public class DBConnector {
@@ -22,43 +16,41 @@ public class DBConnector {
     private ResultSet myRs = null;
     private ResultSetMetaData myRsMD;
     private boolean connectionIsOn = false;
+    /**
+     * gets db name, username and passwords and creates a connection.
+     * @param c Configuration file
+     * @throws SQLException
+     */
     
-     private Logger logger;
-    /*
-    gets db name, username and passwords and creates a connection.
-    */
     public DBConnector(Configuration c) throws SQLException {
         
         user = c.getUserName();
         pass = c.getPassword();
         host = c.getDbServer();
-        dbName = c.getDbName();
-        //logger = ServiceInit.getLogger();
-        
+        dbName = c.getDbName();        
         
         connectionString = "jdbc:mysql://"+ 
                 host +"/" + 
                 dbName + "?useSSL=false&useUnicode=true&serverTimezone=Asia/Jerusalem";
         try{
             Class.forName("com.mysql.jdbc.Driver");  
-            //1. get a connection to db
             myConn = DriverManager.getConnection(connectionString, user, pass);
             connectionIsOn = true;
             
             System.out.println(this.getClass().toString() + ": CONNECTION SUCCEEDED");
-            //logger.log(Level.INFO, "{0}: CONNECTION SUCCESS", this.getClass().toString());
-            //===========TEST===========s
-            //testConnection();
+
         }
         catch (Exception e){
             System.out.println(this.getClass().toString() + ": CONNECTION FAILED");
-            //logger.log(Level.INFO, "{0}: CONNECTION FAILED", this.getClass().toString());
-            e.printStackTrace();
+            CinemaLogger.log(Level.SEVERE, this.getClass() + e.getMessage());
         }
         
         
     }
     
+    /**
+     * @return a connection for the DB
+     */
     public Connection getConnection (){
         if (connectionIsOn){
             return myConn;
@@ -66,9 +58,12 @@ public class DBConnector {
         return null;
     }
 
-    /*
-    * closes the connection
-    */
+
+    /**
+     *Close the connection
+     * @throws SQLException
+     */
+    
     public void closeConnection() throws SQLException{
         if (myRs != null) {
             myRs.close();
@@ -83,16 +78,18 @@ public class DBConnector {
     
     
     
-    /*====================================================
-    * test the connection by selecting all from orders table
-    */
+   
+    /**
+     *Tester
+     * @throws SQLException
+     */
+    
     public void testConnection() throws SQLException{
         
         try{
             //2. Create a statement
             myStmt = myConn.createStatement();
-            
-            
+
             //3. Execute SQL query
             myRs = myStmt.executeQuery("select * from orders");
             

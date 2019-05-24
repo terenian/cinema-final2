@@ -1,6 +1,3 @@
-/*
-* This class gives a service of CRUD actions on Halls Table.
-*/
 package DAOPackage;
 
 import java.sql.Connection;
@@ -14,7 +11,7 @@ import EntitiesLayer.Hall;
 
 
 /**
- *
+ *This class gives a service of CRUD actions on Halls Table.
  * @author Eran Z. & Itzik W
  */
 public class HallsService {
@@ -25,15 +22,22 @@ public class HallsService {
     private final String HALL_INSERT = "insert into cinema.halls (HallID, HallName,HallWidth,HallLength) values (?,?,?,?)";
     private final String HALL_SEARCH = "select * from cinema.halls where HallID like (?) and HallName like (?)";
     private final String HALL_UPDATE = "update cinema.halls set HallName=(?), set HallWidth=(?), HallLength=(?) where HallID like (?)";
-    //private final Logger logger = ServiceManager.getLogger();
     
-    
+    /**
+     * constructor with db connection details
+     * @param dbConnection
+     */
     public HallsService(DBConnector dbConnection)
     {
         this.dbConnection = dbConnection;
     }
     
-    
+    /**
+     * deletes a hall by its ID
+     * @param hallID
+     * @return false if deletion failed
+     * @throws SQLException
+     */
     public boolean deleteHall(int hallID) throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -52,6 +56,15 @@ public class HallsService {
             return (prepStat.executeUpdate()> 0);
         }
     }
+
+    /**
+     * Adds a Hall
+     * @param hallName
+     * @param hallWidth
+     * @param hallLength
+     * @return true if insertion succeed
+     * @throws SQLException
+     */
     public boolean addHall(String hallName, int hallWidth,  int hallLength) throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -63,13 +76,16 @@ public class HallsService {
 
         return (prepStat.executeUpdate()> 0);
     }
+
+    /**
+     *Searches a Hall
+     * @param id
+     * @param name
+     * @return list of Halls
+     * @throws SQLException
+     */
     
-    /*
-    * Search for hall
-    */
-    public ArrayList<Hall> searchHalls(int id, String name)
-            throws SQLException{
-        //logger.info("search Hall("+id+","+name+","+description+","+parentId+")");
+    public ArrayList<Hall> searchHalls(int id, String name) throws SQLException{
         Connection c = dbConnection.getConnection();
         PreparedStatement hallSearchSTM = null;
         hallSearchSTM = c.prepareStatement(HALL_SEARCH);
@@ -86,8 +102,6 @@ public class HallsService {
             hallSearchSTM.setString(2, name);
         }
         
-        System.out.println("hallSearchSTM IS: " + hallSearchSTM.toString());
-        
         ResultSet rs = hallSearchSTM.executeQuery();
         ArrayList<Hall> list = new ArrayList<Hall> ();
         while(rs.next()){
@@ -97,9 +111,16 @@ public class HallsService {
         return list;
     }
     
-    /*
-    * update hall
-    */
+
+    /**
+     * updates a hall
+     * @param id
+     * @param name
+     * @param length
+     * @return true if update succeed
+     * @throws SQLException
+     */
+    
     public boolean updateHall(Integer id, String name ,Integer length)
             throws SQLException{
         //logger.info("update Hall("+id+","+name+","+description+","+parentId+")");
@@ -110,7 +131,6 @@ public class HallsService {
         PreparedStatement hallUpdateSTM = null;
         hallUpdateSTM = c.prepareStatement(HALL_UPDATE);
                 
-        System.out.println("hallUpdateSTM IS: " + hallUpdateSTM.toString());
         if (length == null) {
             hallUpdateSTM.setNull(1, java.sql.Types.INTEGER);
         }

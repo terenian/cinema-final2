@@ -1,6 +1,4 @@
-/*
-* This class gives a service of CRUD actions on Orders Table.
-*/
+
 package DAOPackage;
 
 import java.sql.Connection;
@@ -12,10 +10,11 @@ import java.util.logging.Logger;
 
 import EntitiesLayer.Order;
 import java.sql.Statement;
+import java.util.logging.Level;
 
 
 /**
- *
+ *This class gives a service of CRUD actions on Orders Table.
  * @author Eran Z. & Itzik W
  */
 public class OrdersService {
@@ -28,14 +27,23 @@ public class OrdersService {
     private final String ORDER_UPDATE = "update cinema.orders set Price=COALESCE((?),price) where OrderID like (?)";
     //private final Logger logger = ServiceManager.getLogger();
     
-    
+    /**
+     *
+     * @param dbConnection
+     */
     public OrdersService(DBConnector dbConnection){
         this.dbConnection = dbConnection;
     }
     
-    /*
-    * Inserts a new order
-    */
+
+    /**
+     *Inserts a new order
+     * @param userID
+     * @param price
+     * @return int of inserted order
+     * @throws SQLException
+     */
+    
     public Integer insertOrder(int userID, Integer price)
             throws SQLException{
         
@@ -48,6 +56,7 @@ public class OrdersService {
         orderInsertSTM.setInt(2, price);
         int result = orderInsertSTM.executeUpdate();
         if (result == 0) {
+            CinemaLogger.log(Level.SEVERE, this.getClass() + "Order Insertion Failed");
             throw new SQLException("== Creating Order failed, no rows affected.");
         }
         try (ResultSet generatedKeys = orderInsertSTM.getGeneratedKeys()) {
@@ -55,17 +64,24 @@ public class OrdersService {
                 return (generatedKeys.getInt(1));
             }
             else {
+                CinemaLogger.log(Level.SEVERE, this.getClass() + "Order Insertion Failed");
                 throw new SQLException("==Creating Order failed, no ID obtained.");
             }
         }
     }
     
-    /*
-    * Search for rows
-    */
+
+    /**
+     *Search for rows
+     * @param id
+     * @param user
+     * @param price
+     * @return array list of orders
+     * @throws SQLException
+     */
+    
     public ArrayList<Order> searchOrders(Integer id, Integer user, Integer price)
             throws SQLException{
-        //logger.info("search Order("+id+","+name+","+description+","+parentId+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement orderSearchSTM = null;
         orderSearchSTM = c.prepareStatement(ORDER_SEARCH);
@@ -88,7 +104,7 @@ public class OrdersService {
             orderSearchSTM.setInt(3, price);
         }
         
-        //System.out.println("orderSearchSTM IS: " + orderSearchSTM.toString());
+        CinemaLogger.log(Level.INFO, this.getClass() + " orderSearchSTM is: " +orderSearchSTM.toString());
         
         ResultSet rs = orderSearchSTM.executeQuery();
         ArrayList<Order> list = new ArrayList<Order> ();
@@ -99,10 +115,14 @@ public class OrdersService {
         return list;
     }
     
-    
-    public boolean updateOrder(Integer id, Integer price)
-            throws SQLException{
-        //logger.info("update Order("+id+","+name+","+description+","+parentId+")");
+    /**
+     * update an order
+     * @param id
+     * @param price
+     * @return true if update succeed
+     * @throws SQLException
+     */
+    public boolean updateOrder(Integer id, Integer price) throws SQLException{
         if (id == null) {
             return false;
         }
@@ -110,7 +130,6 @@ public class OrdersService {
         PreparedStatement orderUpdateSTM = null;
         orderUpdateSTM = c.prepareStatement(ORDER_UPDATE);
                 
-        //System.out.println("orderUpdateSTM IS: " + orderUpdateSTM.toString());
         if (price == null) {
             orderUpdateSTM.setNull(1, java.sql.Types.INTEGER);
         }
@@ -120,7 +139,7 @@ public class OrdersService {
         }
         orderUpdateSTM.setInt(2, id);
         
-        //System.out.println("orderUpdateSTM IS: " + orderUpdateSTM.toString());
+        CinemaLogger.log(Level.INFO, this.getClass() + " orderUpdateSTM is: " +orderUpdateSTM.toString());
         
         Integer i = orderUpdateSTM.executeUpdate();
         if (i>0) {
@@ -128,6 +147,13 @@ public class OrdersService {
         }
         return false;
     }
+
+    /**
+     *
+     * @param orderID
+     * @return true if deletion succeed
+     * @throws SQLException
+     */
     public boolean deleteOrder(int orderID) throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -138,6 +164,7 @@ public class OrdersService {
             return false;
         }
         prepStat = c.prepareStatement("delete from orders where OrderID = (?)");
+        CinemaLogger.log(Level.INFO, this.getClass() + " deletion command is : " +prepStat.toString());
         prepStat.setInt(1, orderID);
         return (prepStat.executeUpdate()> 0);
         

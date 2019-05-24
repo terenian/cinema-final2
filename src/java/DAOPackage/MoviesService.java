@@ -1,6 +1,4 @@
-/*
-* This class gives a service of CRUD actions on Movies Table.
-*/
+
 package DAOPackage;
 
 import java.sql.Connection;
@@ -11,11 +9,12 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import EntitiesLayer.Movie;
+import java.util.logging.Level;
 
 
 
 /**
- *
+ * This class gives a service of CRUD actions on Movies Table.
  * @author Eran Z. & Itzik W
  */
 public class MoviesService {
@@ -29,18 +28,25 @@ public class MoviesService {
     private final String MOVIE_UPDATE = "update cinema.movies set MovieName=(?), set MovieLength=(?) where MovieID like (?)";
     //private final Logger logger = ServiceManager.getLogger();
     
-    
+    /**
+     *
+     * @param dbConnection
+     */
     public MoviesService(DBConnector dbConnection){
         this.dbConnection = dbConnection;
     }
     
-    /*
-    * Inserts a new movie
-    */
-    public Integer insertMovie(String name, Integer length)
-            throws SQLException{
+
+    /**
+     *Inserts a movie
+     * @param name
+     * @param length
+     * @return insertion result as the id of inserted movie
+     * @throws SQLException
+     */
+    
+    public Integer insertMovie(String name, Integer length)throws SQLException{
         
-        //logger.info("insert Movie("+movieID+","+userID+","+price+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement movieInsertSTM = null;
         movieInsertSTM = c.prepareStatement(MOVIE_INSERT);
@@ -50,17 +56,21 @@ public class MoviesService {
         int result = 0;
         movieInsertSTM.executeUpdate();
         if (result >= 0) {
-            System.out.println("SuccessInsert");
+             CinemaLogger.log(Level.INFO, this.getClass() + "Insert Success");
         }
         else{
-            System.out.println("UnSeccessed insert!");
+            CinemaLogger.log(Level.SEVERE, this.getClass() + "Insert Failed");
         }
         return result;
     }
     
-    /*
-    * Search for movie
-    */
+    /**
+     * Search for a movie by its name
+     * @param name
+     * @return list of comptible movies
+     * @throws SQLException
+     */
+    
     public ArrayList<Movie> searchMoviesbyName(String name)
             throws SQLException{
         //logger.info("search Movie("+id+","+name+","+description+","+parentId+")");
@@ -75,7 +85,7 @@ public class MoviesService {
         }
         movieSearchSTM.setString(2, "%");
         
-        System.out.println("movieSearchSTM IS: " + movieSearchSTM.toString());
+       CinemaLogger.log(Level.INFO, this.getClass() + "movieSearchSTM:" + movieSearchSTM.toString());
         
         ResultSet rs = movieSearchSTM.executeQuery();
         ArrayList<Movie> list = new ArrayList<Movie> ();
@@ -86,9 +96,13 @@ public class MoviesService {
         return list;
     }
     
+    /**
+     * @param id
+     * @return a Movie record
+     * @throws SQLException
+     */
     public Movie gethMoviesbyID(Integer id)
             throws SQLException{
-        //logger.info("search Movie("+id+","+name+","+description+","+parentId+")");
         Connection c = dbConnection.getConnection();
         PreparedStatement movieSearchSTM = null;
         movieSearchSTM = c.prepareStatement(MOVIE_SEARCH);
@@ -101,7 +115,7 @@ public class MoviesService {
             movieSearchSTM.setInt(2, id);
         }
         
-        System.out.println("movieSearchSTM IS: " + movieSearchSTM.toString());
+        CinemaLogger.log(Level.INFO, this.getClass() + "movieSearchSTM:" + movieSearchSTM.toString());
         
         ResultSet rs = movieSearchSTM.executeQuery();
         ArrayList<Movie> list = new ArrayList<Movie> ();
@@ -109,10 +123,15 @@ public class MoviesService {
             Movie mov = new Movie(rs.getInt(1), rs.getString(2), rs.getInt(3));
             list.add(mov);
         }
-        System.out.println("=== Returned Movie is" + list.get(0).toString());
+        CinemaLogger.log(Level.INFO, this.getClass() + "movie found is: " + list.get(0).toString());
         return list.get(0);
     }
     
+    /**
+     * @param id
+     * @return an array list with a movie
+     * @throws SQLException
+     */
     public ArrayList<Movie> searchMoviesbyID(Integer id)
             throws SQLException{
         //logger.info("search Movie("+id+","+name+","+description+","+parentId+")");
@@ -128,7 +147,7 @@ public class MoviesService {
             movieSearchSTM.setInt(2, id);
         }
         
-        System.out.println("movieSearchSTM IS: " + movieSearchSTM.toString());
+        CinemaLogger.log(Level.INFO, this.getClass() + "movieSearchSTM:" + movieSearchSTM.toString());
         
         ResultSet rs = movieSearchSTM.executeQuery();
         ArrayList<Movie> list = new ArrayList<Movie> ();
@@ -139,9 +158,15 @@ public class MoviesService {
         return list;
     }
     
-    /*
-    * update movie
-    */
+    /**
+     * update movie
+     * @param id
+     * @param name
+     * @param length
+     * @return true if update succeed
+     * @throws SQLException
+     */
+    
     public boolean updateMovie(Integer id, String name ,Integer length)
             throws SQLException{
         //logger.info("update Movie("+id+","+name+","+description+","+parentId+")");
@@ -151,8 +176,7 @@ public class MoviesService {
         Connection c = dbConnection.getConnection();
         PreparedStatement movieUpdateSTM = null;
         movieUpdateSTM = c.prepareStatement(MOVIE_UPDATE);
-                
-        System.out.println("movieUpdateSTM IS: " + movieUpdateSTM.toString());
+               
         if (length == null) {
             movieUpdateSTM.setNull(1, java.sql.Types.INTEGER);
         }
@@ -163,8 +187,8 @@ public class MoviesService {
     
         movieUpdateSTM.setString(2, name);
         
-        System.out.println("movieUpdateSTM IS: " + movieUpdateSTM.toString());
-        
+        CinemaLogger.log(Level.INFO, this.getClass() + "movieUpdateSTM:" + movieUpdateSTM.toString());
+
         Integer i = movieUpdateSTM.executeUpdate();
         if (i>0) {
             return true;
@@ -172,6 +196,12 @@ public class MoviesService {
         return false;
     }
     
+    /**
+     * Deletes a Movie
+     * @param movieID
+     * @return true if deletion succeed
+     * @throws SQLException
+     */
     public boolean deleteMovie(int movieID) throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -192,6 +222,14 @@ public class MoviesService {
             return (movieSearchSTM.executeUpdate()> 0);
         }
     }
+
+    /**
+     * adds a movie
+     * @param movieName
+     * @param movieLength
+     * @return true if add succeed
+     * @throws SQLException
+     */
     public boolean addMovie(String movieName,int movieLength) throws SQLException
     {
         Connection c = dbConnection.getConnection();
@@ -201,13 +239,20 @@ public class MoviesService {
 
         return (prepStat.executeUpdate()> 0);
     }
+
+    /**
+     * gets a movie Name by the screening id
+     * @param screeningID
+     * @return string of name if succeeded, empty string if not
+     * @throws SQLException
+     */
     public String getMovieNameByScreeningID(int screeningID) throws SQLException
     {
         Connection c = dbConnection.getConnection();
         PreparedStatement prepStat = c.prepareStatement("select movies.MovieName from movies, screenings where movies.MovieID = screenings.MovieID "
                 + "and screenings.ScreeningID = (?)");
         prepStat.setInt(1, screeningID);
-        
+        CinemaLogger.log(Level.INFO, this.getClass() + "prepStat:" + prepStat.toString());
         ResultSet rs = prepStat.executeQuery();
         if(rs.first())
             return rs.getString(1);
