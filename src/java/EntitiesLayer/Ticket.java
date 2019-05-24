@@ -1,12 +1,10 @@
-/*
-* This class represents an Order item in the Orders Table.
-*/
+
 package EntitiesLayer;
 
 import java.io.Serializable;
 
 /**
- *
+ *This class represents a Ticket item in the Tickets Table.
  * @author Eran Z. & Itzik W.
  */
 public class Ticket implements Serializable{
@@ -74,7 +72,11 @@ public class Ticket implements Serializable{
             return "Row:" + this.rowNum + " Col:" + this.columnNum;
     }
     
-     public int[] asIntArr(){
+    /**
+     * return a Ticket object as sequential int array. Used to pass easily  via WebService 
+     * @return
+     */
+    public int[] asIntArr(){
          int[] intArr = new int[6];
          intArr[0]=orderID;
          intArr[1]=screeningID;

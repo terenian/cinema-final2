@@ -1,10 +1,8 @@
-/*
-* This class represents an Order item in the Orders Table.
-*/
+
 package EntitiesLayer;
 
 /**
- *
+ *This class represents an Order item in the Orders Table.
  * @author Eran Z. & Itzik W.
  */
 public class Order {

@@ -1,12 +1,9 @@
-/*
-* This class represents a Hall item in the Hall Table.
-*/
 package EntitiesLayer;
 
 import java.io.Serializable;
 
 /**
- *
+ * This class represents a Hall item in the Hall Table.
  * @author Eran Z. & Itzik W.
  */
 public class Hall implements Serializable{

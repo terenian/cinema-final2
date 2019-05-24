@@ -1,9 +1,7 @@
-/*
-* This class represents a User item in the User Table.
-*/
+
 package EntitiesLayer;
 /**
- *
+ *This class represents a User item in the User Table.
  * @author Eran Z. & Itzik W.
  */
 public class User {

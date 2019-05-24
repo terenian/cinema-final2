@@ -1,10 +1,7 @@
-/*
-* This class represents an Role item in the Roles Table.
-*/
 package EntitiesLayer;
 
 /**
- *
+ *This class represents an Role item in the Roles Table.
  * @author Eran Z. & Itzik W.
  */
 public class Role {

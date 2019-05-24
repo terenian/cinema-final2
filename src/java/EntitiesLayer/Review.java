@@ -1,7 +1,7 @@
 package EntitiesLayer;
 
 /**
- *
+ *This class represents a Review item in the Reviews Table.
  * @author Eran Z. & Itzik W.
  */
 public class Review {

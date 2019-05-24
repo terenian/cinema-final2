@@ -1,10 +1,8 @@
-/*
-* This class represents a Movie item in the Movies Table.
-*/
+
 package EntitiesLayer;
 
 /**
- *
+ *This class represents a Movie item in the Movies Table.
  * @author Eran Z. & Itzik W.
  */
 public class Movie {

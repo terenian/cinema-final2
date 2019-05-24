@@ -1,6 +1,3 @@
-/*
-* This class represents a Screening item in the Screening Table.
-*/
 package EntitiesLayer;
 
 import java.text.SimpleDateFormat;
@@ -8,7 +5,7 @@ import java.time.Instant;
 import java.util.Date;
 
 /**
- *
+ * This class represents a Screening item in the Screening Table.
  * @author Eran Z. & Itzik W.
  */
 public class Screening {

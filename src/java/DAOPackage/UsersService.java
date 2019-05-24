@@ -5,10 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.logging.Logger;
-
-import EntitiesLayer.Movie;
-import EntitiesLayer.Role;
 import EntitiesLayer.User;
 import java.util.List;
 
@@ -22,9 +18,7 @@ public class UsersService {
     
     
     private DBConnector dbConnection;
-    
-    private final String MOVIE_INSERT = "insert into cinema.movies (MovieName, MovieLength) values (?,?)";
-    
+
     /**
      *
      * @param dbConnection
@@ -34,9 +28,9 @@ public class UsersService {
     }
     
     /**
-     *
+     * checkes if a usename exists
      * @param username
-     * @return
+     * @return true if username exists
      * @throws SQLException
      */
     public boolean userNameExists(String username) throws SQLException
@@ -60,7 +54,7 @@ public class UsersService {
     /**
      *
      * @param newUser
-     * @return
+     * @return true if insert succeed
      * @throws SQLException
      */
     public boolean addNewUser(User newUser) throws SQLException
@@ -86,7 +80,7 @@ public class UsersService {
      *
      * @param userID
      * @param newRole
-     * @return
+     * @return true if update succeed
      * @throws SQLException
      */
     public boolean updateRole(int userID,String newRole) throws SQLException
@@ -100,8 +94,7 @@ public class UsersService {
     }
 
     /**
-     *
-     * @return
+     * @return List of all users
      * @throws SQLException
      */
     public List<User> getAllUsers() throws SQLException
@@ -122,7 +115,7 @@ public class UsersService {
      *
      * @param username
      * @param password
-     * @return
+     * @return User record of validatedUser
      * @throws SQLException
      */
     public User validateUser (String username,String password)
