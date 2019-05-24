@@ -15,7 +15,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
 /**
- * This class provides a web service to Mark Tickets as used.
+ * This class provides a SOAP web service to Mark Tickets as used.
  * It validates the user, get tickets list by order id and marking the tickets
  * @author Eran Z. & Itzik W.
  */
