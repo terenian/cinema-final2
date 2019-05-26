@@ -20,7 +20,7 @@
                 <f:selectItem itemValue="${screening.screeningID}" itemLabel="${screening.screeningTime}" itemDescription="A"/>
             </c:forEach>
         </h:selectOneMenu>         
-        <h:commandButton id="submitHall" value="Submit Hall" action="#{ScreeningsBean.checkMarkedSeats()}" />          
+        <h:commandButton id="submitScreening" value="Submit Screening" action="#{ScreeningsBean.checkMarkedSeats()}" />          
         <h:outputLabel id="msg" value="" />
     </h:form>
         

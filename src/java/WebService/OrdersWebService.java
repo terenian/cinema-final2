@@ -35,7 +35,8 @@ public class OrdersWebService {
      */
     
     @WebMethod(operationName = "remoteValidateUser")
-    public boolean remoteValidateUser(@WebParam(name = "username") String user, @WebParam(name = "password") String pass){
+    //public boolean remoteValidateUser(@WebParam(name = "username") String user, @WebParam(name = "password") String pass){
+    public String remoteValidateUser(@WebParam(name = "username") String user, @WebParam(name = "password") String pass){
         this.username = user;
         this.password = pass;
         this.userLogged = false;
@@ -44,13 +45,18 @@ public class OrdersWebService {
         try {
             User userObj = ServiceInit.UsersService().validateUser(username, password);
             if (userObj!=null){
-                userLogged = true;
-                return true;
+                System.out.println("Server: user role is: "+userObj.getUserRoleName() );
+                if (userObj.getUserRoleName().compareTo("Admin")==0 ){
+                    userLogged = true;
+                    System.out.println("Server: return true" );
+                    return "true";
+                }
+                return "Unauthorized";
             }
         } catch (SQLException ex) {
             CinemaLogger.log(Level.SEVERE, this.getClass() + ex.getMessage());
         }
-        return false;
+        return "false";
     }
     
     

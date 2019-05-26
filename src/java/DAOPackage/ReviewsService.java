@@ -25,7 +25,7 @@ public class ReviewsService {
     private DBConnector dbConnection;
     
     private final String REVIEW_INSERT = "insert into cinema.reviews (MovieID, ReviewDate, Review, UserID) values (?,?,?,?)";
-    private final String REVIEW_SEARCH = "select * from cinema.reviews where MovieID like (?) and UserID like (?) ORDER BY ReviewDate DESC, ReviewID DESC";
+    private final String REVIEW_SEARCH = "select * from cinema.reviews where MovieID like (?) ORDER BY ReviewDate DESC, ReviewID DESC";
     
     
     /**
@@ -71,10 +71,6 @@ public class ReviewsService {
         }
         return result;
     }
-    
-    /*
-    * Search for review
-    */
 
     /**
      * @param movie
@@ -93,7 +89,6 @@ public class ReviewsService {
         else{
             reviewSearchSTM.setInt(1, movie);
         }
-        reviewSearchSTM.setInt(2, SessionUtils.getUserId());
         
         CinemaLogger.log(Level.INFO, this.getClass() + "reviewSearchSTM is" + reviewSearchSTM.toString());
         

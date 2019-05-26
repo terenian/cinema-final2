@@ -10,11 +10,11 @@
 <message name="testResponse">
 <part name="parameters" element="tns:testResponse"/>
 </message>
-<message name="useTicketsByTID">
-<part name="parameters" element="tns:useTicketsByTID"/>
+<message name="getTickets">
+<part name="parameters" element="tns:getTickets"/>
 </message>
-<message name="useTicketsByTIDResponse">
-<part name="parameters" element="tns:useTicketsByTIDResponse"/>
+<message name="getTicketsResponse">
+<part name="parameters" element="tns:getTicketsResponse"/>
 </message>
 <message name="useTickets">
 <part name="parameters" element="tns:useTickets"/>
@@ -22,11 +22,11 @@
 <message name="useTicketsResponse">
 <part name="parameters" element="tns:useTicketsResponse"/>
 </message>
-<message name="getTickets">
-<part name="parameters" element="tns:getTickets"/>
+<message name="useTicketsByTID">
+<part name="parameters" element="tns:useTicketsByTID"/>
 </message>
-<message name="getTicketsResponse">
-<part name="parameters" element="tns:getTicketsResponse"/>
+<message name="useTicketsByTIDResponse">
+<part name="parameters" element="tns:useTicketsByTIDResponse"/>
 </message>
 <message name="remoteValidateUser">
 <part name="parameters" element="tns:remoteValidateUser"/>
@@ -39,17 +39,17 @@
 <input wsam:Action="http://WebService/OrdersWebService/testRequest" message="tns:test"/>
 <output wsam:Action="http://WebService/OrdersWebService/testResponse" message="tns:testResponse"/>
 </operation>
-<operation name="useTicketsByTID">
-<input wsam:Action="http://WebService/OrdersWebService/useTicketsByTIDRequest" message="tns:useTicketsByTID"/>
-<output wsam:Action="http://WebService/OrdersWebService/useTicketsByTIDResponse" message="tns:useTicketsByTIDResponse"/>
+<operation name="getTickets">
+<input wsam:Action="http://WebService/OrdersWebService/getTicketsRequest" message="tns:getTickets"/>
+<output wsam:Action="http://WebService/OrdersWebService/getTicketsResponse" message="tns:getTicketsResponse"/>
 </operation>
 <operation name="useTickets">
 <input wsam:Action="http://WebService/OrdersWebService/useTicketsRequest" message="tns:useTickets"/>
 <output wsam:Action="http://WebService/OrdersWebService/useTicketsResponse" message="tns:useTicketsResponse"/>
 </operation>
-<operation name="getTickets">
-<input wsam:Action="http://WebService/OrdersWebService/getTicketsRequest" message="tns:getTickets"/>
-<output wsam:Action="http://WebService/OrdersWebService/getTicketsResponse" message="tns:getTicketsResponse"/>
+<operation name="useTicketsByTID">
+<input wsam:Action="http://WebService/OrdersWebService/useTicketsByTIDRequest" message="tns:useTicketsByTID"/>
+<output wsam:Action="http://WebService/OrdersWebService/useTicketsByTIDResponse" message="tns:useTicketsByTIDResponse"/>
 </operation>
 <operation name="remoteValidateUser">
 <input wsam:Action="http://WebService/OrdersWebService/remoteValidateUserRequest" message="tns:remoteValidateUser"/>
@@ -67,7 +67,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="useTicketsByTID">
+<operation name="getTickets">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -85,7 +85,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getTickets">
+<operation name="useTicketsByTID">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
